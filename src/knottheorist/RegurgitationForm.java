@@ -14,6 +14,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.Collection;
+import java.util.HashSet;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import knottheorist.PreGrid.SnakeLink;
 
@@ -32,11 +34,13 @@ public class RegurgitationForm extends javax.swing.JFrame {
         panel = new JPanel() {
 
             public static final int scale = 10;
+            public static final double squareSize = 1;
 
             @Override
             public void paint(Graphics g1) {
                 super.paint(g1);
                 Graphics2D g = (Graphics2D) g1;
+                g.scale(2, 2);
                 g.setColor(Color.LIGHT_GRAY);
                 g.fillRect(0, 0, 1280, 1024);
                 if (grid != null) {
@@ -73,11 +77,13 @@ public class RegurgitationForm extends javax.swing.JFrame {
                             continue;
                         }
                         if (p.isCrossing) {
+//                            g.setColor(new Color(0, 0, (p.crossing.hashCode() % 32) << 3));
                             g.setColor(new Color(0, 0, p.crossing.hashCode() % 256));
                         } else {
+//                            g.setColor(new Color((p.fromCross.hashCode() % 32) << 3, (p.toCross.hashCode() % 32) << 3, 0));
                             g.setColor(new Color(p.fromCross.hashCode() % 256, p.toCross.hashCode() % 256, 0));
                         }
-                        g.fillRect(scale * (p.coord.x - minX) + 1, scale * (p.coord.y - minY) + 1, scale, scale);
+                        g.fillRect(((int) (scale * (p.coord.x - minX + (0.5 * (1 - squareSize))) + 1)), ((int) (scale * (p.coord.y - minY + (0.5 * (1 - squareSize))) + 1)), (int) (scale * squareSize), (int) (scale * squareSize));
                     }
 
                     if (grid.snake != null) {
@@ -86,9 +92,12 @@ public class RegurgitationForm extends javax.swing.JFrame {
                             g.drawLine(scale * (l.x1 - minX) + 1, scale * (l.y1 - minY) + 1, scale * (l.x2 - minX) + 1, scale * (l.y2 - minY) + 1);
                         }
                     }
+
+                    g.setColor(Color.white);
+                    g.fillRect(((int) (scale * (0.375 - minX))) + 1, ((int) (scale * (0.375 - minY))) + 1, ((int) (scale * 0.25)), ((int) (scale * 0.25)));
                 }
             }
-        };
+        };//panel.paintImmediately(0, 0, 1280, 1024);
         jSplitPane1.setLeftComponent(panel);
     }
 
@@ -107,6 +116,8 @@ public class RegurgitationForm extends javax.swing.JFrame {
         boxStep = new javax.swing.JCheckBox();
         btnRender = new javax.swing.JButton();
         btnAbort = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        btnCheckOccupation = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
 
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(knottheorist.KnotTheoristApp.class).getContext().getResourceMap(RegurgitationForm.class);
@@ -135,17 +146,30 @@ public class RegurgitationForm extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
+        jLabel1.setName("jLabel1"); // NOI18N
+
+        btnCheckOccupation.setText(resourceMap.getString("btnCheckOccupation.text")); // NOI18N
+        btnCheckOccupation.setName("btnCheckOccupation"); // NOI18N
+        btnCheckOccupation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCheckOccupationActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(36, Short.MAX_VALUE)
+                .addContainerGap(67, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(boxContinue, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(boxStep, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnRender, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnAbort, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(btnAbort, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnCheckOccupation, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -157,7 +181,11 @@ public class RegurgitationForm extends javax.swing.JFrame {
                 .addComponent(boxStep)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAbort)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 274, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 245, Short.MAX_VALUE)
+                .addComponent(btnCheckOccupation)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRender)
                 .addContainerGap())
         );
@@ -170,11 +198,11 @@ public class RegurgitationForm extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 379, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 416, Short.MAX_VALUE)
+            .addGap(0, 445, Short.MAX_VALUE)
         );
 
         jSplitPane1.setLeftComponent(jPanel2);
@@ -183,14 +211,14 @@ public class RegurgitationForm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)
         );
 
-        setBounds(50, 50, 554, 475);
+        setBounds(50, 50, 614, 475);
     }// </editor-fold>//GEN-END:initComponents
 
 private void btnAbortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbortActionPerformed
@@ -198,6 +226,27 @@ private void btnAbortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         grid.abort = true;
     }
 }//GEN-LAST:event_btnAbortActionPerformed
+
+private void btnCheckOccupationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckOccupationActionPerformed
+    if (grid != null) {
+        Collection<PreSquare> squares = grid.grid.set.values();
+        HashSet<Coord> positions = new HashSet<Coord>();
+        boolean err = false;
+        StringBuilder sb = new StringBuilder();
+        for (PreSquare s : squares) {
+            if (!s.empty) {
+                if (!positions.add(s.coord)) {
+                    System.err.println("Co-location at " + s.coord.toString());
+                    sb.append("\n" + s.coord.toString());
+                    err = true;
+                }
+            }
+        }
+        if (err) {
+            JOptionPane.showMessageDialog(rootPane, "Co-location found:" + sb.toString());
+        }
+    }
+}//GEN-LAST:event_btnCheckOccupationActionPerformed
 
     /**
      * @param args the command line arguments
@@ -238,7 +287,9 @@ private void btnAbortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     public javax.swing.JCheckBox boxContinue;
     public javax.swing.JCheckBox boxStep;
     private javax.swing.JButton btnAbort;
+    private javax.swing.JButton btnCheckOccupation;
     private javax.swing.JButton btnRender;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSplitPane jSplitPane1;

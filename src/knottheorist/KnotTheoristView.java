@@ -4,6 +4,7 @@
 package knottheorist;
 
 import java.awt.GridLayout;
+import java.util.ArrayList;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.ResourceMap;
 import org.jdesktop.application.SingleFrameApplication;
@@ -31,23 +32,28 @@ public class KnotTheoristView extends FrameView {
     public JPanel gridPanel = null;
 
     public void addKnotGrid() {
-        this.grid = new KnotGrid(GRID_COLS, GRID_ROWS);
+        this.grid = new KnotGrid((Integer) spinCols.getValue(), (Integer) spinRows.getValue());
 
         grid.init(knotIcons, rng, this, SQUARE_WIDTH, SQUARE_HEIGHT);
 
-        GridLayout gridLayout = new GridLayout(GRID_ROWS, GRID_COLS, 0, 0);
+        GridLayout gridLayout = new GridLayout(grid.rows, grid.cols, 0, 0);
         JPanel gridPanel = new JPanel(gridLayout);
-        gridPanel.setSize(GRID_COLS * SQUARE_WIDTH, GRID_ROWS * SQUARE_HEIGHT);
+        gridPanel.setSize(grid.cols * SQUARE_WIDTH, grid.rows * SQUARE_HEIGHT);
 
         Random rng = new Random();
 
-        for (int y = 0; y < GRID_ROWS; y++) {
-            for (int x = 0; x < GRID_COLS; x++) {
+        for (int y = 0; y < grid.rows; y++) {
+            for (int x = 0; x < grid.cols; x++) {
                 gridPanel.add(grid.squares[x][y].body);
             }
         }
 
-        mainPanel.add(gridPanel);
+//        jScrollPane2.add(gridPanel);
+        //mainPanel.add(gridPanel);
+        jPanel1.add(gridPanel);
+        jPanel1.setMinimumSize(gridPanel.getSize());
+        jPanel1.setPreferredSize(gridPanel.getSize());
+        
         this.gridPanel = gridPanel;
     }
 
@@ -66,7 +72,13 @@ public class KnotTheoristView extends FrameView {
             }
         }
 
-        mainPanel.add(gridPanel);
+//        jScrollPane2.add(gridPanel);
+//        jScrollPane2.updateUI();
+//        jScrollPane2.validate();
+//        mainPanel.add(gridPanel);
+        jPanel1.add(gridPanel);
+        jPanel1.setMinimumSize(gridPanel.getSize());
+        jPanel1.setPreferredSize(gridPanel.getSize());
         this.gridPanel = gridPanel;
     }
 
@@ -141,6 +153,11 @@ public class KnotTheoristView extends FrameView {
         btnSHD = new javax.swing.JButton();
         btnSHL = new javax.swing.JButton();
         btnRegurgitate = new javax.swing.JButton();
+        spinCols = new javax.swing.JSpinner();
+        spinRows = new javax.swing.JSpinner();
+        btnDigest = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jPanel1 = new javax.swing.JPanel();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
@@ -242,6 +259,21 @@ public class KnotTheoristView extends FrameView {
             }
         });
 
+        spinCols.setName("spinCols"); // NOI18N
+        spinCols.setValue(GRID_COLS);
+
+        spinRows.setName("spinRows"); // NOI18N
+        spinRows.setValue(GRID_ROWS);
+
+        btnDigest.setText(resourceMap.getString("btnDigest.text")); // NOI18N
+        btnDigest.setToolTipText(resourceMap.getString("btnDigest.toolTipText")); // NOI18N
+        btnDigest.setName("btnDigest"); // NOI18N
+        btnDigest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDigestActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
         jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
         jInternalFrame1Layout.setHorizontalGroup(
@@ -259,20 +291,28 @@ public class KnotTheoristView extends FrameView {
                                 .addComponent(btnRemLoops)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnRemSwaps)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 336, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 273, Short.MAX_VALUE)
+                                .addComponent(btnDigest)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnDowngrade))
                             .addComponent(editRepresentation, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnRegurgitate, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btnSHD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createSequentialGroup()
-                            .addComponent(btnSHL, 0, 0, Short.MAX_VALUE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnSHR, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(bntSHU, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)))
+                        .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createSequentialGroup()
+                                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(spinRows, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
+                                    .addComponent(spinCols))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnSHD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createSequentialGroup()
+                                        .addComponent(btnSHL, 0, 0, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnSHR, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(bntSHU, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnRegurgitate, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jButton1)))))
                 .addContainerGap())
         );
         jInternalFrame1Layout.setVerticalGroup(
@@ -283,20 +323,24 @@ public class KnotTheoristView extends FrameView {
                     .addComponent(editRepresentation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bntSHU)
+                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bntSHU)
+                    .addComponent(spinCols, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSHR)
-                    .addComponent(btnSHL))
+                    .addComponent(btnSHL)
+                    .addComponent(spinRows, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                         .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnRemLoops, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(btnRemSwaps)
                                 .addComponent(btnRegurgitate)
-                                .addComponent(btnDowngrade)))
+                                .addComponent(btnDowngrade)
+                                .addComponent(btnDigest)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(jInternalFrame1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -308,19 +352,40 @@ public class KnotTheoristView extends FrameView {
                 .addContainerGap())
         );
 
+        jScrollPane2.setName("jScrollPane2"); // NOI18N
+
+        jPanel1.setName("jPanel1"); // NOI18N
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 796, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 218, Short.MAX_VALUE)
+        );
+
+        jScrollPane2.setViewportView(jPanel1);
+
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mainPanelLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jInternalFrame1)
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 798, Short.MAX_VALUE)
+                    .addComponent(jInternalFrame1, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap())
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
-                .addContainerGap(264, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -372,12 +437,17 @@ public class KnotTheoristView extends FrameView {
 private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
     if (gridPanel != null) {
         knot = null;
-        mainPanel.remove(gridPanel);
+        //mainPanel.remove(gridPanel);
+//        jScrollPane2.remove(gridPanel);
+        jPanel1.remove(gridPanel);
         addKnotGrid();
         editRepresentation.setText("");
         editModified.setText("");
         this.mainPanel.revalidate();
-    }
+//        jScrollPane2.revalidate();
+//        jScrollPane2.updateUI();//jScrollPane2.validate()
+//        jScrollPane2.validate();
+    }//mainPanel.revalidate();jScrollPane2.valid
 }//GEN-LAST:event_btnClearActionPerformed
 
 private void btnRemLoopsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemLoopsActionPerformed
@@ -426,7 +496,9 @@ private void btnSHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 
 private void btnRegurgitateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegurgitateActionPerformed
     if (gridPanel != null) {
-        mainPanel.remove(gridPanel);
+        //mainPanel.remove(gridPanel);
+//        jScrollPane2.remove(gridPanel);
+        jPanel1.remove(gridPanel);
         final PreGrid preGrid = new PreGrid();
 
         new Thread(new Runnable() {
@@ -442,12 +514,20 @@ private void btnRegurgitateActionPerformed(java.awt.event.ActionEvent evt) {//GE
                 addExistingKnotGrid(preGrid.toKnotGrid(knotIcons, rng, KnotTheoristView.this, SQUARE_WIDTH, SQUARE_HEIGHT));
                 KnotTheoristView.this.mainPanel.revalidate();
                 KnotTheoristView.this.mainPanel.repaint();
+//                jScrollPane2.revalidate();
+//                jScrollPane2.updateUI();
+//                jScrollPane2.validate();
+//                jScrollPane2.repaint();
             }
         }).start();
         editRepresentation.setText("");
         editModified.setText("");
         this.mainPanel.revalidate();
         this.mainPanel.repaint();
+//        jScrollPane2.revalidate();
+//        jScrollPane2.updateUI();
+//        jScrollPane2.validate();
+//        jScrollPane2.repaint();
     }
 }//GEN-LAST:event_btnRegurgitateActionPerformed
     public RegurgitationForm rForm = null;
@@ -460,9 +540,26 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         rForm.show();
     }
 }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+private void btnDigestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDigestActionPerformed
+    ArrayList<HalfCrossing> crossings = new ArrayList<HalfCrossing>();
+    String knotString = editModified.getText();
+    if (knotString.isEmpty()) {
+        knot = new Knot();    
+        return;
+    }
+    Knot result = new Knot();
+    result.representMode = Knot.REP_ATL;
+    if (knotString.indexOf("<") > -1) {
+        result.representMode = Knot.REP_BKa;
+    }    
+    
+}//GEN-LAST:event_btnDigestActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bntSHU;
     private javax.swing.JButton btnClear;
+    private javax.swing.JButton btnDigest;
     private javax.swing.JButton btnDowngrade;
     private javax.swing.JButton btnRegurgitate;
     private javax.swing.JButton btnRemLoops;
@@ -476,8 +573,12 @@ private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.JSpinner spinCols;
+    private javax.swing.JSpinner spinRows;
     // End of variables declaration//GEN-END:variables
 //    private final Timer messageTimer;
 //    private final Timer busyIconTimer;

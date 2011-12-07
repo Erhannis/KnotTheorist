@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -149,76 +150,112 @@ public class PreGrid {
         if (knot.halfCrossList.size() > 0) {
             knot.halfCrossList.add(knot.halfCrossList.get(0));
         }
-        for (int i = 0; i < knot.halfCrossList.size(); i++) {
-            toCross = knot.halfCrossList.get(i);
-            if (crossReference.containsKey(toCross.twin)) {
-                crossReference.put(toCross, crossReference.get(toCross.twin));
-                // AAAAHHHHHHHH SNAAAAKE TIIIIME!
-                ArrayList<SnakeLink> snake = new ArrayList<SnakeLink>();
-                int rot = CCW;
-                int[] xy = snakeStart(x, y, dir, rot);
-                x = xy[0];
-                y = xy[1];
-                dir = rot(dir, rot);
-                boolean done = false;
+        try {
+            for (int i = 0; i < knot.halfCrossList.size(); i++) {
+                toCross = knot.halfCrossList.get(i);
+                if (crossReference.containsKey(toCross.twin)) {
+                    crossReference.put(toCross, crossReference.get(toCross.twin));
+                    // AAAAHHHHHHHH SNAAAAKE TIIIIME!
+                    ArrayList<SnakeLink> ccwSnake = null;
+                    ArrayList<SnakeLink> cwSnake = null;
+                    ArrayList<SnakeLink> snake = null;
+                    int ccwX = x;
+                    int cwX = x;
+                    int ccwDir = dir;
+                    int ccwY = y;
+                    int cwY = y;
+                    int cwDir = dir;
 
-                // Add first link
-                snake.add(new SnakeLink(x, y, x + dirX(dir), y + dirY(dir), dir, rot, unrot(dir, rot)));
-                // Move
-                x += dirX(dir);
-                y += dirY(dir);
-                pause(snake);
-                //// Check arrive
-                ////// If trailing snakey-bit borders input side of toCross, done break.
-                if (checkArrive(x, y, dir, rot, toCross)) {
-                    done = true;
-                }
-
-                while (!done) {//grid//snake.clear()
-                    if (snake.size() > 1000) {
-                        // We've got a problem.
-                        System.err.println("Huge snake!");
-                    }
-                    // Check change edge/turn/hug/arrive
-                    //// Check hug
-                    ////// If sandwiched divisible, yes continue
-                    if (checkHug(x, y, dir, rot)) {
+                    int rot = CCW;
+                    for (int r = 0; r < 2; r++) {
+                        if (r == 0) {
+                            rot = CCW;
+                            snake = new ArrayList<SnakeLink>();
+                            ccwSnake = snake;
+                            x = ccwX;
+                            y = ccwY;
+                            dir = ccwDir;
+                        } else {
+                            rot = CW;
+                            snake = new ArrayList<SnakeLink>();
+                            cwSnake = snake;
+                            x = cwX;
+                            y = cwY;
+                            dir = cwDir;
+                        }
+                        int[] xy = snakeStart(x, y, dir, rot);
+                        x = xy[0];
+                        y = xy[1];
                         dir = rot(dir, rot);
-                    } else if (checkStraight(x, y, dir, rot)) {
-                    } else if (checkWide(x, y, dir, rot)) {
-                        dir = unrot(dir, rot);
-                    } else {
-                        //// Double back
-                        dir = flip(dir);
-                    }
-                    // Push trail
-                    snake.add(new SnakeLink(x, y, x + dirX(dir), y + dirY(dir), dir, rot, unrot(dir, rot)));
-                    // Move
-                    x += dirX(dir);
-                    y += dirY(dir);
-                    //// Check arrive
-                    ////// If trailing snakey-bit borders input side of toCross, done break.
-                    pause(snake);//crossReference.get(toCross)
-                    if (checkArrive(x, y, dir, rot, toCross)) {
-                        done = true;
-                        break;
-                    }
-                }
+                        boolean done = false;
 
-                // Probably important to cut off dead end loops.
-                HashSet<SnakeLink> remove = new HashSet<SnakeLink>();
-                for (int j = 0; j < snake.size() - 1; j++) {
-                    SnakeLink prior = snake.get(j);
-                    if (!remove.contains(prior)) {
-                        for (int k = j + 1; k < snake.size(); k++) { //NOTE There may be a bit of haziness for the very end segments.
-                            SnakeLink latter = snake.get(k);
-                            // Check tip incidence
-                            if ((prior.x2 == latter.x2) && (prior.y2 == latter.y2)) {
-                                for (int l = j + 1; l <= k; l++) {
-                                    remove.add(snake.get(l));
+                        // Add first link
+                        snake.add(new SnakeLink(x, y, x + dirX(dir), y + dirY(dir), dir, rot, unrot(dir, rot)));
+                        // Move
+                        x += dirX(dir);
+                        y += dirY(dir);
+                        pause(snake);
+                        //// Check arrive
+                        ////// If trailing snakey-bit borders input side of toCross, done break.
+                        if (checkArrive(x, y, dir, rot, toCross)) {
+                            done = true;
+                        }
+
+                        while (!done) {//grid//snake.clear()
+                            if (snake.size() >= 500) {
+                                // We've got a problem.
+                                if ((snake.size() % 100) < 2) {
+                                System.err.println("Huge snake!");
+                                    SnakeLink comp = snake.get(snake.size() - 1);
+                                    for (SnakeLink l : snake) {
+                                        if (comp != l && comp.x1 == l.x1 && comp.x2 == l.x2 && comp.y1 == l.y1 && comp.y2 == l.y2) {
+                                            System.err.println("HUGE SNAKE ABORT!");
+                                            JOptionPane.showMessageDialog(null, "Snake loop detected! Aborting! (i=" + i + ")");
+                                            abort = true;
+                                        }
+                                    }
                                 }
                             }
-                            // I think that should do it, actually.
+                            // Check change edge/turn/hug/arrive
+                            //// Check hug
+                            ////// If sandwiched divisible, yes continue
+                            if (checkHug(x, y, dir, rot)) {
+                                dir = rot(dir, rot);
+                            } else if (checkStraight(x, y, dir, rot)) {
+                            } else if (checkWide(x, y, dir, rot)) {
+                                dir = unrot(dir, rot);
+                            } else {
+                                //// Double back
+                                dir = flip(dir);
+                            }
+                            // Push trail
+                            snake.add(new SnakeLink(x, y, x + dirX(dir), y + dirY(dir), dir, rot, unrot(dir, rot)));
+                            // Move
+                            x += dirX(dir);
+                            y += dirY(dir);
+                            //// Check arrive
+                            ////// If trailing snakey-bit borders input side of toCross, done break.
+                            pause(snake);//crossReference.get(toCross)
+                            if (checkArrive(x, y, dir, rot, toCross)) {
+                                done = true;
+                                break;
+                            }
+                        }
+
+                        // Probably important to cut off dead end loops.
+                        HashSet<SnakeLink> remove = new HashSet<SnakeLink>();
+                        for (int j = 0; j < snake.size() - 1; j++) {
+                            SnakeLink prior = snake.get(j);
+                            if (!remove.contains(prior)) {
+                                for (int k = j + 1; k < snake.size(); k++) { //NOTE There may be a bit of haziness for the very end segments.
+                                    SnakeLink latter = snake.get(k);
+                                    // Check tip incidence
+                                    if ((prior.x2 == latter.x2) && (prior.y2 == latter.y2)) {
+                                        for (int l = j + 1; l <= k; l++) {
+                                            remove.add(snake.get(l));
+                                        }
+                                    }
+                                    // I think that should do it, actually.
 //                    // Check link incidence
 //                    if ((prior.x1 == latter.x2) && (prior.y1 == latter.y2)
 //                            && (prior.x2 == latter.x1) && (prior.y2 == latter.y1)) {
@@ -235,97 +272,221 @@ public class PreGrid {
 //                        }
 //                        break;
 //                    }
-                        }
-                    }
-                }
-                snake.removeAll(remove);
-                pause(snake);
-
-                // Now make the snake extensible, for grid cleaving.
-                for (int j = 0; j < snake.size(); j++) {
-                    if (j == 0) {
-                        snake.get(0).prev = null;
-                        snake.get(0).next = null;
-                        if (snake.size() > 1) {
-                            snake.get(0).next = snake.get(1);
-                        }
-                    } else if (j == snake.size() - 1) {
-                        snake.get(j).prev = snake.get(j - 1);
-                        snake.get(j).next = null;
-                    } else {
-                        snake.get(j).prev = snake.get(j - 1);
-                        snake.get(j).next = snake.get(j + 1);
-                    }
-                }
-
-                // Make room to expand.
-                boolean changed = true;
-                while (changed) {
-                    changed = false;
-                    for (int j = 0; j < snake.size(); j++) {
-                        SnakeLink l = snake.get(j);
-                        if (!checkRoom(l)) {
-                            // MAKE room!
-                            if ((l.dir == UP) || (l.dir == DOWN)) {
-                                changed = true;
-                                cleaveGrid(l.x1, true, snake);
-                                pause(snake);
-                            } else {
-                                changed = true;
-                                cleaveGrid(l.y1, false, snake);
-                                pause(snake);
+                                }
                             }
-                            // I'm not going to break.  ALL links should have room, independently of the others.
-                            break;
+                        }
+                        snake.removeAll(remove);
+                        pause(snake);
+                        if (r == 0) {
+                            ccwX = x;
+                            ccwY = y;
+                            ccwDir = dir;
+                        } else {
+                            cwX = x;
+                            cwY = y;
+                            cwDir = dir;
                         }
                     }
-                    if (!changed) {
-                        for (int j = 0; j < snake.size() - 1; j++) {
+                    if (ccwSnake.size() <= cwSnake.size()) {
+                        snake = ccwSnake;
+                        x = ccwX;
+                        y = ccwY;
+                        dir = ccwDir;
+                    } else {
+                        snake = cwSnake;
+                        x = cwX;
+                        y = cwY;
+                        dir = cwDir;
+                    }
+
+                    // Now make the snake extensible, for grid cleaving.
+                    for (int j = 0; j < snake.size(); j++) {
+                        if (j == 0) {
+                            snake.get(0).prev = null;
+                            snake.get(0).next = null;
+                            if (snake.size() > 1) {
+                                snake.get(0).next = snake.get(1);
+                            }
+                        } else if (j == snake.size() - 1) {
+                            snake.get(j).prev = snake.get(j - 1);
+                            snake.get(j).next = null;
+                        } else {
+                            snake.get(j).prev = snake.get(j - 1);
+                            snake.get(j).next = snake.get(j + 1);
+                        }
+                    }
+
+                    // Make room to expand.
+                    boolean changed = true;
+                    while (changed) {
+                        changed = false;
+                        for (int j = 0; j < snake.size(); j++) {
                             SnakeLink l = snake.get(j);
-                            SnakeLink ln = snake.get(j + 1);
-                            if (rot(l.dir, l.rot) == ln.dir) {
-                                SnakeLink extend = new SnakeLink(l.x1 + dirX(l.dir), l.y1 + dirY(l.dir), l.x2 + dirX(l.dir), l.y2 + dirY(l.dir), l.dir, l.rot, l.outside);
-                                if (!checkRoom(extend)) {
-                                    // MAKE room!
-                                    if ((extend.dir == UP) || (extend.dir == DOWN)) {
-                                        changed = true;
-                                        cleaveGrid(extend.x1, true, snake);
-                                        pause(snake);
-                                    } else {
-                                        changed = true;
-                                        cleaveGrid(extend.y1, false, snake);
-                                        pause(snake);
+                            if (!checkRoom(l)) {
+                                // MAKE room!
+                                if ((l.dir == UP) || (l.dir == DOWN)) {
+                                    changed = true;
+                                    cleaveGrid(l.x1, true, snake);
+                                    pause(snake);
+                                } else {
+                                    changed = true;
+                                    cleaveGrid(l.y1, false, snake);
+                                    pause(snake);
+                                }
+                                // I'm not going to break.  ALL links should have room, independently of the others.
+                                break;
+                            }
+                        }
+                        if (!changed) {
+                            for (int j = 0; j < snake.size() - 1; j++) {
+                                SnakeLink l = snake.get(j);
+                                SnakeLink ln = snake.get(j + 1);
+                                if (rot(l.dir, l.rot) == ln.dir) {
+                                    SnakeLink extend = new SnakeLink(l.x1 + dirX(l.dir), l.y1 + dirY(l.dir), l.x2 + dirX(l.dir), l.y2 + dirY(l.dir), l.dir, l.rot, l.outside);
+                                    if (!checkRoom(extend)) {
+                                        // MAKE room!
+                                        if ((extend.dir == UP) || (extend.dir == DOWN)) {
+                                            changed = true;
+                                            cleaveGrid(extend.x1, true, snake);
+                                            pause(snake);
+                                        } else {
+                                            changed = true;
+                                            cleaveGrid(extend.y1, false, snake);
+                                            pause(snake);
+                                        }
+                                        // I'm not going to break.  ALL links should have room, independently of the others.
+                                        break;
                                     }
-                                    // I'm not going to break.  ALL links should have room, independently of the others.
-                                    break;
                                 }
                             }
                         }
                     }
-                }
-                // Expand the snake!
-                for (int j = 0; j < snake.size(); j++) {
-                    SnakeLink l = snake.get(j);
-                    expandLink(l, knot.halfCrossList.get(i - 1), toCross);
-                    pause(snake);
-                }
-                for (int j = 0; j < snake.size() - 1; j++) {
-                    SnakeLink l = snake.get(j);
-                    SnakeLink ln = snake.get(j + 1);
-                    if (rot(l.dir, l.rot) == ln.dir) {
-                        SnakeLink extend = new SnakeLink(l.x1 + dirX(l.dir), l.y1 + dirY(l.dir), l.x2 + dirX(l.dir), l.y2 + dirY(l.dir), l.dir, l.rot, l.outside);
-                        expandLink(extend, knot.halfCrossList.get(i - 1), toCross);
+                    // Expand the snake!
+                    for (int j = 0; j < snake.size(); j++) {
+                        SnakeLink l = snake.get(j);
+                        expandLink(l, knot.halfCrossList.get(i - 1), toCross);
                         pause(snake);
                     }
-                }
+                    for (int j = 0; j < snake.size() - 1; j++) {
+                        SnakeLink l = snake.get(j);
+                        SnakeLink ln = snake.get(j + 1);
+                        if (rot(l.dir, l.rot) == ln.dir) {
+                            SnakeLink extend = new SnakeLink(l.x1 + dirX(l.dir), l.y1 + dirY(l.dir), l.x2 + dirX(l.dir), l.y2 + dirY(l.dir), l.dir, l.rot, l.outside);
+                            expandLink(extend, knot.halfCrossList.get(i - 1), toCross);
+                            pause(snake);
+                        }
+                    }
 
-                dir = toCross.dir;
-                Coord pos = crossReference.get(toCross).coord;
-                x = pos.getX() + dirX(dir);
-                y = pos.getY() + dirY(dir);
-            } else {
-                if (i != 0) {
-                    // Add extra pipe.
+                    // Remove square tails
+                    HalfCrossing fromCross = knot.halfCrossList.get(i - 1);
+                    HashSet<PreSquare> newSquares = new HashSet<PreSquare>();
+                    for (PreSquare p : grid.set.values()) {
+                        if (p.fromCross == fromCross && p.toCross == toCross) {
+                            if (adjacent(p, crossReference.get(fromCross)) && related(p, crossReference.get(fromCross))) {
+                            } else if (adjacent(p, crossReference.get(toCross)) && related(p, crossReference.get(toCross))) {
+                            } else {
+                                newSquares.add(p);
+                            }
+                        }
+                    }
+                    changed = (newSquares.size() > 0);
+                    while (changed) {
+                        changed = false;
+                        HashSet<PreSquare> removeSquare = new HashSet<PreSquare>();
+                        for (PreSquare p : newSquares) {
+                            int count = 0;
+                            if (related(p, grid.get(new Coord(p.coord.x + 1, p.coord.y)))) {
+                                count++;
+                            }
+                            if (related(p, grid.get(new Coord(p.coord.x, p.coord.y + 1)))) {
+                                count++;
+                            }
+                            if (related(p, grid.get(new Coord(p.coord.x - 1, p.coord.y)))) {
+                                count++;
+                            }
+                            if (related(p, grid.get(new Coord(p.coord.x, p.coord.y - 1)))) {
+                                count++;
+                            }
+                            if (count < 2) {
+                                removeSquare.add(p);
+                            }
+                        }
+                        for (PreSquare p : removeSquare) {
+                            p.crossing = null;
+                            p.fromCross = null;
+                            p.toCross = null;
+                            p.isCrossing = false;
+                            p.empty = true;
+                            changed = true;
+                            newSquares.remove(p);
+                            pause(snake);
+                        }
+                    }
+
+                    dir = toCross.dir;
+                    Coord pos = crossReference.get(toCross).coord;
+                    x = pos.getX() + dirX(dir);
+                    y = pos.getY() + dirY(dir);
+                } else {
+                    if (i != 0) {
+                        // Add extra pipe.
+                        Coord crd = new Coord(x, y);
+                        PreSquare p = grid.get(crd);
+                        if (!p.empty) {
+                            switch (dir) {
+                                case RIGHT:
+                                    cleaveGrid(x, true, null);
+                                    crd = new Coord(x, y);
+                                    p = grid.get(crd);
+                                    if (!p.empty) {
+                                        System.err.println("Not empty");
+                                    }
+                                    break;
+                                case DOWN:
+                                    cleaveGrid(y, false, null);
+                                    crd = new Coord(x, y);
+                                    p = grid.get(crd);
+                                    if (!p.empty) {
+                                        System.err.println("Not empty");
+                                    }
+                                    break;
+                                case LEFT:
+                                    cleaveGrid(x + 1, true, null);
+                                    x++;
+                                    crd = new Coord(x, y);
+                                    p = grid.get(crd);
+                                    if (!p.empty) {
+                                        System.err.println("Not empty");
+                                    }
+                                    break;
+                                case UP:
+                                    cleaveGrid(y + 1, false, null);
+                                    y++;
+                                    crd = new Coord(x, y);
+                                    p = grid.get(crd);
+                                    if (!p.empty) {
+                                        System.err.println("Not empty");
+                                    }
+                                    break;
+                            }
+                        }
+                        p.coord = grid.getKey(p);
+                        if (p.coord == null) {
+                            System.err.println("Didn't fetch!");
+                        }
+                        p.empty = false;
+                        p.fromCross = knot.halfCrossList.get(i - 1);
+                        p.toCross = knot.halfCrossList.get(i);
+                        x += dirX(dir);
+                        y += dirY(dir);
+                        pause(null);
+                    } else {
+                        dir = toCross.dir;
+                    }
+                    while (toCross.dir != dir) {
+                        toCross.dir = cw(toCross.dir);
+                        toCross.twin.dir = cw(toCross.twin.dir);
+                    }
                     Coord crd = new Coord(x, y);
                     PreSquare p = grid.get(crd);
                     if (!p.empty) {
@@ -371,35 +532,18 @@ public class PreGrid {
                         System.err.println("Didn't fetch!");
                     }
                     p.empty = false;
-                    p.fromCross = knot.halfCrossList.get(i - 1);
-                    p.toCross = knot.halfCrossList.get(i);
+                    p.isCrossing = true;
+                    p.crossing = toCross;
+                    crossReference.put(toCross, p);
                     x += dirX(dir);
                     y += dirY(dir);
                     pause(null);
-                } else {
-                    dir = toCross.dir;
                 }
-                while (toCross.dir != dir) {
-                    toCross.dir = cw(toCross.dir);
-                    toCross.twin.dir = cw(toCross.twin.dir);
-                }
-                Coord crd = new Coord(x, y);
-                PreSquare p = grid.get(crd);
-                p.coord = grid.getKey(p);
-                if (p.coord == null) {
-                    System.err.println("Didn't fetch!");
-                }
-                p.empty = false;
-                p.isCrossing = true;
-                p.crossing = toCross;
-                crossReference.put(toCross, p);
-                x += dirX(dir);
-                y += dirY(dir);
-                pause(null);
             }
-        }
-        if (knot.halfCrossList.size() > 0) {
-            knot.halfCrossList.remove(knot.halfCrossList.size() - 1);
+        } finally {
+            if (knot.halfCrossList.size() > 0) {
+                knot.halfCrossList.remove(knot.halfCrossList.size() - 1);
+            }
         }
 
 //        // Now snake back.  Maybe we can just go ccw for now?  Is possible?
@@ -430,6 +574,25 @@ public class PreGrid {
 //        }
 
 
+    }
+
+    public boolean adjacent(PreSquare a, PreSquare b) {
+        if (a.coord == null || b.coord == null) {
+            return false;
+        }
+        if (Math.abs(a.coord.x - b.coord.x) == 1) {
+            if (a.coord.y == b.coord.y) {
+                return true;
+            }
+            return false;
+        } else if (Math.abs(a.coord.y - b.coord.y) == 1) {
+            if (a.coord.x == b.coord.x) {
+                return true;
+            }
+            return false;
+        } else {
+            return false;
+        }
     }
 
     public int[] snakeStart(int x, int y, int dir, int rot) {
@@ -660,6 +823,7 @@ public class PreGrid {
             for (int i = maxC; i > minC; i--) {
                 for (PreSquare p : lines.get(i)) {
                     p.coord.setY(p.coord.getY() + 1);
+                    //pause(null);
                 }
             }
         }
@@ -682,6 +846,9 @@ public class PreGrid {
                 left = grid.get(new Coord(p.coord.getX(), p.coord.getY() - 2));
             }
             if (!left.empty) {
+                int breakX = left.coord.x;
+                int breakY = left.coord.y;
+                breakX = breakX;
                 if (p.isCrossing) {
                     if (left.isCrossing) {
                         // UGH.  That's a MESS.  Gonna put a pipe between all connected crossings to prevent it.
@@ -703,10 +870,10 @@ public class PreGrid {
 //                            }
                     } else {
                         if (vert) {
-                            if ((left.fromCross == p.crossing && p.crossing.dir == RIGHT)
-                                    || (left.toCross == p.crossing && p.crossing.dir == LEFT)
-                                    || (left.fromCross == p.crossing.twin && p.crossing.twin.dir == RIGHT)
-                                    || (left.toCross == p.crossing.twin && p.crossing.twin.dir == LEFT)) {
+                            if ((left.fromCross == p.crossing && p.crossing.dir == LEFT)
+                                    || (left.toCross == p.crossing && p.crossing.dir == RIGHT)
+                                    || (left.fromCross == p.crossing.twin && p.crossing.twin.dir == LEFT)
+                                    || (left.toCross == p.crossing.twin && p.crossing.twin.dir == RIGHT)) {
                                 // Put in a new pipe chunk.
                                 PreSquare bucket;
                                 bucket = grid.get(new Coord(p.coord.getX() - 1, p.coord.getY()));
@@ -716,10 +883,10 @@ public class PreGrid {
                                 bucket.toCross = left.toCross;
                             }
                         } else {
-                            if ((left.fromCross == p.crossing && p.crossing.dir == DOWN)
-                                    || (left.toCross == p.crossing && p.crossing.dir == UP)
-                                    || (left.fromCross == p.crossing.twin && p.crossing.twin.dir == DOWN)
-                                    || (left.toCross == p.crossing.twin && p.crossing.twin.dir == UP)) {
+                            if ((left.fromCross == p.crossing && p.crossing.dir == UP)
+                                    || (left.toCross == p.crossing && p.crossing.dir == DOWN)
+                                    || (left.fromCross == p.crossing.twin && p.crossing.twin.dir == UP)
+                                    || (left.toCross == p.crossing.twin && p.crossing.twin.dir == DOWN)) {
                                 // Put in a new pipe chunk.
                                 PreSquare bucket;
                                 bucket = grid.get(new Coord(p.coord.getX(), p.coord.getY() - 1));
@@ -1075,13 +1242,19 @@ public class PreGrid {
             if (b.isCrossing) {
                 return false;
             }
-            if (b.fromCross == a.crossing || b.toCross == a.crossing) {
+            if ((b.fromCross == a.crossing && (dirFromTo(a.coord, b.coord) == a.crossing.dir))
+                    || (b.fromCross == a.crossing.twin && (dirFromTo(a.coord, b.coord) == a.crossing.twin.dir))
+                    || (b.toCross == a.crossing && (dirFromTo(b.coord, a.coord) == a.crossing.dir))
+                    || (b.toCross == a.crossing.twin && (dirFromTo(b.coord, a.coord) == a.crossing.twin.dir))) {
                 return true;
             }
             return false;
         } else {
             if (b.isCrossing) {
-                if (a.fromCross == b.crossing || a.toCross == b.crossing) {
+                if ((a.fromCross == b.crossing && (dirFromTo(b.coord, a.coord) == b.crossing.dir))
+                        || (a.fromCross == b.crossing.twin && (dirFromTo(b.coord, a.coord) == b.crossing.twin.dir))
+                        || (a.toCross == b.crossing && (dirFromTo(a.coord, b.coord) == b.crossing.dir))
+                        || (a.toCross == b.crossing.twin && (dirFromTo(a.coord, b.coord) == b.crossing.twin.dir))) {
                     return true;
                 }
                 return false;

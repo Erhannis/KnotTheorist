@@ -164,4 +164,9 @@ public class Knot {
             PreGrid gr = new PreGrid();
         }
     }
+    
+    public String digest(String rep) {
+        
+        return "success";
+    }
 }

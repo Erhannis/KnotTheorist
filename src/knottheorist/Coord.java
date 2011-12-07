@@ -4,6 +4,10 @@
  */
 package knottheorist;
 
+import java.util.Iterator;
+import java.util.Map.Entry;
+import java.util.Set;
+
 /**
  *
  * @author mewer12
@@ -42,13 +46,25 @@ public class Coord {
         return x;
     }
 
+    public void forceRemove(Coord crd) {
+        Set<Entry<Coord, PreSquare>> entries = grid.set.entrySet();
+        Entry<Coord, PreSquare> e;
+        for (Iterator<Entry<Coord, PreSquare>> i = entries.iterator(); i.hasNext();) {
+            e = i.next();
+            if (e.getKey().equals(crd)) {
+                i.remove();
+            }
+        }
+    }
+    
     /**
      * @param x the x to set
      */
     public void setX(int x) {
         PreSquare bucket = grid.get(this);
+        forceRemove(this);
         this.x = x;
-        grid.set.remove(this);
+        forceRemove(this);
         grid.set.put(this, bucket);
     }
 
@@ -64,8 +80,14 @@ public class Coord {
      */
     public void setY(int y) {
         PreSquare bucket = grid.get(this);
+        forceRemove(this);
         this.y = y;
-        grid.set.remove(this);
+        forceRemove(this);
         grid.set.put(this, bucket);
+    }
+
+    @Override
+    public String toString() {
+        return "{" + x + "," + y + "}";
     }
 }
