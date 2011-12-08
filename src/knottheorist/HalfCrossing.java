@@ -32,4 +32,8 @@ public class HalfCrossing {
     public int dir = -1; // Not really integral knot theory, but helpful.
     public HalfCrossing twin;
     public String name;
+    
+    // In no way guaranteed to be maintained.
+    public HalfCrossing prev = null;
+    public HalfCrossing next = null;
 }

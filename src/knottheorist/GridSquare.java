@@ -103,6 +103,13 @@ public class GridSquare {
         body.addMouseListener(new MouseListener() {
 
             public void mouseClicked(MouseEvent e) {
+                if (e.isShiftDown()) {
+                    if (state == KNOT_CROSSNS) {
+                        setKnot(KNOT_CROSSEW);
+                    } else if (state == KNOT_CROSSEW) {
+                        setKnot(KNOT_CROSSNS);
+                    }
+                }
             }
 
             public void mousePressed(MouseEvent e) {

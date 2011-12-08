@@ -24,8 +24,8 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane2" pref="214" max="32767" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="jScrollPane2" pref="242" max="32767" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jInternalFrame1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -51,17 +51,36 @@
                               <Component id="btnClear" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="btnRemLoops" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="btnRemSwaps" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="273" max="32767" attributes="0"/>
-                                      <Component id="btnDigest" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="btnDowngrade" min="-2" max="-2" attributes="0"/>
-                                  </Group>
+                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="editRepresentation" alignment="1" pref="614" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="btnRemLoops" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="btnRemSwaps" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="btnToNotesTop" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="btnFirstTri" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="btnAllTri" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="btnTris" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace pref="149" max="32767" attributes="0"/>
+                                              <Component id="btnToNotesBottom" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="btnDigest" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="btnDowngrade" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="btnRandTri" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -101,19 +120,32 @@
                           <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="bntSHU" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="spinCols" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btnSHR" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnSHL" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="spinRows" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="bntSHU" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="spinCols" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnToNotesTop" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="btnSHR" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnSHL" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="spinRows" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="btnRandTri" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace pref="54" max="32767" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="btnFirstTri" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnAllTri" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="btnRemLoops" alignment="1" min="-2" max="-2" attributes="0"/>
                                   <Group type="103" alignment="1" groupAlignment="3" attributes="0">
@@ -121,6 +153,8 @@
                                       <Component id="btnRegurgitate" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="btnDowngrade" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="btnDigest" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnToNotesBottom" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnTris" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -135,7 +169,7 @@
                           <Component id="btnClear" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="editModified" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace pref="13" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -270,6 +304,60 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDigestActionPerformed"/>
               </Events>
             </Component>
+            <Component class="javax.swing.JButton" name="btnToNotesBottom">
+              <Properties>
+                <Property name="text" type="java.lang.String" resourceKey="btnToNotesBottom.text"/>
+                <Property name="name" type="java.lang.String" value="btnToNotesBottom" noResource="true"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnToNotesBottomActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnToNotesTop">
+              <Properties>
+                <Property name="text" type="java.lang.String" resourceKey="btnToNotesTop.text"/>
+                <Property name="name" type="java.lang.String" value="btnToNotesTop" noResource="true"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnToNotesTopActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnTris">
+              <Properties>
+                <Property name="text" type="java.lang.String" resourceKey="btnTris.text"/>
+                <Property name="name" type="java.lang.String" value="btnTris" noResource="true"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTrisActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnFirstTri">
+              <Properties>
+                <Property name="text" type="java.lang.String" resourceKey="btnFirstTri.text"/>
+                <Property name="name" type="java.lang.String" value="btnFirstTri" noResource="true"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFirstTriActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnRandTri">
+              <Properties>
+                <Property name="text" type="java.lang.String" resourceKey="btnRandTri.text"/>
+                <Property name="name" type="java.lang.String" value="btnRandTri" noResource="true"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRandTriActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnAllTri">
+              <Properties>
+                <Property name="text" type="java.lang.String" resourceKey="btnAllTri.text"/>
+                <Property name="name" type="java.lang.String" value="btnAllTri" noResource="true"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAllTriActionPerformed"/>
+              </Events>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JScrollPane" name="jScrollPane2">
@@ -292,7 +380,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="218" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="240" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -347,6 +435,15 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem1ActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
+              <Properties>
+                <Property name="text" type="java.lang.String" resourceKey="jMenuItem2.text"/>
+                <Property name="name" type="java.lang.String" value="jMenuItem2" noResource="true"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem2ActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

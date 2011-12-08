@@ -212,6 +212,7 @@ public class PreGrid {
                                             System.err.println("HUGE SNAKE ABORT!");
                                             JOptionPane.showMessageDialog(null, "Snake loop detected! Aborting! (i=" + i + ")");
                                             abort = true;
+                                            throw new RuntimeException("Abort!");
                                         }
                                     }
                                 }
