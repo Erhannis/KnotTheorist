@@ -31,9 +31,27 @@ public class HalfCrossing {
     public int lr = 0; // Left or Right;
     public int dir = -1; // Not really integral knot theory, but helpful.
     public HalfCrossing twin;
+    public HalfCrossing copy;
     public String name;
     
     // In no way guaranteed to be maintained.
     public HalfCrossing prev = null;
     public HalfCrossing next = null;
+    public int pos = -1;
+    
+    /**
+     * Note: There is no (convenient) way from here to automatically associate
+     * a copy of an HC with the copy of its twin.  I suggest setting "copy" to a
+     * copy for all HCs, then correlating after all are done.
+     * @return 
+     */
+    public HalfCrossing copy() {
+        HalfCrossing copy = new HalfCrossing();
+        copy.dir = this.dir;
+        copy.lr = this.lr;
+        copy.name = this.name;
+        copy.pos = this.pos;
+        copy.tb = this.tb;
+        return copy;
+    }
 }

@@ -1058,4 +1058,12 @@ public class GridSquare {
         this.body.setIcon(knotIcons[knotToImg(knot)]);
         this.state = knot;
     }
+    
+    public void flip() {
+        if (state == KNOT_CROSSEW) {
+            setKnot(KNOT_CROSSNS);
+        } else if (state == KNOT_CROSSNS) {
+            setKnot(KNOT_CROSSEW);
+        }
+    }
 }

@@ -118,8 +118,9 @@ public class KnotGrid {
         return CROSS_ERROR;
     }
 
-    public Knot readGrid() {
+    public Knot readGrid(int mode) {
         Knot result = new Knot();
+        result.representMode = mode;
         int x = 0;
         int y = 0;
         int dir = -1;
@@ -149,6 +150,18 @@ public class KnotGrid {
         int startY = y;
 
         char nameChar = 'A';
+        int nameID = 1;
+        switch (mode) {
+            case Knot.REP_ATL:
+            case Knot.REP_BKa:
+                nameChar = 'A';
+                break;
+            case Knot.REP_NTL:
+                nameID = 1;
+                break;
+            default:
+                break;
+        }
 
         int count = 0;
         boolean done = false;
@@ -173,9 +186,21 @@ public class KnotGrid {
                                 squares[x][y].crossing.B.dir = -1;
                                 squares[x][y].crossing.B.parent = squares[x][y].crossing;
                                 squares[x][y].crossing.B.twin = squares[x][y].crossing.A;
-                                squares[x][y].crossing.A.name = String.valueOf(nameChar);
-                                squares[x][y].crossing.B.name = String.valueOf(nameChar);
-                                nameChar++;
+                                // There ought to be sub-method methods.
+                                switch (mode) {
+                                    case Knot.REP_ATL:
+                                    case Knot.REP_BKa:
+                                        squares[x][y].crossing.A.name = String.valueOf(nameChar);
+                                        squares[x][y].crossing.B.name = String.valueOf(nameChar);
+                                        nameChar++;
+                                        break;
+                                    case Knot.REP_NTL:
+                                        squares[x][y].crossing.A.name = Integer.toString(nameID);
+                                        squares[x][y].crossing.B.name = Integer.toString(nameID);
+                                        nameID++;
+                                        break;
+                                }
+
                                 result.halfCrossList.add(squares[x][y].crossing.A);
                             } else {
                                 squares[x][y].crossing.B.tb = HalfCrossing.CROSS_BOTTOM;
@@ -199,9 +224,19 @@ public class KnotGrid {
                                 squares[x][y].crossing.B.dir = -1;
                                 squares[x][y].crossing.B.parent = squares[x][y].crossing;
                                 squares[x][y].crossing.B.twin = squares[x][y].crossing.A;
-                                squares[x][y].crossing.A.name = String.valueOf(nameChar);
-                                squares[x][y].crossing.B.name = String.valueOf(nameChar);
-                                nameChar++;
+                                switch (mode) {
+                                    case Knot.REP_ATL:
+                                    case Knot.REP_BKa:
+                                        squares[x][y].crossing.A.name = String.valueOf(nameChar);
+                                        squares[x][y].crossing.B.name = String.valueOf(nameChar);
+                                        nameChar++;
+                                        break;
+                                    case Knot.REP_NTL:
+                                        squares[x][y].crossing.A.name = Integer.toString(nameID);
+                                        squares[x][y].crossing.B.name = Integer.toString(nameID);
+                                        nameID++;
+                                        break;
+                                }
                                 result.halfCrossList.add(squares[x][y].crossing.A);
                             } else {
                                 squares[x][y].crossing.B.tb = HalfCrossing.CROSS_TOP;
@@ -225,9 +260,19 @@ public class KnotGrid {
                                 squares[x][y].crossing.B.dir = -1;
                                 squares[x][y].crossing.B.parent = squares[x][y].crossing;
                                 squares[x][y].crossing.B.twin = squares[x][y].crossing.A;
-                                squares[x][y].crossing.A.name = String.valueOf(nameChar);
-                                squares[x][y].crossing.B.name = String.valueOf(nameChar);
-                                nameChar++;
+                                switch (mode) {
+                                    case Knot.REP_ATL:
+                                    case Knot.REP_BKa:
+                                        squares[x][y].crossing.A.name = String.valueOf(nameChar);
+                                        squares[x][y].crossing.B.name = String.valueOf(nameChar);
+                                        nameChar++;
+                                        break;
+                                    case Knot.REP_NTL:
+                                        squares[x][y].crossing.A.name = Integer.toString(nameID);
+                                        squares[x][y].crossing.B.name = Integer.toString(nameID);
+                                        nameID++;
+                                        break;
+                                }
                                 result.halfCrossList.add(squares[x][y].crossing.A);
                             } else {
                                 squares[x][y].crossing.B.tb = HalfCrossing.CROSS_BOTTOM;
@@ -251,9 +296,19 @@ public class KnotGrid {
                                 squares[x][y].crossing.B.dir = -1;
                                 squares[x][y].crossing.B.parent = squares[x][y].crossing;
                                 squares[x][y].crossing.B.twin = squares[x][y].crossing.A;
-                                squares[x][y].crossing.A.name = String.valueOf(nameChar);
-                                squares[x][y].crossing.B.name = String.valueOf(nameChar);
-                                nameChar++;
+                                switch (mode) {
+                                    case Knot.REP_ATL:
+                                    case Knot.REP_BKa:
+                                        squares[x][y].crossing.A.name = String.valueOf(nameChar);
+                                        squares[x][y].crossing.B.name = String.valueOf(nameChar);
+                                        nameChar++;
+                                        break;
+                                    case Knot.REP_NTL:
+                                        squares[x][y].crossing.A.name = Integer.toString(nameID);
+                                        squares[x][y].crossing.B.name = Integer.toString(nameID);
+                                        nameID++;
+                                        break;
+                                }
                                 result.halfCrossList.add(squares[x][y].crossing.A);
                             } else {
                                 squares[x][y].crossing.B.tb = HalfCrossing.CROSS_TOP;
@@ -284,9 +339,19 @@ public class KnotGrid {
                                 squares[x][y].crossing.B.dir = -1;
                                 squares[x][y].crossing.B.parent = squares[x][y].crossing;
                                 squares[x][y].crossing.B.twin = squares[x][y].crossing.A;
-                                squares[x][y].crossing.A.name = String.valueOf(nameChar);
-                                squares[x][y].crossing.B.name = String.valueOf(nameChar);
-                                nameChar++;
+                                switch (mode) {
+                                    case Knot.REP_ATL:
+                                    case Knot.REP_BKa:
+                                        squares[x][y].crossing.A.name = String.valueOf(nameChar);
+                                        squares[x][y].crossing.B.name = String.valueOf(nameChar);
+                                        nameChar++;
+                                        break;
+                                    case Knot.REP_NTL:
+                                        squares[x][y].crossing.A.name = Integer.toString(nameID);
+                                        squares[x][y].crossing.B.name = Integer.toString(nameID);
+                                        nameID++;
+                                        break;
+                                }
                                 result.halfCrossList.add(squares[x][y].crossing.A);
                             } else {
                                 squares[x][y].crossing.B.tb = HalfCrossing.CROSS_TOP;
@@ -310,9 +375,19 @@ public class KnotGrid {
                                 squares[x][y].crossing.B.dir = -1;
                                 squares[x][y].crossing.B.parent = squares[x][y].crossing;
                                 squares[x][y].crossing.B.twin = squares[x][y].crossing.A;
-                                squares[x][y].crossing.A.name = String.valueOf(nameChar);
-                                squares[x][y].crossing.B.name = String.valueOf(nameChar);
-                                nameChar++;
+                                switch (mode) {
+                                    case Knot.REP_ATL:
+                                    case Knot.REP_BKa:
+                                        squares[x][y].crossing.A.name = String.valueOf(nameChar);
+                                        squares[x][y].crossing.B.name = String.valueOf(nameChar);
+                                        nameChar++;
+                                        break;
+                                    case Knot.REP_NTL:
+                                        squares[x][y].crossing.A.name = Integer.toString(nameID);
+                                        squares[x][y].crossing.B.name = Integer.toString(nameID);
+                                        nameID++;
+                                        break;
+                                }
                                 result.halfCrossList.add(squares[x][y].crossing.A);
                             } else {
                                 squares[x][y].crossing.B.tb = HalfCrossing.CROSS_BOTTOM;
@@ -336,9 +411,19 @@ public class KnotGrid {
                                 squares[x][y].crossing.B.dir = -1;
                                 squares[x][y].crossing.B.parent = squares[x][y].crossing;
                                 squares[x][y].crossing.B.twin = squares[x][y].crossing.A;
-                                squares[x][y].crossing.A.name = String.valueOf(nameChar);
-                                squares[x][y].crossing.B.name = String.valueOf(nameChar);
-                                nameChar++;
+                                switch (mode) {
+                                    case Knot.REP_ATL:
+                                    case Knot.REP_BKa:
+                                        squares[x][y].crossing.A.name = String.valueOf(nameChar);
+                                        squares[x][y].crossing.B.name = String.valueOf(nameChar);
+                                        nameChar++;
+                                        break;
+                                    case Knot.REP_NTL:
+                                        squares[x][y].crossing.A.name = Integer.toString(nameID);
+                                        squares[x][y].crossing.B.name = Integer.toString(nameID);
+                                        nameID++;
+                                        break;
+                                }
                                 result.halfCrossList.add(squares[x][y].crossing.A);
                             } else {
                                 squares[x][y].crossing.B.tb = HalfCrossing.CROSS_TOP;
@@ -362,9 +447,19 @@ public class KnotGrid {
                                 squares[x][y].crossing.B.dir = -1;
                                 squares[x][y].crossing.B.parent = squares[x][y].crossing;
                                 squares[x][y].crossing.B.twin = squares[x][y].crossing.A;
-                                squares[x][y].crossing.A.name = String.valueOf(nameChar);
-                                squares[x][y].crossing.B.name = String.valueOf(nameChar);
-                                nameChar++;
+                                switch (mode) {
+                                    case Knot.REP_ATL:
+                                    case Knot.REP_BKa:
+                                        squares[x][y].crossing.A.name = String.valueOf(nameChar);
+                                        squares[x][y].crossing.B.name = String.valueOf(nameChar);
+                                        nameChar++;
+                                        break;
+                                    case Knot.REP_NTL:
+                                        squares[x][y].crossing.A.name = Integer.toString(nameID);
+                                        squares[x][y].crossing.B.name = Integer.toString(nameID);
+                                        nameID++;
+                                        break;
+                                }
                                 result.halfCrossList.add(squares[x][y].crossing.A);
                             } else {
                                 squares[x][y].crossing.B.tb = HalfCrossing.CROSS_BOTTOM;
