@@ -381,53 +381,130 @@ public class Knot {
         ArrayList<HashSet<HalfCrossing>> tris = new ArrayList<HashSet<HalfCrossing>>();
         for (int i = 0; i < halfCrossList.size(); i++) {
             HalfCrossing[] tri = new HalfCrossing[3];
+            int[] num = new int[6];
             tri[0] = halfCrossList.get(i);
+            num[0] = 0;
             if ((halfCrossList.get((i + 1) % halfCrossList.size()) == tri[0])
                     || (halfCrossList.get((i + 1) % halfCrossList.size()) == tri[0].twin)) {
                 continue;
             }
             tri[1] = halfCrossList.get((i + 1) % halfCrossList.size());
+            num[1] = 1;
 // Since apparently pairs must all point in or all point out, (01)(21)(??) would break that.            
-//            if ((tri[1].twin.prev != tri[0])
-//                    && (tri[1].twin.prev != tri[0].twin)
-//                    && (tri[1].twin.prev != tri[1])
-//                    && (tri[1].twin.prev != tri[1].twin)) {
-//                tri[2] = tri[1].twin.prev;
-//                if ((tri[2].twin.prev == tri[0].twin)
-//                        || (tri[2].twin.next == tri[0].twin)) {
-//                    if (tri[0].lr == tri[1].lr || tri[1].twin.lr == tri[2].lr || tri[2].twin.lr == tri[0].twin.lr) {
-//                        continue; // This was hard earned knowledge.
-//                    }
-//                    // Found!
-//                    HashSet<HalfCrossing> triSet = new HashSet<HalfCrossing>();
-//                    triSet.add(tri[0]);
-//                    triSet.add(tri[1]);
-//                    triSet.add(tri[1].twin);
-//                    triSet.add(tri[2]);
-//                    triSet.add(tri[2].twin);
-//                    triSet.add(tri[0].twin);
-//                    if (checkLoose(triSet)) {
-//                        tris.add(triSet);
-//                    }
-//                }
-//            }
+//  DISPROVEN         
+            if ((tri[1].twin.prev != tri[0])
+                    && (tri[1].twin.prev != tri[0].twin)
+                    && (tri[1].twin.prev != tri[1])
+                    && (tri[1].twin.prev != tri[1].twin)) {
+                tri[2] = tri[1].twin.prev;
+                num[2] = 2;
+                num[3] = 1;
+                if ((tri[2].twin.prev == tri[0].twin)
+                        || (tri[2].twin.next == tri[0].twin)) {
+                    if (tri[2].twin.prev == tri[0].twin) {
+                        //(01)(21)(02)
+                        num[4] = 0;
+                        num[5] = 2;
+                    } else {
+                        //(01)(21)(20)
+                        num[4] = 2;
+                        num[5] = 0;
+                    }
+                    // The idea behind this is that it now appears that:
+                    //   If n and n.twin are both on the left or both on the right,
+                    //   of pairs, their partners must face the same way as each other.
+                    //   Otherwise opposite.
+                    if (num[1] == num[2]) {
+                        // 01 12
+                        if (tri[0].lr == tri[2].lr)
+                            continue;
+                        if (num[3] == num[4]) {
+                            // 01 12 20
+                            if (tri[1].twin.lr == tri[0].twin.lr)
+                                continue;
+                        } else {
+                            // 01 12 02
+                            if (tri[1].twin.lr != tri[0].twin.lr)
+                                continue;
+                        }
+                    } else {
+                        // 01 21
+                        if (tri[0].lr != tri[2].lr)
+                            continue;
+                        if (num[2] == num[4]) {
+                            // 01 21 20                            
+                            if (tri[1].twin.lr != tri[0].twin.lr)
+                                continue;
+                        } else {
+                            // 01 21 02  
+                            if (tri[1].twin.lr == tri[0].twin.lr)
+                                continue;
+                        }
+                    }
+                    // Found!
+                    HashSet<HalfCrossing> triSet = new HashSet<HalfCrossing>();
+                    triSet.add(tri[0]);
+                    triSet.add(tri[1]);
+                    triSet.add(tri[1].twin);
+                    triSet.add(tri[2]);
+                    triSet.add(tri[2].twin);
+                    triSet.add(tri[0].twin);
+                    if (checkLoose(triSet)) {
+                        tris.add(triSet);
+                    }
+                }
+            }
             if ((tri[1].twin.next != tri[0])
                     && (tri[1].twin.next != tri[0].twin)
                     && (tri[1].twin.next != tri[1])
                     && (tri[1].twin.next != tri[1].twin)) {
                 tri[2] = tri[1].twin.next;
+                num[2] = 1;
+                num[3] = 2;
                 // I had checked for tri[2].twin.prev == tri[0].twin, but that led
                 //   to (01)(12)(02), which breaks inter-pair agreement.
-                if (tri[2].twin.next == tri[0].twin) {
-                    if (tri[0].lr == tri[1].lr || tri[1].twin.lr == tri[2].lr || tri[2].twin.lr == tri[0].twin.lr) {
-                        continue; // This was hard earned knowledge.
-                    }
+                //   Which has been disproven.  We're checking again.
+                if ((tri[2].twin.prev == tri[0].twin)
+                        || (tri[2].twin.next == tri[0].twin)) {
                     //(01)(12)()
                     if (tri[2].twin.prev == tri[0].twin) {
                         //(01)(12)(02)
-                        
+                        num[4] = 0;
+                        num[5] = 2;
                     } else {
-                        
+                        num[4] = 2;
+                        num[5] = 0;
+                    }
+                    // The idea behind this is that it now appears that:
+                    //   If n and n.twin are both on the left or both on the right,
+                    //   of pairs, their partners must face the same way as each other.
+                    //   Otherwise opposite.
+                    if (num[1] == num[2]) {
+                        // 01 12
+                        if (tri[0].lr == tri[2].lr)
+                            continue;
+                        if (num[3] == num[4]) {
+                            // 01 12 20
+                            if (tri[1].twin.lr == tri[0].twin.lr)
+                                continue;
+                        } else {
+                            // 01 12 02
+                            if (tri[1].twin.lr != tri[0].twin.lr)
+                                continue;
+                        }
+                    } else {
+                        // 01 21
+                        if (tri[0].lr != tri[1].twin.lr)
+                            continue;
+                        if (num[2] == num[4]) {
+                            // 01 21 20                            
+                            if (tri[1].twin.lr != tri[0].twin.lr)
+                                continue;
+                        } else {
+                            // 01 21 02  
+                            if (tri[1].twin.lr == tri[0].twin.lr)
+                                continue;
+                        }
                     }
                     // Found!
                     HashSet<HalfCrossing> triSet = new HashSet<HalfCrossing>();
@@ -473,7 +550,7 @@ public class Knot {
 //        JOptionPane.showMessageDialog(null, "Tris are as follows:\n" + sb.toString());
     }
 
-    public boolean checkLoose(HashSet<HalfCrossing> tri) {
+    public boolean checkLoose(HashSet<HalfCrossing> tri) {//TODO Check this.
         for (HalfCrossing c : tri) {
             if (tri.contains(c.next) && (c.tb == c.next.tb)) {
                 return true;
@@ -615,7 +692,6 @@ public class Knot {
         }
         System.out.println("");
     }
-
     public boolean branched = false;
 
     public void full12() {
