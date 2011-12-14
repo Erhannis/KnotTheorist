@@ -5,6 +5,9 @@
 
 package knottheorist;
 
+import java.util.HashMap;
+import java.util.HashSet;
+
 /**
  *
  * @author CORNELL-COLLEGE\mewer12
@@ -54,4 +57,6 @@ public class HalfCrossing {
         copy.tb = this.tb;
         return copy;
     }
+    
+    public HashMap<HashSet<HalfCrossing>, HalfCrossing> triPair = new HashMap<HashSet<HalfCrossing>, HalfCrossing>();
 }

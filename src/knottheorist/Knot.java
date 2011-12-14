@@ -32,7 +32,7 @@ public class Knot {
     public int representMode = REP_BKa;
     public String delimiter = " ";
 
-    public void represent() {
+    public void represent() {//halfCrossList.clear()
         String result = "";
         switch (representMode) {
             case REP_ATL:
@@ -97,7 +97,7 @@ public class Knot {
         return representation;
     }
 
-    public void remLoops() {
+    public void remLoops() {//halfCrossList.clear()
         if (halfCrossList.size() <= 0) {
             return;
         }
@@ -125,6 +125,9 @@ public class Knot {
         while (changed) {
             changed = false;
             ArrayList<HalfCrossing> remove = new ArrayList<HalfCrossing>();
+            if (halfCrossList.size() <= 0) {
+                return;
+            }
             if (halfCrossList.get(halfCrossList.size() - 1).tb == halfCrossList.get(0).tb) {
                 if (adjacent(halfCrossList.get(halfCrossList.size() - 1).twin, halfCrossList.get(0).twin)) {
                     remove.add(halfCrossList.get(halfCrossList.size() - 1));
@@ -133,6 +136,13 @@ public class Knot {
                     remove.add(halfCrossList.get(0).twin);
                     halfCrossList.removeAll(remove);
                     changed = true;
+
+//                    // Debugging
+//                    String errCheck = validate();
+//                    if (!"success".equals(errCheck)) {
+//                        System.err.println("Inside remSwaps: " + errCheck);
+//                    }
+
                     continue;
                 }
             }
@@ -145,6 +155,13 @@ public class Knot {
                         remove.add(halfCrossList.get(i + 1).twin);
                         halfCrossList.removeAll(remove);
                         changed = true;
+
+//                        // Debugging
+//                        String errCheck = validate();
+//                        if (!"success".equals(errCheck)) {
+//                            System.err.println("Inside remSwaps: " + errCheck);
+//                        }
+
                         break;
                     }
                 }
@@ -371,14 +388,16 @@ public class Knot {
     public ArrayList<HashSet<HalfCrossing>> tris = new ArrayList<HashSet<HalfCrossing>>();
 
     public void tris() {
+        ArrayList<HashSet<HalfCrossing>> tris = new ArrayList<HashSet<HalfCrossing>>();
         if (halfCrossList.size() < 6) {
+            this.tris = tris;
             return;//in shame.
         }
         for (int i = 0; i < halfCrossList.size(); i++) {
+            halfCrossList.get(i).triPair = new HashMap<HashSet<HalfCrossing>, HalfCrossing>();
             halfCrossList.get(i).next = halfCrossList.get((i + 1) % halfCrossList.size());
             halfCrossList.get((i + 1) % halfCrossList.size()).prev = halfCrossList.get(i);
         }
-        ArrayList<HashSet<HalfCrossing>> tris = new ArrayList<HashSet<HalfCrossing>>();
         for (int i = 0; i < halfCrossList.size(); i++) {
             HalfCrossing[] tri = new HalfCrossing[3];
             int[] num = new int[6];
@@ -416,29 +435,35 @@ public class Knot {
                     //   Otherwise opposite.
                     if (num[1] == num[2]) {
                         // 01 12
-                        if (tri[0].lr == tri[2].lr)
+                        if (tri[0].lr == tri[2].lr) {
                             continue;
+                        }
                         if (num[3] == num[4]) {
                             // 01 12 20
-                            if (tri[1].twin.lr == tri[0].twin.lr)
+                            if (tri[1].twin.lr == tri[0].twin.lr) {
                                 continue;
+                            }
                         } else {
                             // 01 12 02
-                            if (tri[1].twin.lr != tri[0].twin.lr)
+                            if (tri[1].twin.lr != tri[0].twin.lr) {
                                 continue;
+                            }
                         }
                     } else {
                         // 01 21
-                        if (tri[0].lr != tri[2].lr)
+                        if (tri[0].lr != tri[2].lr) {
                             continue;
+                        }
                         if (num[2] == num[4]) {
                             // 01 21 20                            
-                            if (tri[1].twin.lr != tri[0].twin.lr)
+                            if (tri[1].twin.lr != tri[0].twin.lr) {
                                 continue;
+                            }
                         } else {
                             // 01 21 02  
-                            if (tri[1].twin.lr == tri[0].twin.lr)
+                            if (tri[1].twin.lr == tri[0].twin.lr) {
                                 continue;
+                            }
                         }
                     }
                     // Found!
@@ -449,6 +474,12 @@ public class Knot {
                     triSet.add(tri[2]);
                     triSet.add(tri[2].twin);
                     triSet.add(tri[0].twin);
+                    tri[0].triPair.put(triSet, tri[1]);
+                    tri[1].triPair.put(triSet, tri[0]);
+                    tri[1].twin.triPair.put(triSet, tri[2]);
+                    tri[2].triPair.put(triSet, tri[1].twin);
+                    tri[2].twin.triPair.put(triSet, tri[0].twin);
+                    tri[0].twin.triPair.put(triSet, tri[2].twin);
                     if (checkLoose(triSet)) {
                         tris.add(triSet);
                     }
@@ -481,29 +512,35 @@ public class Knot {
                     //   Otherwise opposite.
                     if (num[1] == num[2]) {
                         // 01 12
-                        if (tri[0].lr == tri[2].lr)
+                        if (tri[0].lr == tri[2].lr) {
                             continue;
+                        }
                         if (num[3] == num[4]) {
                             // 01 12 20
-                            if (tri[1].twin.lr == tri[0].twin.lr)
+                            if (tri[1].twin.lr == tri[0].twin.lr) {
                                 continue;
+                            }
                         } else {
                             // 01 12 02
-                            if (tri[1].twin.lr != tri[0].twin.lr)
+                            if (tri[1].twin.lr != tri[0].twin.lr) {
                                 continue;
+                            }
                         }
                     } else {
                         // 01 21
-                        if (tri[0].lr != tri[1].twin.lr)
+                        if (tri[0].lr != tri[1].twin.lr) {
                             continue;
+                        }
                         if (num[2] == num[4]) {
                             // 01 21 20                            
-                            if (tri[1].twin.lr != tri[0].twin.lr)
+                            if (tri[1].twin.lr != tri[0].twin.lr) {
                                 continue;
+                            }
                         } else {
                             // 01 21 02  
-                            if (tri[1].twin.lr == tri[0].twin.lr)
+                            if (tri[1].twin.lr == tri[0].twin.lr) {
                                 continue;
+                            }
                         }
                     }
                     // Found!
@@ -514,6 +551,12 @@ public class Knot {
                     triSet.add(tri[2]);
                     triSet.add(tri[2].twin);
                     triSet.add(tri[0].twin);
+                    tri[0].triPair.put(triSet, tri[1]);
+                    tri[1].triPair.put(triSet, tri[0]);
+                    tri[1].twin.triPair.put(triSet, tri[2]);
+                    tri[2].triPair.put(triSet, tri[1].twin);
+                    tri[2].twin.triPair.put(triSet, tri[0].twin);
+                    tri[0].twin.triPair.put(triSet, tri[2].twin);
                     if (checkLoose(triSet)) {
                         tris.add(triSet);
                     }
@@ -550,9 +593,14 @@ public class Knot {
 //        JOptionPane.showMessageDialog(null, "Tris are as follows:\n" + sb.toString());
     }
 
-    public boolean checkLoose(HashSet<HalfCrossing> tri) {//TODO Check this.
+    /**
+     * This makes sure it's not a trefoil-type crossing.
+     * @param tri
+     * @return 
+     */
+    public boolean checkLoose(HashSet<HalfCrossing> tri) {
         for (HalfCrossing c : tri) {
-            if (tri.contains(c.next) && (c.tb == c.next.tb)) {
+            if ((c.triPair.get(tri) != null) && (c.tb == c.triPair.get(tri).tb)) {
                 return true;
             }
         }
@@ -560,12 +608,29 @@ public class Knot {
     }
 
     public void swapTri(HashSet<HalfCrossing> tri) {
+        HashSet<HalfCrossing> swapped = new HashSet<HalfCrossing>();
         for (int i = 0; i < halfCrossList.size(); i++) {
             if (tri.contains(halfCrossList.get(i))) {
-                HalfCrossing bucket = halfCrossList.get(i);
-                halfCrossList.set(i, halfCrossList.get((i + 1) % halfCrossList.size()));
-                halfCrossList.set((i + 1) % halfCrossList.size(), bucket);
-                i++;
+                HalfCrossing left = halfCrossList.get((i - 1 + halfCrossList.size()) % halfCrossList.size());
+                HalfCrossing middle = halfCrossList.get(i);
+                HalfCrossing right = halfCrossList.get((i + 1) % halfCrossList.size());
+                if (right == middle.triPair.get(tri)) {
+                    if (!swapped.contains(middle) && !swapped.contains(right)) {
+                        swapped.add(middle);
+                        swapped.add(right);
+                        halfCrossList.set(i, right);
+                        halfCrossList.set((i + 1) % halfCrossList.size(), middle);
+                    }
+                } else if (left == middle.triPair.get(tri)) {
+                    if (!swapped.contains(middle) && !swapped.contains(left)) {
+                        swapped.add(middle);
+                        swapped.add(left);
+                        halfCrossList.set(i, left);
+                        halfCrossList.set((i - 1 + halfCrossList.size()) % halfCrossList.size(), middle);
+                    }
+                } else {
+                    System.err.println("Tri is incontiguous!");
+                }
             }
         }
     }
@@ -629,59 +694,62 @@ public class Knot {
 
         char[] state = new char[hc.length];
         HashSet<String> doneSet = new HashSet<String>();
-        for (int i = 0; i < hc.length - 1; i++) {
-            if (!doneSet.contains(hc[i].name)) {
-                for (int j = 0; j < state.length; j++) {
-                    state[j] = '-'; // For unset.
-                }
-//                printlnChars(state);
-                state[i] = 'e'; // For end point.
-                state[hc[i].twin.pos] = 'e';
-//                printlnChars(state);
-                boolean makeGates = false;
-                for (int j = 0; j < state.length; j++) {
-                    if (state[j] == 'e') {
-                        makeGates = !makeGates;
-                    } else if (makeGates) {
-                        if (state[hc[j].twin.pos] == 'G') {
-                            state[hc[j].twin.pos] = 'x'; // For invalid.
-                            state[j] = 'x';
-                        } else {
-                            state[j] = 'G';
-                        }
-                    }
-//                    printlnChars(state);
-                }
-                for (int j = 0; j < state.length; j++) {
-                    if (state[j] == 'G') {
-                        state[hc[j].twin.pos] = 'g';
-                    }
-                }
-                boolean inside = false;
-                for (int j = 0; j < state.length; j++) {
-                    if (state[j] == 'g') {
-                        inside = !inside;
-                    } else if (state[j] == '-') {
-                        state[j] = (inside ? 'i' : 'o'); // For inside and outside, respectively.
-                    }
-//                    printlnChars(state);
-                }
+        for (int i = 0; i < hc.length; i++) {
+            int lefti = i;
+            int righti = hc[i].twin.pos;
 
-                char[] names = new char[state.length];
-                for (int j = 0; j < names.length; j++) {
-                    names[j] = hc[j].name.charAt(0);
+//            if (!doneSet.contains(hc[i].name)) {
+            for (int j = 0; j < state.length; j++) {
+                state[j] = '-'; // For unset.
+            }
+//                printlnChars(state);
+            state[i] = 'e'; // For end point.
+            state[righti] = 'e';
+//                printlnChars(state);
+            boolean makeGates = true;
+            for (int j = ((lefti + 1) % state.length); j != lefti; j = (j + 1) % state.length) {
+                if (state[j] == 'e') {
+                    makeGates = !makeGates;
+                } else if (makeGates) {
+                    if (state[hc[j].twin.pos] == 'G') {
+                        state[hc[j].twin.pos] = 'x'; // For invalid.
+                        state[j] = 'x';
+                    } else {
+                        state[j] = 'G';
+                    }
                 }
+//                    printlnChars(state);
+            }
+            for (int j = 0; j < state.length; j++) {
+                if (state[j] == 'G') {
+                    state[hc[j].twin.pos] = 'g';
+                }
+            }
+            boolean inside = false;
+            for (int j = 0; j < state.length; j++) {
+                if (state[j] == 'g') {
+                    inside = !inside;
+                } else if (state[j] == '-') {
+                    state[j] = (inside ? 'i' : 'o'); // For inside and outside, respectively.
+                }
+//                    printlnChars(state);
+            }
+
+            char[] names = new char[state.length];
+            for (int j = 0; j < names.length; j++) {
+                names[j] = hc[j].name.charAt(0);
+            }
 //                printlnChars(names);
 
-                // Now check them.
-                for (int j = 0; j < state.length; j++) {
-                    if ((state[j] == 'i' && state[hc[j].twin.pos] == 'o')
-                            || (state[j] == 'o' && state[hc[j].twin.pos] == 'i')) {
-                        return false;
-                    }
+            // Now check them.
+            for (int j = 0; j < state.length; j++) {
+                if ((state[j] == 'i' && state[hc[j].twin.pos] == 'o')
+                        || (state[j] == 'o' && state[hc[j].twin.pos] == 'i')) {
+                    return false;
                 }
-//                System.out.println("");
             }
+//                System.out.println("");
+//            }
         }
         return true;
     }
@@ -700,14 +768,28 @@ public class Knot {
             changed = false;
             represent();
             String was = representation;
+
+//            // Debugging
+//            String errCheck = validate();
+//            if (!"success".equals(errCheck)) {
+//                System.err.println("Before change: " + errCheck);
+//            }
+
             remLoops();
+
+//            // Debugging
+//            errCheck = validate();
+//            if (!"success".equals(errCheck)) {//halfCrossList.clear()
+//                System.err.println("After loops: " + errCheck);
+//            }
+
             remSwaps();
 
-            // Debugging
-            String errCheck = validate();
-            if (!"success".equals(errCheck)) {
-                System.err.println(errCheck);
-            }
+//            // Debugging
+//            errCheck = validate();
+//            if (!"success".equals(errCheck)) {
+//                System.err.println("After swaps: " + errCheck);
+//            }
 
             represent();
             if (was.equals(representation)) {
@@ -770,8 +852,152 @@ public class Knot {
         for (int i = 0; i < tris.size(); i++) {
             Knot copy = this.copy();
             copy.tris();
-            copy.swapTri(copy.tris.get(i));
+            if (tris.size() != copy.tris.size()) {
+                System.err.println("Tris different!!");
+                tris();
+                copy.tris();
+            }
+
+//            // Debugging
+//            String errCheck = copy.validate();
+//            if (!"success".equals(errCheck)) {//copy.tris.clear()
+//                System.err.println("Before tri: " + errCheck);
+//            }//copy.representation
+//            //1,14,15
+            copy.swapTri(copy.tris.get(i));//halfCrossList.clear()
+
+//            // Debugging
+//            errCheck = copy.validate();
+//            if (!"success".equals(errCheck)) {
+//                System.err.println("After tri: " + errCheck);
+//            }
+
             copy.branch(knots);
         }
+
+        for (int i = 0; i < halfCrossList.size(); i++) {
+            Knot copy = this.copy();
+
+            HalfCrossing left = copy.halfCrossList.get(i);
+            if (copy.isClosed(left, left.twin)) {
+                // You can just untwist the cluster of crossings, but without the twist
+
+//                // Debugging
+//                String errCheck = copy.validate();
+//                if (!"success".equals(errCheck)) {
+//                    System.err.println("Before twist: " + errCheck);
+//                }
+
+                copy.halfCrossList.remove(left);
+                copy.halfCrossList.remove(left.twin);
+
+//                // Debugging
+//                errCheck = copy.validate();
+//                if (!"success".equals(errCheck)) {
+//                    System.err.println("After twist: " + errCheck);
+//                }
+                copy.branch(knots);
+            }
+            //copy.invertCrossing(copy.halfCrossList.get(i));
+
+        }
+    }
+
+    public void flipOver() {
+        for (HalfCrossing h : halfCrossList) {
+            switch (h.dir) { // I'm actually not sure what to do with the direction.
+                case HalfCrossing.DIR_RIGHT:
+                    h.dir = HalfCrossing.DIR_DOWN;
+                    break;
+                case HalfCrossing.DIR_DOWN:
+                    h.dir = HalfCrossing.DIR_RIGHT;
+                    break;
+                case HalfCrossing.DIR_LEFT:
+                    h.dir = HalfCrossing.DIR_UP;
+                    break;
+                case HalfCrossing.DIR_UP:
+                    h.dir = HalfCrossing.DIR_LEFT;
+                    break;
+            }
+            if (h.lr == HalfCrossing.CROSS_LEFT) {
+                h.lr = HalfCrossing.CROSS_RIGHT;
+            } else {
+                h.lr = HalfCrossing.CROSS_LEFT;
+            }
+            if (h.tb == HalfCrossing.CROSS_TOP) {
+                h.tb = HalfCrossing.CROSS_BOTTOM;
+            } else {
+                h.tb = HalfCrossing.CROSS_TOP;
+            }
+        }
+    }
+
+    public void flipBack() {
+        ArrayList<HalfCrossing> flipped = new ArrayList<HalfCrossing>();
+        for (int i = halfCrossList.size() - 1; i >= 0; i--) {
+            flipped.add(halfCrossList.get(i));
+        }
+        halfCrossList = flipped;
+    }
+
+    public void invertCrossing(HalfCrossing left) {
+        int index = -1;
+        for (int i = 0; i < halfCrossList.size(); i++) {
+            if (halfCrossList.get(i) == left) {
+                index = i;
+                break;
+            }
+        }
+        if (index == -1) {
+            return;
+        }
+        if (!isClosed(left, left.twin)) {
+            return;
+        }
+        while (true) {
+            HalfCrossing bucket = halfCrossList.get(index % halfCrossList.size());
+            if (bucket.lr == HalfCrossing.CROSS_LEFT) {
+                bucket.lr = HalfCrossing.CROSS_RIGHT;
+            } else {
+                bucket.lr = HalfCrossing.CROSS_LEFT;
+            }
+            if (bucket.tb == HalfCrossing.CROSS_TOP) {
+                bucket.tb = HalfCrossing.CROSS_BOTTOM;
+            } else {
+                bucket.tb = HalfCrossing.CROSS_TOP;
+            }
+            if (bucket == left.twin) {
+                return;
+            }
+            index++;
+        }
+    }
+
+    public boolean isClosed(HalfCrossing left, HalfCrossing right) {
+        int index = -1;
+        for (int i = 0; i < halfCrossList.size(); i++) {
+            if (halfCrossList.get(i) == left) {
+                index = i;
+                break;
+            }
+        }
+        if (index == -1) {
+            return false;
+        }
+        HashSet<HalfCrossing> contents = new HashSet<HalfCrossing>();
+        while (true) {
+            HalfCrossing bucket = halfCrossList.get(index % halfCrossList.size());
+            contents.add(bucket);
+            if (bucket == right) {
+                break;
+            }
+            index++;
+        }
+        for (HalfCrossing h : contents) {
+            if (!contents.contains(h.twin)) {
+                return false;
+            }
+        }
+        return true;
     }
 }

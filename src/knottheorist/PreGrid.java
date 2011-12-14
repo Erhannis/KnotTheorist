@@ -205,7 +205,7 @@ public class PreGrid {
                             if (snake.size() >= 500) {
                                 // We've got a problem.
                                 if ((snake.size() % 100) < 2) {
-                                System.err.println("Huge snake!");
+                                    System.err.println("Huge snake!");
                                     SnakeLink comp = snake.get(snake.size() - 1);
                                     for (SnakeLink l : snake) {
                                         if (comp != l && comp.x1 == l.x1 && comp.x2 == l.x2 && comp.y1 == l.y1 && comp.y2 == l.y2) {
@@ -1033,24 +1033,33 @@ public class PreGrid {
         PreSquare[] borders = getBorders(x - dirX(dir), y - dirY(dir), dir);
         if (borders[0].crossing == toCross) {
             // It's clockwise from the link.
-            // Check if we're on the input side.
-            if (cw(dir) == borders[0].crossing.dir) {
-                return true;
+            // Make sure it's on the interior edge.
+            if (rot == CW) {
+                // Check if we're on the input side.
+                if (cw(dir) == borders[0].crossing.dir) {
+                    return true;
+                }
             }
         } else if (borders[0].crossing == toCross.twin) {
             // It's clockwise from the link.
-            if (cw(dir) == borders[0].crossing.twin.dir) {
-                return true;
+            if (rot == CW) {
+                if (cw(dir) == borders[0].crossing.twin.dir) {
+                    return true;
+                }
             }
         } else if (borders[1].crossing == toCross) {
             // It's counterclockwise from the link.
-            if (ccw(dir) == borders[1].crossing.dir) {
-                return true;
+            if (rot == CCW) {
+                if (ccw(dir) == borders[1].crossing.dir) {
+                    return true;
+                }
             }
         } else if (borders[1].crossing == toCross.twin) {
             // It's counterclockwise from the link.
-            if (ccw(dir) == borders[1].crossing.twin.dir) {
-                return true;
+            if (rot == CCW) {
+                if (ccw(dir) == borders[1].crossing.twin.dir) {
+                    return true;
+                }
             }
         }
         return false;
@@ -1177,13 +1186,13 @@ public class PreGrid {
                 if (!p.empty) {
                     if (p.isCrossing) {
                         if (p.crossing.tb == HalfCrossing.CROSS_TOP) {
-                            if ((p.crossing.dir == HalfCrossing.CROSS_LEFT) || (p.crossing.dir == HalfCrossing.CROSS_RIGHT)) {
+                            if ((p.crossing.dir == HalfCrossing.DIR_LEFT) || (p.crossing.dir == HalfCrossing.DIR_RIGHT)) {
                                 result.squares[newX][newY].setKnot(GridSquare.KNOT_CROSSEW);
                             } else {
                                 result.squares[newX][newY].setKnot(GridSquare.KNOT_CROSSNS);
                             }
                         } else {
-                            if ((p.crossing.dir == HalfCrossing.CROSS_LEFT) || (p.crossing.dir == HalfCrossing.CROSS_RIGHT)) {
+                            if ((p.crossing.dir == HalfCrossing.DIR_LEFT) || (p.crossing.dir == HalfCrossing.DIR_RIGHT)) {
                                 result.squares[newX][newY].setKnot(GridSquare.KNOT_CROSSNS);
                             } else {
                                 result.squares[newX][newY].setKnot(GridSquare.KNOT_CROSSEW);
