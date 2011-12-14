@@ -245,10 +245,10 @@ public class PreGrid {
 
                         // Probably important to cut off dead end loops.
                         HashSet<SnakeLink> remove = new HashSet<SnakeLink>();
-                        for (int j = 0; j < snake.size() - 1; j++) {
+                        for (int j = 0; j < snake.size() - 2; j++) {
                             SnakeLink prior = snake.get(j);
                             if (!remove.contains(prior)) {
-                                for (int k = j + 1; k < snake.size(); k++) { //NOTE There may be a bit of haziness for the very end segments.
+                                for (int k = j + 1; k < snake.size() - 1; k++) {
                                     SnakeLink latter = snake.get(k);
                                     // Check tip incidence
                                     if ((prior.x2 == latter.x2) && (prior.y2 == latter.y2)) {
@@ -379,50 +379,121 @@ public class PreGrid {
                     }
 
                     // Remove square tails
+                    //TODO Apply this method to tails formed during cleaving
                     HalfCrossing fromCross = knot.halfCrossList.get(i - 1);
                     HashSet<PreSquare> newSquares = new HashSet<PreSquare>();
+                    PreSquare start = null;
+                    PreSquare finish = null;
                     for (PreSquare p : grid.set.values()) {
                         if (p.fromCross == fromCross && p.toCross == toCross) {
                             if (adjacent(p, crossReference.get(fromCross)) && related(p, crossReference.get(fromCross))) {
+                                p.gen = 0;
+                                start = p;
+                                newSquares.add(p);
                             } else if (adjacent(p, crossReference.get(toCross)) && related(p, crossReference.get(toCross))) {
+                                p.gen = -1;
+                                finish = p;
+                                newSquares.add(p);
                             } else {
+                                p.gen = -1;
                                 newSquares.add(p);
                             }
                         }
                     }
-                    changed = (newSquares.size() > 0);
-                    while (changed) {
-                        changed = false;
-                        HashSet<PreSquare> removeSquare = new HashSet<PreSquare>();
+                    boolean done = false;
+                    while (!done) {
                         for (PreSquare p : newSquares) {
-                            int count = 0;
-                            if (related(p, grid.get(new Coord(p.coord.x + 1, p.coord.y)))) {
-                                count++;
+                            if (p.gen != -1) {
+                                PreSquare bucket = grid.get(new Coord(p.coord.x + 1, p.coord.y));
+                                if (newSquares.contains(bucket) && bucket.gen == -1) {
+                                    bucket.gen = p.gen + 1;
+                                    bucket.parent = p;
+                                    if (bucket == finish) {
+                                        done = true;
+                                        break;
+                                    }
+                                }
+                                bucket = grid.get(new Coord(p.coord.x, p.coord.y + 1));
+                                if (newSquares.contains(bucket) && bucket.gen == -1) {
+                                    bucket.gen = p.gen + 1;
+                                    bucket.parent = p;
+                                    if (bucket == finish) {
+                                        done = true;
+                                        break;
+                                    }
+                                }
+                                bucket = grid.get(new Coord(p.coord.x - 1, p.coord.y));
+                                if (newSquares.contains(bucket) && bucket.gen == -1) {
+                                    bucket.gen = p.gen + 1;
+                                    bucket.parent = p;
+                                    if (bucket == finish) {
+                                        done = true;
+                                        break;
+                                    }
+                                }
+                                bucket = grid.get(new Coord(p.coord.x, p.coord.y - 1));
+                                if (newSquares.contains(bucket) && bucket.gen == -1) {
+                                    bucket.gen = p.gen + 1;
+                                    bucket.parent = p;
+                                    if (bucket == finish) {
+                                        done = true;
+                                        break;
+                                    }
+                                }
                             }
-                            if (related(p, grid.get(new Coord(p.coord.x, p.coord.y + 1)))) {
-                                count++;
-                            }
-                            if (related(p, grid.get(new Coord(p.coord.x - 1, p.coord.y)))) {
-                                count++;
-                            }
-                            if (related(p, grid.get(new Coord(p.coord.x, p.coord.y - 1)))) {
-                                count++;
-                            }
-                            if (count < 2) {
-                                removeSquare.add(p);
-                            }
-                        }
-                        for (PreSquare p : removeSquare) {
-                            p.crossing = null;
-                            p.fromCross = null;
-                            p.toCross = null;
-                            p.isCrossing = false;
-                            p.empty = true;
-                            changed = true;
-                            newSquares.remove(p);
-                            pause(snake);
                         }
                     }
+                    HashSet<PreSquare> keeperSquares = new HashSet<PreSquare>();
+                    PreSquare current = finish;//current = null
+                    while (current != start) {
+                        keeperSquares.add(current);
+                        current = current.parent;
+                    }
+                    keeperSquares.add(start);
+                    newSquares.removeAll(keeperSquares);
+                    for (PreSquare p : newSquares) {
+                        p.crossing = null;
+                        p.fromCross = null;
+                        p.toCross = null;
+                        p.isCrossing = false;
+                        p.empty = true;
+                        pause(snake);
+                    }
+
+
+//                    changed = (newSquares.size() > 0);
+//                    while (changed) {
+//                        changed = false;
+//                        HashSet<PreSquare> removeSquare = new HashSet<PreSquare>();
+//                        for (PreSquare p : newSquares) {
+//                            int count = 0;
+//                            if (related(p, grid.get(new Coord(p.coord.x + 1, p.coord.y)))) {
+//                                count++;
+//                            }
+//                            if (related(p, grid.get(new Coord(p.coord.x, p.coord.y + 1)))) {
+//                                count++;
+//                            }
+//                            if (related(p, grid.get(new Coord(p.coord.x - 1, p.coord.y)))) {
+//                                count++;
+//                            }
+//                            if (related(p, grid.get(new Coord(p.coord.x, p.coord.y - 1)))) {
+//                                count++;
+//                            }
+//                            if (count < 2) {
+//                                removeSquare.add(p);
+//                            }
+//                        }
+//                        for (PreSquare p : removeSquare) {
+//                            p.crossing = null;
+//                            p.fromCross = null;
+//                            p.toCross = null;
+//                            p.isCrossing = false;
+//                            p.empty = true;
+//                            changed = true;
+//                            newSquares.remove(p);
+//                            pause(snake);
+//                        }
+//                    }
 
                     dir = toCross.dir;
                     Coord pos = crossReference.get(toCross).coord;

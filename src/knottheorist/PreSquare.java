@@ -16,6 +16,10 @@ public class PreSquare {
     public HalfCrossing fromCross = null;
     public HalfCrossing toCross = null;
     public HalfCrossing crossing = null;
+    
+    // Unmaintained:
+    public int gen = -1;
+    public PreSquare parent = null;
 
     public PreSquare() {
     }
