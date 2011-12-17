@@ -379,86 +379,87 @@ public class PreGrid {
                     }
 
                     // Remove square tails
+                    clipBacktracks(crossReference, snake);
                     //TODO Apply this method to tails formed during cleaving
-                    HalfCrossing fromCross = knot.halfCrossList.get(i - 1);
-                    HashSet<PreSquare> newSquares = new HashSet<PreSquare>();
-                    PreSquare start = null;
-                    PreSquare finish = null;
-                    for (PreSquare p : grid.set.values()) {
-                        if (p.fromCross == fromCross && p.toCross == toCross) {
-                            if (adjacent(p, crossReference.get(fromCross)) && related(p, crossReference.get(fromCross))) {
-                                p.gen = 0;
-                                start = p;
-                                newSquares.add(p);
-                            } else if (adjacent(p, crossReference.get(toCross)) && related(p, crossReference.get(toCross))) {
-                                p.gen = -1;
-                                finish = p;
-                                newSquares.add(p);
-                            } else {
-                                p.gen = -1;
-                                newSquares.add(p);
-                            }
-                        }
-                    }
-                    boolean done = false;
-                    while (!done) {
-                        for (PreSquare p : newSquares) {
-                            if (p.gen != -1) {
-                                PreSquare bucket = grid.get(new Coord(p.coord.x + 1, p.coord.y));
-                                if (newSquares.contains(bucket) && bucket.gen == -1) {
-                                    bucket.gen = p.gen + 1;
-                                    bucket.parent = p;
-                                    if (bucket == finish) {
-                                        done = true;
-                                        break;
-                                    }
-                                }
-                                bucket = grid.get(new Coord(p.coord.x, p.coord.y + 1));
-                                if (newSquares.contains(bucket) && bucket.gen == -1) {
-                                    bucket.gen = p.gen + 1;
-                                    bucket.parent = p;
-                                    if (bucket == finish) {
-                                        done = true;
-                                        break;
-                                    }
-                                }
-                                bucket = grid.get(new Coord(p.coord.x - 1, p.coord.y));
-                                if (newSquares.contains(bucket) && bucket.gen == -1) {
-                                    bucket.gen = p.gen + 1;
-                                    bucket.parent = p;
-                                    if (bucket == finish) {
-                                        done = true;
-                                        break;
-                                    }
-                                }
-                                bucket = grid.get(new Coord(p.coord.x, p.coord.y - 1));
-                                if (newSquares.contains(bucket) && bucket.gen == -1) {
-                                    bucket.gen = p.gen + 1;
-                                    bucket.parent = p;
-                                    if (bucket == finish) {
-                                        done = true;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    HashSet<PreSquare> keeperSquares = new HashSet<PreSquare>();
-                    PreSquare current = finish;//current = null
-                    while (current != start) {
-                        keeperSquares.add(current);
-                        current = current.parent;
-                    }
-                    keeperSquares.add(start);
-                    newSquares.removeAll(keeperSquares);
-                    for (PreSquare p : newSquares) {
-                        p.crossing = null;
-                        p.fromCross = null;
-                        p.toCross = null;
-                        p.isCrossing = false;
-                        p.empty = true;
-                        pause(snake);
-                    }
+//                    HalfCrossing fromCross = knot.halfCrossList.get(i - 1);
+//                    HashSet<PreSquare> newSquares = new HashSet<PreSquare>();
+//                    PreSquare start = null;
+//                    PreSquare finish = null;
+//                    for (PreSquare p : grid.set.values()) {
+//                        if (p.fromCross == fromCross && p.toCross == toCross) {
+//                            if (adjacent(p, crossReference.get(fromCross)) && related(p, crossReference.get(fromCross))) {
+//                                p.gen = 0;
+//                                start = p;
+//                                newSquares.add(p);
+//                            } else if (adjacent(p, crossReference.get(toCross)) && related(p, crossReference.get(toCross))) {
+//                                p.gen = -1;
+//                                finish = p;
+//                                newSquares.add(p);
+//                            } else {
+//                                p.gen = -1;
+//                                newSquares.add(p);
+//                            }
+//                        }
+//                    }
+//                    boolean done = false;
+//                    while (!done) {
+//                        for (PreSquare p : newSquares) {
+//                            if (p.gen != -1) {
+//                                PreSquare bucket = grid.get(new Coord(p.coord.x + 1, p.coord.y));
+//                                if (newSquares.contains(bucket) && bucket.gen == -1) {
+//                                    bucket.gen = p.gen + 1;
+//                                    bucket.parent = p;
+//                                    if (bucket == finish) {
+//                                        done = true;
+//                                        break;
+//                                    }
+//                                }
+//                                bucket = grid.get(new Coord(p.coord.x, p.coord.y + 1));
+//                                if (newSquares.contains(bucket) && bucket.gen == -1) {
+//                                    bucket.gen = p.gen + 1;
+//                                    bucket.parent = p;
+//                                    if (bucket == finish) {
+//                                        done = true;
+//                                        break;
+//                                    }
+//                                }
+//                                bucket = grid.get(new Coord(p.coord.x - 1, p.coord.y));
+//                                if (newSquares.contains(bucket) && bucket.gen == -1) {
+//                                    bucket.gen = p.gen + 1;
+//                                    bucket.parent = p;
+//                                    if (bucket == finish) {
+//                                        done = true;
+//                                        break;
+//                                    }
+//                                }
+//                                bucket = grid.get(new Coord(p.coord.x, p.coord.y - 1));
+//                                if (newSquares.contains(bucket) && bucket.gen == -1) {
+//                                    bucket.gen = p.gen + 1;
+//                                    bucket.parent = p;
+//                                    if (bucket == finish) {
+//                                        done = true;
+//                                        break;
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                    HashSet<PreSquare> keeperSquares = new HashSet<PreSquare>();
+//                    PreSquare current = finish;//current = null
+//                    while (current != start) {
+//                        keeperSquares.add(current);
+//                        current = current.parent;
+//                    }
+//                    keeperSquares.add(start);
+//                    newSquares.removeAll(keeperSquares);
+//                    for (PreSquare p : newSquares) {
+//                        p.crossing = null;
+//                        p.fromCross = null;
+//                        p.toCross = null;
+//                        p.isCrossing = false;
+//                        p.empty = true;
+//                        pause(snake);
+//                    }
 
 
 //                    changed = (newSquares.size() > 0);
@@ -610,8 +611,10 @@ public class PreGrid {
                     x += dirX(dir);
                     y += dirY(dir);
                     pause(null);
+                    clipBacktracks(crossReference, null);
                 }
             }
+            clipBacktracks(crossReference, snake);
         } finally {
             if (knot.halfCrossList.size() > 0) {
                 knot.halfCrossList.remove(knot.halfCrossList.size() - 1);
@@ -646,6 +649,104 @@ public class PreGrid {
 //        }
 
 
+    }
+
+    /**
+     * Get rid of those doubled-back loop things.
+     */
+    public void clipBacktracks(HashMap<HalfCrossing, PreSquare> crossReference, ArrayList<SnakeLink> snake) {
+        for (PreSquare p : grid.set.values()) {
+            if (!p.empty) {
+                p.gen = -1;
+            }
+        }
+        boolean changed = true;
+        while (changed) {
+            changed = false;
+            HalfCrossing fromCross = null;
+            HalfCrossing toCross = null;
+            for (PreSquare p : grid.set.values()) {
+                if (!p.empty && !p.isCrossing && p.gen == -1) {
+                    fromCross = p.fromCross;
+                    toCross = p.toCross;
+                    changed = true;
+                }
+            }
+            if (!changed) {
+                break;
+            }
+
+            HashSet<PreSquare> newSquares = new HashSet<PreSquare>();
+            PreSquare start = null;
+            PreSquare finish = null;
+            for (PreSquare p : grid.set.values()) {
+                if (p.fromCross == fromCross && p.toCross == toCross) {
+                    if (adjacent(p, crossReference.get(fromCross)) && related(p, crossReference.get(fromCross))) {
+                        p.gen = 0;
+                        start = p;
+                        newSquares.add(p);
+                        if (adjacent(p, crossReference.get(toCross)) && related(p, crossReference.get(toCross))) {
+                            finish = p;
+                        }
+                    } else if (adjacent(p, crossReference.get(toCross)) && related(p, crossReference.get(toCross))) {
+                        p.gen = -1;
+                        finish = p;
+                        newSquares.add(p);
+                    } else {
+                        p.gen = -1;
+                        newSquares.add(p);
+                    }
+                }
+            }
+            boolean marked = true;
+            while (marked) {
+                marked = false;
+                for (PreSquare p : newSquares) {// If a loop somehow got separated, we're gonna loop forever, somewhere.
+                    if (p.gen != -1) {
+                        PreSquare bucket = grid.get(new Coord(p.coord.x + 1, p.coord.y));
+                        if (newSquares.contains(bucket) && bucket.gen == -1) {
+                            marked = true;
+                            bucket.gen = p.gen + 1;
+                            bucket.parent = p;
+                        }
+                        bucket = grid.get(new Coord(p.coord.x, p.coord.y + 1));
+                        if (newSquares.contains(bucket) && bucket.gen == -1) {
+                            marked = true;
+                            bucket.gen = p.gen + 1;
+                            bucket.parent = p;
+                        }
+                        bucket = grid.get(new Coord(p.coord.x - 1, p.coord.y));
+                        if (newSquares.contains(bucket) && bucket.gen == -1) {
+                            marked = true;
+                            bucket.gen = p.gen + 1;
+                            bucket.parent = p;
+                        }
+                        bucket = grid.get(new Coord(p.coord.x, p.coord.y - 1));
+                        if (newSquares.contains(bucket) && bucket.gen == -1) {
+                            marked = true;
+                            bucket.gen = p.gen + 1;
+                            bucket.parent = p;
+                        }
+                    }
+                }
+            }
+            HashSet<PreSquare> keeperSquares = new HashSet<PreSquare>();
+            PreSquare current = finish;//current = null
+            while (current != start) {
+                keeperSquares.add(current);
+                current = current.parent;
+            }
+            keeperSquares.add(start);
+            newSquares.removeAll(keeperSquares);
+            for (PreSquare p : newSquares) {
+                p.crossing = null;
+                p.fromCross = null;
+                p.toCross = null;
+                p.isCrossing = false;
+                p.empty = true;
+                pause(snake);
+            }
+        }
     }
 
     public boolean adjacent(PreSquare a, PreSquare b) {

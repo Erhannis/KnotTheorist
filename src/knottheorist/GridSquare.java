@@ -93,6 +93,8 @@ public class GridSquare {
     public int getWidth() {
         return this.width;
     }
+    
+    public static boolean mouseDownInSquare = false;
 
     public GridSquare(Icon[] knotIcons, JLabel body, final KnotGrid parentGrid, int width, final int height) {
         this.state = KNOT_EMPTY;
@@ -113,6 +115,7 @@ public class GridSquare {
             }
 
             public void mousePressed(MouseEvent e) {
+                mouseDownInSquare = true;
                 if (e.isControlDown()) {
                     setKnot(KNOT_EMPTY);
                     mouseEnteredSide = NONE;
@@ -123,11 +126,12 @@ public class GridSquare {
             }
 
             public void mouseReleased(MouseEvent e) {
+                mouseDownInSquare = false;
                 // Remove entered?
             }
 
             public void mouseEntered(MouseEvent e) {
-                if ((e.getModifiersEx() & MouseEvent.BUTTON1_DOWN_MASK) != 0) {
+                if (mouseDownInSquare && (e.getModifiersEx() & MouseEvent.BUTTON1_DOWN_MASK) != 0) {
                     if (e.isControlDown()) {
                         setKnot(KNOT_EMPTY);
                         mouseEnteredSide = NONE;
