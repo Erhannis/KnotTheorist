@@ -31,7 +31,7 @@ public class KnotTheoristView extends FrameView {
     public Icon[] knotIcons = null;
     //public Icon[] btnColorsDown = null;
     public Random rng = new Random();
-    public Knot knot;
+    public Knot knot = null;
     public JPanel gridPanel = null;
 
     public void addKnotGrid() {

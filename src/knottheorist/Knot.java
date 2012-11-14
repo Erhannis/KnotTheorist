@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  *
@@ -26,7 +24,7 @@ public class Knot {
         halfCrossList = new ArrayList<HalfCrossing>();
         //crossList = new ArrayList<Crossing>();
     }
-    
+
 /** AtlBblAbr... */     public static final int REP_ATL = 0;
 /** A> \<b a\> ... */   public static final int REP_BKa = 1;
 /** 1tl2br1br... */     public static final int REP_NTL = 2;
@@ -90,7 +88,6 @@ public class Knot {
         this.representation = result;
     }
 
-    @Override
     public String toString() {
         if (representation == null) {
             // Set representation
@@ -248,75 +245,35 @@ public class Knot {
             switch (mode) {
                 case REP_ATL:
                 case REP_BKa:
-<<<<<<< local
-                    text = text.replaceAll(" ", "");
-=======
->>>>>>> other
                     break;
                 case REP_NTL:
-<<<<<<< local
-                    s = new Scanner(text);
-=======
->>>>>>> other
                     break;
                 default:
                     break;
             }
         }
-<<<<<<< local
-        
-        public String nextName() {
-            if (index >= text.length())
-                return null;
-            switch(mode) {
-=======
 
         public HalfCrossing nextCrossing() {
             HalfCrossing result = null;
             switch (mode) {
->>>>>>> other
                 case REP_ATL:
-<<<<<<< local
-                    int nextT = text.indexOf("t", index + 1);
-                    int nextB = text.indexOf("b", index + 1);
-                    int next = 0;
-                    if (nextT == -1 && nextB == -1) {
+                    if (index + 1 >= text.length()) {
                         return null;
-                    } else if (nextT == -1) {
-                        next = nextB;
-                    } else if (nextB == -1) {
-                        next = nextT;
-                    } else if (nextT < nextB) {
-                        next = nextT;
-=======
+                    }
                     result = new HalfCrossing();
                     result.name = text.substring(index, 1 + index++);
                     if ("t".equals(text.substring(index, 1 + index++))) {
                         result.tb = HalfCrossing.CROSS_TOP;
->>>>>>> other
                     } else {
-<<<<<<< local
-                        next = nextB;
-=======
                         result.tb = HalfCrossing.CROSS_BOTTOM;
->>>>>>> other
                     }
-<<<<<<< local
-                    String result = text.substring(index, next);
-                    index += result.length();
-=======
                     if ("l".equals(text.substring(index, 1 + index++))) {
                         result.lr = HalfCrossing.CROSS_LEFT;
                     } else {
                         result.lr = HalfCrossing.CROSS_RIGHT;
                     }
->>>>>>> other
                     return result;
                 case REP_BKa:
-<<<<<<< local
-                    //TODO I think I was doing something here.
-                    return null;
-=======
                     result = new HalfCrossing();
                     if (index >= text.length()) {
                         return null;
@@ -347,18 +304,10 @@ public class Knot {
                         index += 2;
                     }
                     return result;
->>>>>>> other
                 case REP_NTL:
-<<<<<<< local
-                    if (!s.hasNextInt())
-=======
                     result = new HalfCrossing();
                     if (index >= text.length()) {
->>>>>>> other
                         return null;
-<<<<<<< local
-                    return Integer.toString(s.nextInt());
-=======
                     }
                     while (!Character.isDigit(text.charAt(index))) {
                         index++;
@@ -382,26 +331,15 @@ public class Knot {
                         result.lr = HalfCrossing.CROSS_RIGHT;
                     }
                     return result;
->>>>>>> other
                 default:
                     return null;
             }
         }
     }
-<<<<<<< local
-    
-=======
 
->>>>>>> other
     public String digest(String rep) {
-<<<<<<< local
-=======
 //        ArrayList<HalfCrossing> newHC = new ArrayList<HalfCrossing>();
->>>>>>> other
         halfCrossList = new ArrayList<HalfCrossing>();
-<<<<<<< local
-        
-=======
         //int newMode = 0;
         HalfCrossing newh = null;
         if (rep.length() == 0) {
@@ -444,7 +382,6 @@ public class Knot {
                 }
             }
         }
->>>>>>> other
         return "success";
     }
     public ArrayList<HashSet<HalfCrossing>> tris = new ArrayList<HashSet<HalfCrossing>>();
