@@ -9,8 +9,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Scanner;
+<<<<<<< local
+import javax.swing.JOptionPane;
+=======
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+>>>>>>> other
 
 /**
  *
@@ -26,10 +30,16 @@ public class Knot {
         halfCrossList = new ArrayList<HalfCrossing>();
         //crossList = new ArrayList<Crossing>();
     }
+<<<<<<< local
     
 /** AtlBblAbr... */     public static final int REP_ATL = 0;
 /** A> \<b a\> ... */   public static final int REP_BKa = 1;
 /** 1tl2br1br... */     public static final int REP_NTL = 2;
+=======
+    public static final int REP_ATL = 0;
+    public static final int REP_BKa = 1;
+    public static final int REP_NTL = 2;
+>>>>>>> other
     public int representMode = REP_BKa;
     public String delimiter = " ";
 
@@ -238,15 +248,36 @@ public class Knot {
     }
 
     public class KnotScanner {
+<<<<<<< local
+        public String text = null;
+        public int index = 0;
+        public int mode = REP_ATL;
+        public Scanner s = null;
+=======
+
         public String text;
         public int index;
         public int mode;
+
+>>>>>>> other
         public KnotScanner(String text, int mode) {
+<<<<<<< local
+            this.text = text;
+=======
             this.text = text.replaceAll(" ", "");
             this.index = 0;
+>>>>>>> other
             this.mode = mode;
+<<<<<<< local
+            switch(mode) {
+=======
             switch (mode) {
+>>>>>>> other
                 case REP_ATL:
+<<<<<<< local
+                    break;
+=======
+>>>>>>> other
                 case REP_BKa:
 <<<<<<< local
                     text = text.replaceAll(" ", "");
