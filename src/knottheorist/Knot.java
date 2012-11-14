@@ -338,6 +338,7 @@ public class Knot {
     }
 
     public String digest(String rep) {
+        //TODO Check for validity.
 //        ArrayList<HalfCrossing> newHC = new ArrayList<HalfCrossing>();
         halfCrossList = new ArrayList<HalfCrossing>();
         //int newMode = 0;
