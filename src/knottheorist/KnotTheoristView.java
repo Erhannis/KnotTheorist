@@ -27,6 +27,7 @@ public class KnotTheoristView extends FrameView {
     private static final int GRID_ROWS = 14;
     private static final int SQUARE_WIDTH = 31;
     private static final int SQUARE_HEIGHT = 31;
+    public static final boolean DEBUG_INFO = false;
     private KnotGrid grid = null;
     public Icon[] knotIcons = null;
     //public Icon[] btnColorsDown = null;
@@ -813,26 +814,7 @@ private void btnAllTriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 
 private void btnSolveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolveActionPerformed
     if (knot != null) {
-        knot.representMode = Knot.REP_NTL;
-        HashMap<String, Knot> knots = new HashMap<String, Knot>();
-        knot.branch(knots);
-        BigInteger minWeight = null;
-        Knot lightest = null;
-        for (String s : knots.keySet()) {
-            System.out.println("- " + s);
-            BigInteger weight = knots.get(s).getWeight();
-            if (lightest == null || weight.compareTo(minWeight) == -1) {
-                lightest = knots.get(s);
-                minWeight = weight;
-            } else if (weight.compareTo(minWeight) == 0) {
-                System.out.println("Equal weights!");
-            }
-        }
-        System.out.println();
-        System.out.println("Lightest: " + lightest.representation);
-        System.out.println("at " + minWeight.toString());
-        knot = lightest;
-        knot.represent();
+        knot = knot.solve(true);
         editModified.setText(knot.toString());
     }
 }//GEN-LAST:event_btnSolveActionPerformed

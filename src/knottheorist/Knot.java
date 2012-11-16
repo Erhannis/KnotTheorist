@@ -378,6 +378,7 @@ public class Knot {
                             } else {
                                 right.dir = HalfCrossing.DIR_DOWN;
                             }
+                            break;
                         }
                     }
                 }
@@ -840,15 +841,26 @@ public class Knot {
         return result;
     }
 
-    public void branch(HashMap<String, Knot> knots) {
+    public Knot branch(HashMap<String, Knot> knots) {
         full12();
         downgrade();
         represent();
         if (knots.containsKey(representation)) {
-            return;
+            return null;
         }
         knots.put(representation, this);
         tris();
+        ArrayList<Knot> sum = checkSum(true);
+        if (sum != null) {
+            Knot subKnots = new Knot();
+            subKnots.representMode = Knot.REP_NTL;
+            for (Knot k : sum) {
+                subKnots.halfCrossList.addAll(k.halfCrossList);
+            }
+            subKnots.represent();
+            knots.put(representation, subKnots);
+            return subKnots;
+        }
         for (int i = 0; i < tris.size(); i++) {
             Knot copy = this.copy();
             copy.tris();
@@ -872,7 +884,10 @@ public class Knot {
 //                System.err.println("After tri: " + errCheck);
 //            }
 
-            copy.branch(knots);
+            Knot bucket = copy.branch(knots);
+            if (bucket != null) {
+                return bucket;
+            }
         }
 
         for (int i = 0; i < halfCrossList.size(); i++) {
@@ -896,11 +911,15 @@ public class Knot {
 //                if (!"success".equals(errCheck)) {
 //                    System.err.println("After twist: " + errCheck);
 //                }
-                copy.branch(knots);
+                Knot bucket = copy.branch(knots);
+                if (bucket != null) {
+                    return bucket;
+                }
             }
             //copy.invertCrossing(copy.halfCrossList.get(i));
 
         }
+        return null;
     }
 
     public void flipOver() {
@@ -999,5 +1018,107 @@ public class Knot {
             }
         }
         return true;
+    }
+    
+    public ArrayList<Knot> checkSum(boolean solve) {
+        for (int i = 0; i < halfCrossList.size(); i++) {
+            HalfCrossing left =  halfCrossList.get(i);
+            int index = i + 1;
+            HashSet<HalfCrossing> contents = new HashSet<HalfCrossing>();
+            contents.add(left);
+            while (true) {
+                HalfCrossing bucket = halfCrossList.get(index % halfCrossList.size());
+                if (!contents.remove(bucket.twin)) {
+                    contents.add(bucket);
+                }
+                if (contents.isEmpty()) {
+                    //TODO Swap for a simple index check
+                    ArrayList<HalfCrossing> subKnotCrossings = new ArrayList<HalfCrossing>();
+                    int index2 = i;
+                    while (true) {
+                        HalfCrossing pail = halfCrossList.get(index2 % halfCrossList.size());
+                        subKnotCrossings.add(pail);
+                        index2++;
+                        if (pail == bucket) {
+                            break;
+                        }
+                    }
+                    if (subKnotCrossings.size() == this.halfCrossList.size()) {
+                        break;
+                    }
+                    ArrayList<HalfCrossing> remainderCrossings = new ArrayList<HalfCrossing>();
+                    while (true) {
+                        HalfCrossing pail = halfCrossList.get(index2 % halfCrossList.size());
+                        if (pail == left) {
+                            break;
+                        }
+                        remainderCrossings.add(pail);
+                        index2++;
+                    }
+                    Knot subKnot = new Knot();
+                    subKnot.halfCrossList = subKnotCrossings;
+                    Knot remainder = new Knot();             
+                    remainder.halfCrossList = remainderCrossings;
+                    ArrayList<Knot> result = new ArrayList<Knot>();
+                    ArrayList<Knot> pail = subKnot.checkSum(solve);
+                    if (pail != null) {
+                        if (solve) {
+                            for (Knot k : pail) {
+                                k = k.solve(true);
+                            }
+                        }                    
+                        result.addAll(pail);
+                    } else {
+                        subKnot = subKnot.solve(true);
+                        result.add(subKnot);
+                    }
+                    pail = remainder.checkSum(solve);
+                    if (pail != null) {
+                        if (solve) {
+                            for (Knot k : pail) {
+                                k = k.solve(true);
+                            }
+                        }                    
+                        result.addAll(pail);
+                    } else {
+                        remainder = remainder.solve(true);
+                        result.add(remainder);
+                    }
+                    return result;
+                }
+                index++;
+            }
+        }
+        return null;
+    }
+    
+    public Knot solve(boolean printAndStuff) {
+        representMode = Knot.REP_NTL;
+        HashMap<String, Knot> knots = new HashMap<String, Knot>();
+        Knot bucket = branch(knots);
+        if (bucket != null) {
+            return bucket;
+        }
+        BigInteger minWeight = null;
+        Knot lightest = null;
+        for (String s : knots.keySet()) {
+            if (printAndStuff)
+                System.out.println("- " + s);
+            BigInteger weight = knots.get(s).getWeight();
+            if (lightest == null || weight.compareTo(minWeight) == -1) {
+                lightest = knots.get(s);
+                minWeight = weight;
+            } else if (weight.compareTo(minWeight) == 0) {
+                if (printAndStuff)
+                    System.out.println("Equal weights!");
+            }
+        }
+        if (printAndStuff) {
+            System.out.println();
+            System.out.println("Lightest: " + lightest.representation);
+            System.out.println("at " + minWeight.toString());
+        }
+        lightest.represent();
+        return lightest;
     }
 }

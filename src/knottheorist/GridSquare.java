@@ -138,7 +138,8 @@ public class GridSquare {
                         return;
                     }
                     Point mouseWas = new Point(parentGrid.mouseFrom.x - e.getXOnScreen() + e.getX(), parentGrid.mouseFrom.y - e.getYOnScreen() + e.getY());
-                    System.out.println(mouseWas);
+                    if (KnotTheoristView.DEBUG_INFO)
+                        System.out.println(mouseWas);
                     parentGrid.mouseFrom = e.getLocationOnScreen();
                     if (mouseWas.x < 0) {
                         // From off left
@@ -175,7 +176,9 @@ public class GridSquare {
                     switch (state) {
                         case KNOT_EMPTY:
                             //System.out.println("Enter:" + e.getX() + ", " + e.getY());
-                            System.out.println(sideToString(mouseEnteredSide));
+                            if (KnotTheoristView.DEBUG_INFO) {
+                                System.out.println(sideToString(mouseEnteredSide));
+                            }
                             break;
                         case KNOT_CROSSEW:
                         case KNOT_CROSSNS:
@@ -227,9 +230,11 @@ public class GridSquare {
                             // Something's wrong; it exited to INSIDE the box.
                         }
                     }
-                    System.out.println(e.getPoint());
-                    System.out.println(sideToString(mouseExitedSide));
-                    System.out.println();
+                    if (KnotTheoristView.DEBUG_INFO) {
+                        System.out.println(e.getPoint());
+                        System.out.println(sideToString(mouseExitedSide));
+                        System.out.println();
+                    }
                     switch (state) {
                         case KNOT_EMPTY:
                             //System.out.println("Leave:" + e.getX() + ", " + e.getY());
