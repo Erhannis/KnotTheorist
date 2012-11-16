@@ -195,6 +195,7 @@ public class KnotTheoristView extends FrameView {
         editRepresentation.setName("editRepresentation"); // NOI18N
 
         jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
+        jButton1.setToolTipText(resourceMap.getString("jButton1.toolTipText")); // NOI18N
         jButton1.setName("jButton1"); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -203,6 +204,7 @@ public class KnotTheoristView extends FrameView {
         });
 
         btnClear.setText(resourceMap.getString("btnClear.text")); // NOI18N
+        btnClear.setToolTipText(resourceMap.getString("btnClear.toolTipText")); // NOI18N
         btnClear.setName("btnClear"); // NOI18N
         btnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -271,6 +273,7 @@ public class KnotTheoristView extends FrameView {
         });
 
         btnRegurgitate.setText(resourceMap.getString("btnRegurgitate.text")); // NOI18N
+        btnRegurgitate.setToolTipText(resourceMap.getString("btnRegurgitate.toolTipText")); // NOI18N
         btnRegurgitate.setName("btnRegurgitate"); // NOI18N
         btnRegurgitate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -294,6 +297,7 @@ public class KnotTheoristView extends FrameView {
         });
 
         btnToNotesBottom.setText(resourceMap.getString("btnToNotesBottom.text")); // NOI18N
+        btnToNotesBottom.setToolTipText(resourceMap.getString("btnToNotesBottom.toolTipText")); // NOI18N
         btnToNotesBottom.setName("btnToNotesBottom"); // NOI18N
         btnToNotesBottom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -302,6 +306,7 @@ public class KnotTheoristView extends FrameView {
         });
 
         btnToNotesTop.setText(resourceMap.getString("btnToNotesTop.text")); // NOI18N
+        btnToNotesTop.setToolTipText(resourceMap.getString("btnToNotesTop.toolTipText")); // NOI18N
         btnToNotesTop.setName("btnToNotesTop"); // NOI18N
         btnToNotesTop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -342,6 +347,7 @@ public class KnotTheoristView extends FrameView {
         });
 
         btnSolve.setText(resourceMap.getString("btnSolve.text")); // NOI18N
+        btnSolve.setToolTipText(resourceMap.getString("btnSolve.toolTipText")); // NOI18N
         btnSolve.setName("btnSolve"); // NOI18N
         btnSolve.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -366,6 +372,7 @@ public class KnotTheoristView extends FrameView {
         });
 
         btnRandomFlip.setText(resourceMap.getString("btnRandomFlip.text")); // NOI18N
+        btnRandomFlip.setToolTipText(resourceMap.getString("btnRandomFlip.toolTipText")); // NOI18N
         btnRandomFlip.setName("btnRandomFlip"); // NOI18N
         btnRandomFlip.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -401,7 +408,7 @@ public class KnotTheoristView extends FrameView {
         jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
         jInternalFrame1Layout.setHorizontalGroup(
             jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jInternalFrame1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createSequentialGroup()
@@ -468,8 +475,8 @@ public class KnotTheoristView extends FrameView {
         );
         jInternalFrame1Layout.setVerticalGroup(
             jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createSequentialGroup()
+                .addContainerGap(27, Short.MAX_VALUE)
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(editRepresentation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
@@ -496,11 +503,11 @@ public class KnotTheoristView extends FrameView {
                             .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(btnFirstTri)
                                 .addComponent(btnAllTri))
-                            .addComponent(btnFull12)
                             .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(btnFlipOver)
                                 .addComponent(btnFlipBack)
-                                .addComponent(btnCopy)))
+                                .addComponent(btnCopy))
+                            .addComponent(btnFull12))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnRemLoops, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -521,7 +528,7 @@ public class KnotTheoristView extends FrameView {
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnClear)
                     .addComponent(editModified, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jScrollPane2.setName("jScrollPane2"); // NOI18N
@@ -556,7 +563,7 @@ public class KnotTheoristView extends FrameView {
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
