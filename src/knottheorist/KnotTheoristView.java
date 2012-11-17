@@ -43,8 +43,10 @@ public class KnotTheoristView extends FrameView {
     private static final int SQUARE_WIDTH = 31;
     private static final int SQUARE_HEIGHT = 31;
     public static final boolean DEBUG_INFO = false;
-    private KnotGrid grid = null;
+    public KnotGrid grid = null;
     public Icon[] knotIcons = null;
+    public Icon[] knotIconsGrid = null;
+    public Icon[] knotIconsClean = null;
     //public Icon[] btnColorsDown = null;
     public Random rng = new Random();
     public Knot knot = null;
@@ -138,17 +140,30 @@ public class KnotTheoristView extends FrameView {
         this.resourceMap = resourceMap;
 
 
-        knotIcons = new Icon[9];
-        knotIcons[0] = resourceMap.getIcon("KnotGrid.knotIcons[0]");
-        knotIcons[1] = resourceMap.getIcon("KnotGrid.knotIcons[1]");
-        knotIcons[2] = resourceMap.getIcon("KnotGrid.knotIcons[2]");
-        knotIcons[3] = resourceMap.getIcon("KnotGrid.knotIcons[3]");
-        knotIcons[4] = resourceMap.getIcon("KnotGrid.knotIcons[4]");
-        knotIcons[5] = resourceMap.getIcon("KnotGrid.knotIcons[5]");
-        knotIcons[6] = resourceMap.getIcon("KnotGrid.knotIcons[6]");
-        knotIcons[7] = resourceMap.getIcon("KnotGrid.knotIcons[7]");
-        knotIcons[8] = resourceMap.getIcon("KnotGrid.knotIcons[8]");
+        knotIconsGrid = new Icon[9];
+        knotIconsGrid[0] = resourceMap.getIcon("KnotGrid.knotIconsGrid[0]");
+        knotIconsGrid[1] = resourceMap.getIcon("KnotGrid.knotIconsGrid[1]");
+        knotIconsGrid[2] = resourceMap.getIcon("KnotGrid.knotIconsGrid[2]");
+        knotIconsGrid[3] = resourceMap.getIcon("KnotGrid.knotIconsGrid[3]");
+        knotIconsGrid[4] = resourceMap.getIcon("KnotGrid.knotIconsGrid[4]");
+        knotIconsGrid[5] = resourceMap.getIcon("KnotGrid.knotIconsGrid[5]");
+        knotIconsGrid[6] = resourceMap.getIcon("KnotGrid.knotIconsGrid[6]");
+        knotIconsGrid[7] = resourceMap.getIcon("KnotGrid.knotIconsGrid[7]");
+        knotIconsGrid[8] = resourceMap.getIcon("KnotGrid.knotIconsGrid[8]");
 
+        knotIconsClean = new Icon[9];
+        knotIconsClean[0] = resourceMap.getIcon("KnotGrid.knotIconsClean[0]");
+        knotIconsClean[1] = resourceMap.getIcon("KnotGrid.knotIconsClean[1]");
+        knotIconsClean[2] = resourceMap.getIcon("KnotGrid.knotIconsClean[2]");
+        knotIconsClean[3] = resourceMap.getIcon("KnotGrid.knotIconsClean[3]");
+        knotIconsClean[4] = resourceMap.getIcon("KnotGrid.knotIconsClean[4]");
+        knotIconsClean[5] = resourceMap.getIcon("KnotGrid.knotIconsClean[5]");
+        knotIconsClean[6] = resourceMap.getIcon("KnotGrid.knotIconsClean[6]");
+        knotIconsClean[7] = resourceMap.getIcon("KnotGrid.knotIconsClean[7]");
+        knotIconsClean[8] = resourceMap.getIcon("KnotGrid.knotIconsClean[8]");
+        
+        knotIcons = knotIconsGrid;
+        
         for (int i = 0; i < 9; i++) {
         }
         /*        btnColorsDown = new Icon[10];
@@ -221,9 +236,10 @@ public class KnotTheoristView extends FrameView {
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        mitemImageProcessing = new javax.swing.JMenuItem();
+        mitemRegurgitation = new javax.swing.JMenuItem();
+        mitemOptions = new javax.swing.JMenuItem();
+        mitemNotes = new javax.swing.JMenuItem();
         javax.swing.JMenu helpMenu = new javax.swing.JMenu();
         mitemHelp = new javax.swing.JMenuItem();
         javax.swing.JMenuItem aboutMenuItem = new javax.swing.JMenuItem();
@@ -531,7 +547,7 @@ public class KnotTheoristView extends FrameView {
         jInternalFrame1Layout.setVerticalGroup(
             jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createSequentialGroup()
-                .addContainerGap(54, Short.MAX_VALUE)
+                .addContainerGap(18, Short.MAX_VALUE)
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(editRepresentation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnProcessKnot))
@@ -619,7 +635,7 @@ public class KnotTheoristView extends FrameView {
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -640,32 +656,41 @@ public class KnotTheoristView extends FrameView {
         jMenu1.setText(resourceMap.getString("jMenu1.text")); // NOI18N
         jMenu1.setName("jMenu1"); // NOI18N
 
-        jMenuItem3.setText(resourceMap.getString("jMenuItem3.text")); // NOI18N
-        jMenuItem3.setName("jMenuItem3"); // NOI18N
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        mitemImageProcessing.setText(resourceMap.getString("mitemImageProcessing.text")); // NOI18N
+        mitemImageProcessing.setName("mitemImageProcessing"); // NOI18N
+        mitemImageProcessing.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                mitemImageProcessingActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem3);
+        jMenu1.add(mitemImageProcessing);
 
-        jMenuItem1.setText(resourceMap.getString("jMenuItem1.text")); // NOI18N
-        jMenuItem1.setName("jMenuItem1"); // NOI18N
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        mitemRegurgitation.setText(resourceMap.getString("mitemRegurgitation.text")); // NOI18N
+        mitemRegurgitation.setName("mitemRegurgitation"); // NOI18N
+        mitemRegurgitation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                mitemRegurgitationActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(mitemRegurgitation);
 
-        jMenuItem2.setText(resourceMap.getString("jMenuItem2.text")); // NOI18N
-        jMenuItem2.setName("jMenuItem2"); // NOI18N
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        mitemOptions.setText(resourceMap.getString("mitemOptions.text")); // NOI18N
+        mitemOptions.setName("mitemOptions"); // NOI18N
+        mitemOptions.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                mitemOptionsActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        jMenu1.add(mitemOptions);
+
+        mitemNotes.setText(resourceMap.getString("mitemNotes.text")); // NOI18N
+        mitemNotes.setName("mitemNotes"); // NOI18N
+        mitemNotes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemNotesActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mitemNotes);
 
         menuBar.add(jMenu1);
 
@@ -708,6 +733,7 @@ private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         editRepresentation.setText("");
         editModified.setText("");
         this.mainPanel.revalidate();
+        mainPanel.repaint();
 //        jScrollPane2.revalidate();
 //        jScrollPane2.updateUI();//jScrollPane2.validate()
 //        jScrollPane2.validate();
@@ -809,14 +835,14 @@ private void btnRegurgitateActionPerformed(java.awt.event.ActionEvent evt) {//GE
 }//GEN-LAST:event_btnRegurgitateActionPerformed
     public RegurgitationForm rForm = null;
 
-private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+private void mitemRegurgitationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemRegurgitationActionPerformed
     if (rForm == null) {
         rForm = new RegurgitationForm();
         rForm.show();
     } else {
         rForm.show();
     }
-}//GEN-LAST:event_jMenuItem1ActionPerformed
+}//GEN-LAST:event_mitemRegurgitationActionPerformed
 
 private void btnDigestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDigestActionPerformed
     ArrayList<HalfCrossing> crossings = new ArrayList<HalfCrossing>();
@@ -838,14 +864,14 @@ private void btnDigestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 }//GEN-LAST:event_btnDigestActionPerformed
     public NotesForm notes = new NotesForm();
 
-private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+private void mitemNotesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemNotesActionPerformed
     if (notes != null) {
         notes.show();
     } else {
         notes = new NotesForm();
         notes.show();
     }
-}//GEN-LAST:event_jMenuItem2ActionPerformed
+}//GEN-LAST:event_mitemNotesActionPerformed
 
 private void btnToNotesTopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToNotesTopActionPerformed
     notes.jTextArea1.setText(notes.jTextArea1.getText() + editRepresentation.getText() + "\n");
@@ -960,14 +986,15 @@ private void btnCopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
 
     public ImageProcessingForm imageProcessingForm = null;
 
-private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+private void mitemImageProcessingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemImageProcessingActionPerformed
     if (imageProcessingForm == null) {
         imageProcessingForm = new ImageProcessingForm();
     }
     imageProcessingForm.setVisible(true);
-}//GEN-LAST:event_jMenuItem3ActionPerformed
+}//GEN-LAST:event_mitemImageProcessingActionPerformed
 
     public HelpForm helpForm = null;
+    public OptionsForm optionsForm = null;
 
 private void mitemHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemHelpActionPerformed
     if (helpForm == null) {
@@ -982,6 +1009,13 @@ private void btnJumpCrossingsActionPerformed(java.awt.event.ActionEvent evt) {//
         editModified.setText(knot.toString());
     }
 }//GEN-LAST:event_btnJumpCrossingsActionPerformed
+
+private void mitemOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemOptionsActionPerformed
+    if (optionsForm == null) {
+        optionsForm = new OptionsForm(this);
+    }
+    optionsForm.setVisible(true);
+}//GEN-LAST:event_mitemOptionsActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bntSHU;
@@ -1013,14 +1047,15 @@ private void btnJumpCrossingsActionPerformed(java.awt.event.ActionEvent evt) {//
     private javax.swing.JTextField editRepresentation;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem mitemHelp;
+    private javax.swing.JMenuItem mitemImageProcessing;
+    private javax.swing.JMenuItem mitemNotes;
+    private javax.swing.JMenuItem mitemOptions;
+    private javax.swing.JMenuItem mitemRegurgitation;
     private javax.swing.JSpinner spinCols;
     private javax.swing.JSpinner spinRows;
     // End of variables declaration//GEN-END:variables

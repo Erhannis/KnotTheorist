@@ -60,7 +60,6 @@ public class GridSquare {
     ;
     public int state = 0;
     public JLabel body;
-    public Icon[] knotIcons = null;
     public KnotGrid parentGrid = null;
     private static final int NONE = 0;
     private static final int TOP = 1;
@@ -96,9 +95,8 @@ public class GridSquare {
     
     public static boolean mouseDownInSquare = false;
 
-    public GridSquare(Icon[] knotIcons, JLabel body, final KnotGrid parentGrid, int width, final int height) {
+    public GridSquare(JLabel body, final KnotGrid parentGrid, int width, final int height) {
         this.state = KNOT_EMPTY;
-        this.knotIcons = knotIcons;
         this.body = body;
         this.width = width;
         this.height = height;
@@ -1064,7 +1062,7 @@ public class GridSquare {
     }
 
     public void setKnot(int knot) {
-        this.body.setIcon(knotIcons[knotToImg(knot)]);
+        this.body.setIcon(parentGrid.knotIcons[knotToImg(knot)]);
         this.state = knot;
     }
     

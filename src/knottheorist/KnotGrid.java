@@ -32,6 +32,7 @@ public class KnotGrid {
     //public GridSquare[][] buttonsDown = null;
     public KnotTheoristView parentView = null;
     public Point mouseFrom = new Point();
+    public Icon[] knotIcons = null;
 
     public KnotGrid() {
     }
@@ -43,12 +44,13 @@ public class KnotGrid {
 
     public void init(Icon[] btnColors, Random rng, KnotTheoristView parentView, int squareWidth, int squareHeight) {
         this.parentView = parentView;
+        this.knotIcons = btnColors;
         squares = new GridSquare[cols][rows];
         for (int x = 0; x < cols; x++) {
             for (int y = 0; y < rows; y++) {
                 JLabel bucket = new JLabel("", btnColors[GridSquare.KNOT_EMPTY], JLabel.CENTER);
                 bucket.setSize(squareWidth, squareHeight);
-                squares[x][y] = new GridSquare(btnColors, bucket, this, squareWidth, squareHeight);
+                squares[x][y] = new GridSquare(bucket, this, squareWidth, squareHeight);
                 //buttons[x][y].numLinks = rng.nextInt(maxChildren - minChildren + 1) + minChildren;
                 //buttons[x][y].links = new GridButtonLink[buttons[x][y].numLinks];
             }
@@ -685,5 +687,13 @@ public class KnotGrid {
             squares[0][y].setKnot(GridSquare.KNOT_EMPTY);
         }
         return true;
+    }
+    
+    public void refreshImages() {
+        for (int i = 0; i < cols; i++) {
+            for (int j = 0; j < rows; j++) {
+                squares[i][j].setKnot(squares[i][j].state);
+            }
+        }
     }
 }
