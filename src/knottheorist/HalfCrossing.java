@@ -59,4 +59,8 @@ public class HalfCrossing {
     }
     
     public HashMap<HashSet<HalfCrossing>, HalfCrossing> triPair = new HashMap<HashSet<HalfCrossing>, HalfCrossing>();
+    
+    public String toString() {
+        return this.name + (tb == CROSS_TOP ? 't' : 'b') + (lr == CROSS_LEFT ? 'l' : 'r');
+    }
 }

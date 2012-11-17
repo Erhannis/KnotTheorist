@@ -18,7 +18,7 @@ public class Knot {
 
     public ArrayList<HalfCrossing> halfCrossList;
     //public ArrayList<Crossing> crossList;
-    public String representation = null;
+    public String representation = "unknot";
 
     public Knot() {
         halfCrossList = new ArrayList<HalfCrossing>();
@@ -32,6 +32,10 @@ public class Knot {
     public String delimiter = " ";
 
     public void represent() {//halfCrossList.clear()
+        if (halfCrossList.isEmpty()) {
+            this.representation = "unknot";
+            return;
+        }
         String result = "";
         switch (representMode) {
             case REP_ATL:
@@ -341,6 +345,10 @@ public class Knot {
         //TODO Check for validity.
 //        ArrayList<HalfCrossing> newHC = new ArrayList<HalfCrossing>();
         halfCrossList = new ArrayList<HalfCrossing>();
+        if ("unknot".equals(rep.replace(" ", "").toLowerCase())) {
+            represent();
+            return "success";
+        }
         //int newMode = 0;
         HalfCrossing newh = null;
         if (rep.length() == 0) {
@@ -1120,5 +1128,112 @@ public class Knot {
         }
         lightest.represent();
         return lightest;
+    }
+    
+    /**
+     * Run from x to y around the edge of the knot like a maze.  Tells you whether
+     * you can connect x straight to y.  Returns a knot where this has been done, or null.
+     * @param x
+     * @param y
+     * @return 
+     */
+    public Knot jumpConnection(HalfCrossing x, HalfCrossing y) {        
+        Knot sim = this.copy();
+        int index = halfCrossList.indexOf(x);
+        x = sim.halfCrossList.get(index);
+        y = sim.halfCrossList.get(this.halfCrossList.indexOf(y));
+        index++;
+        int topOrBottom = HalfCrossing.CROSS_NONE;
+        ArrayList<HalfCrossing> remove = new ArrayList<HalfCrossing>();
+        while (true) {
+            HalfCrossing bucket = sim.halfCrossList.get(index % sim.halfCrossList.size());
+            if (bucket == y) {
+                break;
+            }
+            if (bucket == x.twin ||
+                bucket == y.twin) {// I'm going to assume the knot is valid enough that you can't just wind up back at x.
+                return null;
+            }
+            if (topOrBottom == HalfCrossing.CROSS_NONE) {
+                topOrBottom = bucket.tb;
+            } else if (bucket.tb != topOrBottom) {
+                return null;
+            }
+            remove.add(bucket);
+            remove.add(bucket.twin);
+            index++;
+        }
+        sim.halfCrossList.removeAll(remove);
+        for (int i = 0; i < sim.halfCrossList.size(); i++) {
+            sim.halfCrossList.get(i).next = sim.halfCrossList.get((i + 1) % sim.halfCrossList.size());
+            sim.halfCrossList.get((i + 1) % sim.halfCrossList.size()).prev = sim.halfCrossList.get(i);
+        }
+        // Go CW.
+        int UPSTREAM = 1;
+        int DOWNSTREAM = 2;
+        HalfCrossing pos = x.twin;
+        int dir;
+        if (x.lr == HalfCrossing.CROSS_RIGHT) {
+            dir = UPSTREAM;
+        } else {
+            dir = DOWNSTREAM;
+        }
+        while (true) {
+            if (dir == UPSTREAM) {
+                pos = pos.prev;
+            } else {
+                pos = pos.next;
+            }
+            if (pos.lr == HalfCrossing.CROSS_LEFT) {
+                if (dir == UPSTREAM) {
+                    dir = DOWNSTREAM;
+                } else {
+                    dir = UPSTREAM;
+                }
+            }
+            pos = pos.twin;
+            // Check if back where we started.
+            if (pos == x && dir == DOWNSTREAM) {
+                return null;
+            }
+            // Check if we've made it.
+            if (pos == y && dir == UPSTREAM) {
+                return sim;
+            }
+        }
+    }
+    
+    /**
+     * Attempts to find crossings that can be directly connected, skipping crossings in between.
+     * Jumps at most one; returns true if it did.  May therefore be run more than once.
+     */
+    public boolean jumpConnections() {
+        if (halfCrossList.size() == 2) {
+            halfCrossList = new ArrayList<HalfCrossing>();
+            this.represent();
+            return true;
+        }
+        // This may be somewhat computationally expensive; n^2 plus tax.
+        for (int i = 0; i < halfCrossList.size(); i++) {
+            HalfCrossing x = halfCrossList.get(i);
+            int index = i + 2;
+            int numChecked = 0;
+            while (true) {
+                HalfCrossing y = halfCrossList.get(index % halfCrossList.size());
+                Knot k = jumpConnection(x, y);
+                if (k != null) {
+                    this.halfCrossList = k.halfCrossList;
+                    this.represent();
+                    return true;
+                }
+                index++;
+                numChecked++;
+                if (numChecked == (halfCrossList.size() / 2)) {
+                    // At most |hCL| hcrosses can be unanimously top or bottom.
+                    return false;
+                }
+            }
+        }
+        return false;
     }
 }
