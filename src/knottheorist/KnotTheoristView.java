@@ -998,7 +998,7 @@ private void mitemImageProcessingActionPerformed(java.awt.event.ActionEvent evt)
 
 private void mitemHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemHelpActionPerformed
     if (helpForm == null) {
-        helpForm = HelpForm.makeHelpFromResource("help.html");
+        helpForm = HelpForm.makeHelpFromResource("help.txt");
     }
     helpForm.setVisible(true);
 }//GEN-LAST:event_mitemHelpActionPerformed

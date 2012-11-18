@@ -54,7 +54,7 @@ public class HelpForm extends javax.swing.JFrame {
     public static HelpForm makeHelpFromResource(String resourceFileName) {
         String helpText = "Error.  Help resource could not be loaded.";
         try {
-            InputStream is = KnotTheoristView.class.getResourceAsStream("resources/help.html");
+            InputStream is = KnotTheoristView.class.getResourceAsStream("resources/" + resourceFileName);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             String line = null;
             StringBuilder sb = new StringBuilder();

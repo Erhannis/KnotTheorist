@@ -1,0 +1,10 @@
+<html>
+<h2>0. Speed Run</h2>
+Draw a knot.  Hold shift to draw under, otherwise draw over.  Hold ctrl to erase.<br/>
+Now push Process Shown Knot.  Now push Solve, at the bottom.  Now push Regurgitate.<br/>
+<br/>
+Or push buttons at random and see how quickly you can break it.<br/>
+<h2>1. About</h2>
+<h2>2. Knot Board</h2>
+<h2>3. Tool Panel</h2>
+</html>
