@@ -166,9 +166,17 @@ public class KnotGrid {
         }
 
         int count = 0;
+        if (x >= cols || y >= rows) {
+            result.represent();
+            return result;
+        }
         boolean done = false;
         while (!done) {
             count++;
+            if (x >= cols || y >= rows) {
+                result.representation = "Break at " + x + ", " + y;
+                return result;
+            }
             switch (squares[x][y].state) {
                 case GridSquare.KNOT_EMPTY:
                     result.representation = "Break at " + x + ", " + y;
