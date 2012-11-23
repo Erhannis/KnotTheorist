@@ -5,6 +5,52 @@ Now push Process Shown Knot.  Now push Solve, at the bottom.  Now push Regurgita
 <br/>
 Or push buttons at random and see how quickly you can break it.<br/>
 <h2>1. About</h2>
+KnotTheorist is designed to aid in the analysis of knots, in the context of knot theory.
+Within this context, a knot what you'd expect, except that it's joined at the end.
+Two knots are considered the same if you turn one into the other without cutting it.
+Much of knot theory deals with whether a knot is actually the unknot: a plain loop of string;
+no actual knots.<br/>
+KnotTheorist allows you to draw knots on the Knot Board, which it can attempt to analyze in
+several ways; the main thing it can try to do is reduce it to its simplest form, possibly
+the unknot.<br/>
+To my knowledge, the solver works for all knots (no support for links, yet), but I haven't
+proven this to be so.  The other day I found an example which it wasn't able to solve properly.
+However, I figured out why that was, added a mechanism for checking that type of situation,
+and now it works again.  If you find any examples of knots that aren't simplified properly,
+I would very much appreciate hearing about them.  I think there are resources for that
+on SourceForge.net.
+<h2>1.5 Semi-Technicals</h2>
+So, the main thing I'll explain here is the notation I use.  I didn't do much research when I started
+writing this program, partially because it was more fun to figure it out myself.  In any case,
+you'll notice that knots get encoded in a string of letters, numbers, and/or arrow brackets.<br/>
+I designed the notation to uniquely encode any projection of a knot.  As it turns out, it's closely related
+to Dowker's notation; it <i>was</i> almost exactly the same, but then I noticed that it didn't preserve
+right/left-handedness, so I added a piece of information which I believe corrects that.<br/>
+Anyway, here's how it works:<br/>
+When you click "Process shown knot," the program scans the board in rows from the top-left
+corner.  When it finds a string segment, it starts following the path of the segment, going right.
+When it gets to a new crossing, it marks the crossing with the next letter or number up
+(so the first crossing would be A, the second would be B, and so forth).  At the same time,
+it marks which direction it's traveling.  When, later on, it gets back to the same crossing,
+but along the other participating part of the string, it keeps the same label, but notes which
+direction the second pass is going in.  You then end up with the knot diagram, with all its
+crossings uniquely labeled, and which direction you're headed when you go over or under at a
+crossing.  The program then starts where it did before and follows the same path around.
+Each time it gets to a crossing, it outputs the name of the crossing, whether it's going
+over or under, and whether the other string is going left or right.  (This can be displayed
+as a label (uppercase for above, lowercase for under) with an arrow pointing in the direction
+the crossing's pair is going, or (number)(t/b for top/bottom)(l/r for left/right).  The left/right
+maintains the left/right handedness of the knot.  So, for example, the left-handed trefoil is <br/><br/>
+A&gt; &lt;b C&gt; &lt;a B&gt; &lt;c <br/>
+or <br/>
+1tr2bl3tr1bl2tr3bl <br/><br/>
+and the right-handed trefoil is <br/><br/>
+&lt;A b&gt; &lt;C a&gt; &lt;B c&gt; <br/>
+or <br/>
+1tl2br3tl1br2tl3br.<br/>
 <h2>2. Knot Board</h2>
 <h2>3. Tool Panel</h2>
+<h2>4. Additional Windows</h2>
+<h2>5. To-Do</h2>
+<h2>6. Observations</h2>
 </html>
