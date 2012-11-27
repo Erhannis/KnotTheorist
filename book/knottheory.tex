@@ -1,0 +1,130 @@
+
+\documentclass[twoside]{report}
+\title{Stuff I'm Figuring Out About Knot Theory}
+\author{Matthew Ewer}
+\date{Sat. 17 Dec. 2011}
+
+\usepackage{graphicx}
+
+\usepackage{ulem}
+\usepackage{amsfonts}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{placeins}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\chapter{In Which Much Rambling Is Performed}
+
+\section{Introduction}
+
+Blah, blah, blah, so I thought knot theory would be interesting to investigate.  Or make into a computer game.  Something.  And it is.  Interesting, anyway.  We'll see about the rest.  The story so far:
+\begin{itemize}
+\item I sat down and thought.
+\item For a long time.
+\item First thing I needed, in order to make a knot program, was a way for the computer to deal with knots.
+\item So I invented a way.  Maybe it's been done before, though I haven't seen it.
+\item Started the program; made a way to draw knots and turn them into the representation.
+\item Got distracted for a few months.  Like, 6.
+\item Came back to it; added a dozen functions.
+\end{itemize}
+And now you're up to speed.
+
+\section{Notation}
+
+Well, so, first thing was to figure out how to represent the knots in a computer in a convenient fashion.  After messing around with it for a while, I came up with a way that lacked a component.  Skipping ahead to the time I figured that out (I was missing orientation), my notation is now a string of small units of letters/numbers/symbols representing each half of a crossing in order all the way along the string, containing the following information for each half-crossing:
+\begin{description}
+\item[Label] Which crossing you're on.  There will be two half-crossings with a given label.
+\item[Side] Top or bottom?
+\item[Orientation] The partner half to the given half-crossing - which way is it facing?  If you stand on the crossing and face the direction you're headed, does the counterpart strand run to your left or to your right?
+\end{description}
+I have evidence to believe that this is sufficent to describe a given arrangement of a knot uniquely\footnote{Experimental evidence, anyway.  I give my program a knot, get the representation, feed it to the program, and it gives me topologically the same knot.}, and that (aside from recently discovered concerns about the orientation of the knot as a whole - your representation is backwards if you head backwards) each arrangement basically has one representation.  You can start anywhere in the representation, though - it just wraps around.\\\\
+As an example, here are representations of the trefoil:
+\begin{description}
+\item[Written] $\overleftarrow{A}\overrightarrow{b}\overleftarrow{C}\overrightarrow{a}\overleftarrow{B}\overrightarrow{c}$
+\item[Typed 1] AtlBbrCtlAbrBtlCbr
+\item[Typed 2] $<$A b$>$ $<$C a$>$ $<$B c$>$
+\item[Typed 3] 1tl2br3tl1br2tl3br
+\end{description}
+Hopefully that's mostly self explanatory - t/b and CAPS/uncaps are top and bottom, l/r and $<$/$>$ are left and right.\\\\
+Each method has slight advantages.  The written notation is more intuitive than the tblr notations, but infeasible to use on the computer in most circumstances\footnote{This was my first (corrected) version.  I now usually use Typed 2 in writing, though.}.  Typed 1-3 can be easily displayed by the computer.  Typed 2 is easier to read and understand, and is most intuitive, I think.  Typed 3, however, overcomes the crossing limit of 26\footnote{There's only 26 letters available for use in the other three.}.\\\\
+Man, I totally need some sweet diagrams or something.\\\\
+A more complicated example would be something like\\
+A$>$ B$>$ c$>$ $<$D e$>$ $<$C d$>$ $<$E $<$b $<$F g$>$ $<$H i$>$ $<$J f$>$ $<$G h$>$ $<$I j$>$ $<$a $<$K l$>$ $<$M k$>$ $<$L m$>$ \\\\
+So, now, we can move on to what this notation allows us to do.
+
+\section{Internal Integrity}
+
+So, as I quickly discovered, mashing out a random sequence of half-crossings probably won't give you a real knot.  There are a number of increasingly tricky rules governing whether a given representation is physically possible.
+
+\subsection{Matching Halves}
+
+Firstly, as you might expect, each half-crossing in a knot must have a twin, with the same name = ID = label\footnote{I mean here that I may use the three words interchangeably.}.  Each half-crossing is only half a crossing, clearly, so there must be two of them.\\\\
+SLIGHTLY less self evident is that for each pair, one must be top and one must be bottom.  Pretty obvious when stated.\\\\
+Considerably less self evident, though, is that the same is true for orientation.  If one half is ``left'', the other must be ``right''.  Each half must thus be the opposite of its pair.  The knot makes no sense, otherwise.  ``At this point, the strand goes over the other one.  When we come back to cross again, that strand goes over the other, too.'' (?!?!)
+
+\subsection{Left/Right Balance}
+
+A fair cry farther down the scale of obviousness is the idea\footnote{Which I'm really pretty sure is true, and I think you will be too, once we're done.} that between twins\footnote{Twins is the word I use for the two halves of a crossing.  E.g., ``One half's twin is the other half.''}, both of the following must be true\footnote{Yes, the second implies the first, I know.}:
+\begin{enumerate}
+\item There must be an even number of half-crossings between the two twins, on both sides.  Hang on.
+\item The lefts and rights must balance out on each side (balance on one side and balance on the other).
+\end{enumerate}
+First off, here's what I mean by ``on both sides.''  Since the string is a loop, the representation doesn't really start or stop; it wraps around from back to front.  You can conceptually divide the knot by one of its crossings - the half-crossings on one side of the division, and the half-crossings on the other.  For a simplified example, consider ABCabDdc.  Going from A to a, you encounter B and C.  However, you can also go from a to A, encountering bDdc.  That is what I mean by the two sides.  I may also refer to one side as a loop, since that's essentially what is made.\\\\
+I believe each loop can be considered as such - a simple loop.  Though they may in reality be twisted and knotted between their half-crossings, it seems to work to simply consider them to have an inside and an outside.  So, now, if the string crosses into the loop at any point, it must also cross out of it.  Otherwise, it can't connect back to the beginning of the knot\footnote{If the knot ``started'' outside the loop, then crossing into the loop must necessitate crossing back out, and similarly with starting inside it.}.\\\\
+This first implies that there must be an even number of half-crossings between twins.  Each half-crossing means that the string crossed over the border of the loop, either into or out of.  Now, suppose that our conceptually simplified loop runs counterclockwise, with the crossing over there in the lower left corner of our imagination.  Good.  Now, imagine a string crossing into the loop.  Notice how, wherever this string enters, the loop-strand is running to the right, from the perspective of our intruding string?  Similarly, every exit from the loop has the loop-strand running to its left.  From the perspective of the loop-strand, then, each entrant is running across it to the left, and each exiter runs to the right\footnote{It really helps to imagine you're walking/running/locomoting along the given strand, watching the flow along the other strand.}.  Since this is true for all valid knots, between each pair of half-crossings (on both sides) each left must have a matching right.  All lefts and rights must balance in each loop.  If not, you're trying to go from somewhere inside a loop to somewhere outside the loop, without crossing over.  I have found myself trying to draw that several times.  It doesn't work, as you might expect.
+
+\subsection{Gate Domains}
+
+Way, way back down the ladder of obviousness, skulking in a quiet corner in the darkness, we find this concept I've just now decided to call gate domains\footnote{I did call them gates in my program, though.}.  This is closely tied with the left/right balance.  It's a bit more precise, however - this ensures that everything that happens in a loop....uh....stays in a loop.  Suppose you have cheerful loop Aa.  Now, one strand crosses into and out of the loop.  All fine and dandy.  Suppose, however, that while it's inside the loop, the representation dictates that it has half-crossing H.  However, H's twin, h, isn't inside the loop, but outside it.  Have you ever tried standing in a closed room and shaking hands with someone outside it?  No?  Of course not; that would be silly.  To make sure the representation isn't requiring something like that, we can check these aforementioned gates.  This will need a textual illustration.  It will also be needing visual illustrations, once I get around to it.  We must consider each pair of half-crossings, in turn, and their two associated loops.\\\\
+
+Given a loop, mark its endpoint half-crossings as walls.  Within the loop, between the walls, every half-crossing lies on the border, and thus forms a Gate\footnote{Big Gate as opposed to little gate - Gates lie in line between the walls, whereas gates are the half-crossing over the Gate into or out of the loop.  Keep reading, we get to it.} between the inside and the outside of the loop.  (If a Gate and its twin are both Gates, ignore them - they mess things up if considered as Gates, here.)  Now, for each Gate, make its twin a gate (unless the previous exception, etc.).  Now you can use the gates to divide the rest of the knot into sections that are inside or outside of the loop.  Starting from just past the right wall, you consider that to be outside the loop\footnote{It might not actually be, like if the loop contains its other half, but it doesn't actually matter - you just need to be able to tell one -side from the other.} and mark the non-gate half-crossings as inside or outside, up until the next gate.  Since that represents crossing into/out of the loop, each time you cross a gate, swap whether you're marking things as inside or outside.  Once you get to the wall again, check all of the non gate/Gate/wall half-crossings (all the normal ones, in other words.).  If their twin is in the same region as them (both inside, both outside), everything is fine.  Otherwise, the knot is invalid.  Repeat this procedure for all loops.  If the representation passes this third test, it is a valid knot.  At least until someone finds a counter-example to my theory\footnote{It's held up rather solidly for me thus far, though.}.
+
+\section{The Reidemeister Moves}
+Dance time!  Ahem, no no no.  As you may or may not know, the Reidemeister moves are a set of all three (essentially indivisible) actions one can perform in untangling a knot.  They are generally just referred to as 1, 2, and 3, I believe, but I made up names for them.  Just like everything else here! :)
+
+\subsection{1 - Loop}
+Hmm, so this kinda overlaps with the Gates term, loop.  Oh well, it's kinda the same thing: a loop in this context is just an empty loop, like a curlique or somesuch.  As a move, it's the simplest of all - you insert or remove an empty loop.\\\\
+
+In terms of the representation, it shows up as a half-crossing and its twin side by side, like Aa or dD or whatever (top/bottom and left/right are irrelevant.).  You can just get rid of it without ceremony.\\\\
+AbCadDBc becomes\\
+AbCaBc\\\\
+That's it.
+
+\subsection{2 - Swap}
+Slightly more complex, though not by much, is the swap.  Imagine that you have two parallel strings in front of you.  You pull the middle of the right one over the left so that it just crosses over and back.  Or, you undo such an arrangement.  That's the swap.\\\\
+In terms of the representation, it shows up as basically one of the following:\\\\
+...AB...ab...\\
+...AB...ba...\\
+...ab...AB...\\
+...ab...BA...\\\\
+
+Basically, anytime two half-crossings are adjacent, and their twins are adjacent as well, AND both sets are individually homogenous in their top/bottom-ness\footnote{This indicates that the one strand crosses over on the top and crosses back on the top, and thus can just be moved off.  If it were aB...Ab, then the one would be looped around the other, and you'd just have to move on.}, then you have a swap.  You can simply remove it.  If you want to add one, you just have to check that it doesn't violate the internal integrity rules.
+
+\subsection{3 - Tri}
+This one is the most complex.  I'll be handing out diagrams like candy, here.  Imagine (or look at pictures of) three strands crossed at angles, making an empty triangle in the middle.  If they're not interleaved (like, if they're not folded ove one another like people do with the lid flaps of cardboard boxes to keep them shut without resorting to tape), or equivalently, if one of them is on top of both the others, you can take one strand and shift it over across the crossing the other two make.  It doesn't matter which strand you choose, it has the same result.  Ignoring a few annoying requirements, such an arrangment is represented by something like the following:\\\\
+...AB...bC...ca...\\\\
+
+Now, it helps to think of these three groups as groups.  It doesn't matter whether it's AB or BA, but each of the three crossings must have one half adjacent to a half of the other, and the second half adjacent to a half of the other other crossing.  Each crossing must lead to or be led to from both of the other crossings, or it's not a triangle.  One of the groups must be comprised of top halves\footnote{Which ensures that another is bottom halves, and one is mixed.}, or else no strand can be moved across.  Now, here's where it get's tricky.  Because of odd ways the knot can be arranged\footnote{Like when one or two of the crossings are flipped inside out - imagine the Adobe Acrobat symbol, and flip one of the loops over into the inside.  A connects to B connects to C connects to A, but there's a big loop in the way.}, it becomes important whether the half-crossings are left or right.  As a generalized rule, for each crossing in the tri, if both twins are on the left or both on the right of their group (Ab...cB, noticing bB), their group partners must have the same orientation as each other.  Otherwise, they must be opposite.  (If this isn't the case, flipping the tri or whatever will break the internal integrity rules.)  In practice, though, this leads to eight viable conditions.  We will ignore top/bottom here by representing the halves with 1, 2, and 3.  1 is whichever comes first, and 2 is its partner.  Thus it always starts with 12.\\\\
+.. $<$1 2$>$ .. $<$2 3$>$ .. $<$3 1$>$ ..\\
+.. 1$>$ $<$2 .. 2$>$ $<$3 .. 3$>$ $<$1 ..\\
+.. $<$1 $<$2 .. 2$>$ 3$>$ .. 1$>$ $<$3 ..\\
+.. 1$>$ 2$>$ .. $<$2 $<$3 .. $<$1 3$>$ ..\\
+.. $<$1 $<$2 .. $<$3 2$>$ .. 3$>$ 1$>$ ..\\
+.. 1$>$ 2$>$ .. 3$>$ $<$2 .. $<$3 $<$1 ..\\
+.. $<$1 2$>$ .. $<$3 $<$2 .. 1$>$ 3$>$ ..\\
+.. 1$>$ $<$2 .. 3$>$ 2$>$ .. $<$1 $<$3 ..\\\\
+
+These patterns should represent all tenable tri arrangements.  Once you've found a tri, it's not too hard to flip it - simply trade the positions of each member of a group, so that the left ones become right ones, like so:\\\\
+..12..23..31.. becomes\\
+..21..32..13..\\\\
+retaining whatever properties it had before.
+
+\section{Auxilliary Moves}
+Technically, these three moves are all you need to hopelessly tangle your knot, or recover it from its tangled state.  It would be reasonable to hope that by repeatedly removing loops and swaps, and flipping any available tris in different combinations would eventually result in the simplest form of the knot, continually decreasing its complexity along the way.  I have read assertions to the contrary, but, having neither evidence nor reason, I was unconvinced.  Once my program was more or less fully functional, however, I eventually discovered a counter-example.  The specific one I created was two trefoils and a 5-star\footnote{Yes, I made up the term.  I think it may be designated by $5^1$?} connected end to end, but with each of the prime knots twisted over (rotate them around an axis extending out from the center.).  It put a single twist in the string, represented by some X...x with the prime knot in the middle.  Clearly, untwisting it makes the knot simpler.  However, the twist isn't part of a tri, nor a swap, nor an empty loop, nor are there any other instances 
+
+Change of infinity
+Reverse orientation
+\end{document}
