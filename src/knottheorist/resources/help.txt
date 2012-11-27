@@ -52,5 +52,8 @@ or <br/>
 <h2>3. Tool Panel</h2>
 <h2>4. Additional Windows</h2>
 <h2>5. To-Do</h2>
+Oh, no!  I found another unknot which defies simplification.  Check Peter Cromwell's
+"Knots and Links," Fig. 3.23.c.  I'm not yet sure how to fix it, and worse,
+I'm now less sure that all possible problems <i>can</i> be accounted for.
 <h2>6. Observations</h2>
 </html>
