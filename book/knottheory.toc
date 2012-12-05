@@ -10,3 +10,7 @@
 \contentsline {subsection}{\numberline {1.4.2}2 - Swap}{7}{subsection.1.4.2}
 \contentsline {subsection}{\numberline {1.4.3}3 - Tri}{8}{subsection.1.4.3}
 \contentsline {section}{\numberline {1.5}Auxilliary Moves}{9}{section.1.5}
+\contentsline {subsection}{\numberline {1.5.1}Change of infinity}{10}{subsection.1.5.1}
+\contentsline {subsection}{\numberline {1.5.2}Reverse orientation}{10}{subsection.1.5.2}
+\contentsline {subsection}{\numberline {1.5.3}Knot factors}{10}{subsection.1.5.3}
+\contentsline {subsection}{\numberline {1.5.4}Jump Crossings}{10}{subsection.1.5.4}

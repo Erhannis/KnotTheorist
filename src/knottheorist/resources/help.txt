@@ -108,11 +108,55 @@ window from the "Windows" menu to observe its progress.  It's kinda fun.<br/>
 "Clear" clears all text boxes, the internal knot, and the Knot Board (resizing it to 
 the specifications of the number boxes).<br/>
 For the buttons on the left - really, the only one you probably want is "Solve", which 
-attempts to reduce the internal knot to a unique representation of its simplest form.
-
-<br id="ADD INFO HERE"/>
-
+attempts to reduce the internal knot to a unique representation of its simplest form.  
+"Full 12" performs any immediately accessible simplifying 1st and 2nd Reidemeister moves 
+repeatedly until no more can be found.<br/>
+"Rem Loops" and "Rem Swaps" are subdivisions of this, simplifying accessible 
+1st and 2nd Reidemeister moves respectively.  Each only does one iteration, though, 
+so, for instance, "Rem Loops" 1x could expose more loops to remove, like on a rubber band you twisted up, say.<br/>
+"Jump Xs" stands for "Jump Crossings."  It attempts to find places in the knot that can 
+clearly be joined directly, without disturbing unrelated sections of the knot.  See the 
+book, section 1.5.4, on Jump Crossings.<br/>
+So, those four buttons, "Tris" and company?  Maybe just leave them alone.  Even I'm 
+not totally sure how they're supposed to be used.  They were supposed to help test 
+the Tri functions (Reidemeister 3 moves), but I never smoothed out the edges on how 
+the buttons did it.  My best guess is that you hit "Tris" to populate a list with 
+the accessible Tris, then you can click the above three buttons to perform Reidemeister Move 3 
+on one or all of them.  If you click one before the other or something, you'll probably get a 
+null pointer exception.  I'm not sure what it does when you change the knot inbetween button 
+presses.  I'll probably get around to break-proofing them at some point.  Oh, but not 
+to worry, the actual Tris function used in solving knots works fine, to my knowledge.<br/>
+"Solve", as previously mentioned, attempts to reduce the internal knot to a unique 
+representation of its simplest form.  I am currently aware of one knot arrangement that 
+defies proper simplification (see To-Do), but I would be glad to know of any other sneaky 
+things that get by my algorithm, with or without suggestions on how to catch them.<br/>
+The last button, "Validate", checks to see if the loaded knot representation represents 
+a real knot (as opposed to being physically impossible).  To my knowledge it is correct, 
+but I would again be glad to know if this is not the case.  I think it works, though.
 <h2>4. Additional Windows</h2>
+<h3>4.1. Image Processing</h3>
+This doesn't yet do much, I'm afraid - still pending construction.  However, when functional, 
+it will theoretically take a reasonably clear drawing of a knot and either automatically 
+generate the textual representation or provide an interface for making the task a lot easier, 
+like half-automated.
+<h3>4.2. Regurgitation</h3>
+If you open this window up, all future regurgitations will be paused upon commencement.  
+In this window, it shows you what it's doing to regurgitate the knot.  Clicking "Step" 
+steps the process.  I recommend clicking "Step", then holding down the spacebar.  It 
+looks pretty cool with big knots.  If you click "Continue", it will stop displaying progress 
+and instead just finish silently and display the result like normal.  It was very helpful 
+in figuring out the bugs in the process.  I'll maybe get around to writing down the 
+actual algorithm, at some point, but you can already kind of see what it's doing, if 
+you follow along.  "Abort" aborts the render attempt, which may also affect subsequent renderings.  
+"Render" does nothing.  "Check Occupation" looks like it does something, but I don't remember 
+what and it didn't give any output the time or two I tried it just now.  Again, I'll figure 
+it out later.  It's not really important.
+<h3>4.3. Options</h3>
+Get yer' options here!  Well, there's really only one, so far, and that's whether to hide 
+the grid lines.  It looks a little nicer, but it makes it a nightmare to draw knots.
+<h3>4.4. Notes</h3>
+When you click "To Notes", the text gets appended to the contents of this text box.  
+Useful for keeping track of changes and stuff.
 <h2>5. To-Do</h2>
 Oh, no!  I found another unknot which defies simplification.  Check Peter Cromwell's 
 "Knots and Links," Fig. 3.23.c.  I'm not yet sure how to fix it, and worse, 
@@ -138,5 +182,7 @@ Add more to book (like weighting formula)<br/>
 <br/>
 Allow conversion between text types<br/>
 <br/>
-Fix regurgitation bug
+Fix regurgitation bug<br/>
+<br/>
+Fix (error in regurgitation) causes (no more drawing) bug
 </html>

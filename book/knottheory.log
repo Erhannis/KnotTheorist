@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2012.11.6)  27 NOV 2012 18:25
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2012.11.6)  4 DEC 2012 12:11
 entering extended mode
  %&-line parsing enabled.
 **knottheory.tex
@@ -412,23 +412,18 @@ Underfull \hbox (badness 10000) in paragraph at lines 120--124
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 126--131
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 126--131
+Underfull \hbox (badness 10000) in paragraph at lines 126--128
 
  []
 
 [9] [10] (./knottheory.aux) ) 
 Here is how much of TeX's memory you used:
- 5216 strings out of 495062
- 76179 string characters out of 1182644
- 150868 words of memory out of 3000000
- 8326 multiletter control sequences out of 15000+50000
+ 5220 strings out of 495062
+ 76251 string characters out of 1182644
+ 151868 words of memory out of 3000000
+ 8330 multiletter control sequences out of 15000+50000
  12821 words of font info for 50 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
  38i,12n,36p,1683b,346s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on knottheory.dvi (10 pages, 43008 bytes).
+Output written on knottheory.dvi (10 pages, 48608 bytes).
