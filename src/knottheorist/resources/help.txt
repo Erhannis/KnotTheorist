@@ -152,8 +152,9 @@ you follow along.  "Abort" aborts the render attempt, which may also affect subs
 what and it didn't give any output the time or two I tried it just now.  Again, I'll figure 
 it out later.  It's not really important.
 <h3>4.3. Options</h3>
-Get yer' options here!  Well, there's really only one, so far, and that's whether to hide 
-the grid lines.  It looks a little nicer, but it makes it a nightmare to draw knots.
+Get yer' options here!  Well, there's really only one, so far, and that's what style you 
+want your knots drawn in.  Some of them looks a little nicer, but all of them except the 
+normal one make it a nightmare to draw knots, because they lack grid lines.
 <h3>4.4. Notes</h3>
 When you click "To Notes", the text gets appended to the contents of this text box.  
 Useful for keeping track of changes and stuff.
