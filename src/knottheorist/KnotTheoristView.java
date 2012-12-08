@@ -38,15 +38,17 @@ public class KnotTheoristView extends FrameView {
 
     public ResourceMap resourceMap;
     
-    private static final int GRID_COLS = 14;
-    private static final int GRID_ROWS = 14;
-    private static final int SQUARE_WIDTH = 31;
-    private static final int SQUARE_HEIGHT = 31;
+    public static final int GRID_COLS = 14;
+    public static final int GRID_ROWS = 14;
+    public int SQUARE_WIDTH = 31;
+    public int SQUARE_HEIGHT = 31;
     public static final boolean DEBUG_INFO = false;
     public KnotGrid grid = null;
     public Icon[] knotIcons = null;
     public Icon[] knotIconsGrid = null;
     public Icon[] knotIconsClean = null;
+    public Icon[] knotIconsBWNoGrid = null;
+    public Icon[] knotIconsMinimal = null;
     //public Icon[] btnColorsDown = null;
     public Random rng = new Random();
     public Knot knot = null;
@@ -161,6 +163,28 @@ public class KnotTheoristView extends FrameView {
         knotIconsClean[6] = resourceMap.getIcon("KnotGrid.knotIconsClean[6]");
         knotIconsClean[7] = resourceMap.getIcon("KnotGrid.knotIconsClean[7]");
         knotIconsClean[8] = resourceMap.getIcon("KnotGrid.knotIconsClean[8]");
+
+        knotIconsBWNoGrid = new Icon[9];
+        knotIconsBWNoGrid[0] = resourceMap.getIcon("KnotGrid.knotIconsBWNG[0]");
+        knotIconsBWNoGrid[1] = resourceMap.getIcon("KnotGrid.knotIconsBWNG[1]");
+        knotIconsBWNoGrid[2] = resourceMap.getIcon("KnotGrid.knotIconsBWNG[2]");
+        knotIconsBWNoGrid[3] = resourceMap.getIcon("KnotGrid.knotIconsBWNG[3]");
+        knotIconsBWNoGrid[4] = resourceMap.getIcon("KnotGrid.knotIconsBWNG[4]");
+        knotIconsBWNoGrid[5] = resourceMap.getIcon("KnotGrid.knotIconsBWNG[5]");
+        knotIconsBWNoGrid[6] = resourceMap.getIcon("KnotGrid.knotIconsBWNG[6]");
+        knotIconsBWNoGrid[7] = resourceMap.getIcon("KnotGrid.knotIconsBWNG[7]");
+        knotIconsBWNoGrid[8] = resourceMap.getIcon("KnotGrid.knotIconsBWNG[8]");
+
+        knotIconsMinimal = new Icon[9];
+        knotIconsMinimal[0] = resourceMap.getIcon("KnotGrid.knotIconsMinimal[0]");
+        knotIconsMinimal[1] = resourceMap.getIcon("KnotGrid.knotIconsMinimal[1]");
+        knotIconsMinimal[2] = resourceMap.getIcon("KnotGrid.knotIconsMinimal[2]");
+        knotIconsMinimal[3] = resourceMap.getIcon("KnotGrid.knotIconsMinimal[3]");
+        knotIconsMinimal[4] = resourceMap.getIcon("KnotGrid.knotIconsMinimal[4]");
+        knotIconsMinimal[5] = resourceMap.getIcon("KnotGrid.knotIconsMinimal[5]");
+        knotIconsMinimal[6] = resourceMap.getIcon("KnotGrid.knotIconsMinimal[6]");
+        knotIconsMinimal[7] = resourceMap.getIcon("KnotGrid.knotIconsMinimal[7]");
+        knotIconsMinimal[8] = resourceMap.getIcon("KnotGrid.knotIconsMinimal[8]");
         
         knotIcons = knotIconsGrid;
         

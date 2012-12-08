@@ -33,6 +33,8 @@ public class KnotGrid {
     public KnotTheoristView parentView = null;
     public Point mouseFrom = new Point();
     public Icon[] knotIcons = null;
+    public int squareWidth = 0;
+    public int squareHeight = 0;
 
     public KnotGrid() {
     }
@@ -42,9 +44,11 @@ public class KnotGrid {
         this.rows = rows;
     }
 
-    public void init(Icon[] btnColors, Random rng, KnotTheoristView parentView, int squareWidth, int squareHeight) {
+    public void init(Icon[] btnColors, Random rng, KnotTheoristView parentView, int squareWidth, int squareHeight) {        
         this.parentView = parentView;
         this.knotIcons = btnColors;
+        this.squareWidth = squareWidth;
+        this.squareHeight = squareHeight;
         squares = new GridSquare[cols][rows];
         for (int x = 0; x < cols; x++) {
             for (int y = 0; y < rows; y++) {
@@ -698,9 +702,26 @@ public class KnotGrid {
     }
     
     public void refreshImages() {
-        for (int i = 0; i < cols; i++) {
-            for (int j = 0; j < rows; j++) {
-                squares[i][j].setKnot(squares[i][j].state);
+        if (parentView.SQUARE_WIDTH != this.squareWidth ||
+            parentView.SQUARE_HEIGHT != this.squareHeight) {
+            squareWidth = parentView.SQUARE_WIDTH;
+            squareHeight = parentView.SQUARE_HEIGHT;
+            
+            for (int i = 0; i < cols; i++) {
+                for (int j = 0; j < rows; j++) {
+                    squares[i][j].setKnot(squares[i][j].state);
+                    squares[i][j].width = squareWidth;
+                    squares[i][j].height = squareHeight;
+                    squares[i][j].body.setSize(squareWidth, squareHeight);
+                }
+            }
+            parentView.gridPanel.setSize(cols * squareWidth, rows * squareHeight);
+            parentView.gridPanel.validate();
+        } else {
+            for (int i = 0; i < cols; i++) {
+                for (int j = 0; j < rows; j++) {
+                    squares[i][j].setKnot(squares[i][j].state);
+                }
             }
         }
     }

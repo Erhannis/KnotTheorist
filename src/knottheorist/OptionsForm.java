@@ -32,16 +32,53 @@ public class OptionsForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        boxInvisibleGrid = new javax.swing.JCheckBox();
+        groupGridTheme = new javax.swing.ButtonGroup();
+        radioGridNormal = new javax.swing.JRadioButton();
+        jLabel1 = new javax.swing.JLabel();
+        radioGridInvisible = new javax.swing.JRadioButton();
+        radioGridBW = new javax.swing.JRadioButton();
+        radioGridMinimal = new javax.swing.JRadioButton();
 
         setName("Form"); // NOI18N
 
+        groupGridTheme.add(radioGridNormal);
+        radioGridNormal.setSelected(true);
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(knottheorist.KnotTheoristApp.class).getContext().getResourceMap(OptionsForm.class);
-        boxInvisibleGrid.setText(resourceMap.getString("boxInvisibleGrid.text")); // NOI18N
-        boxInvisibleGrid.setName("boxInvisibleGrid"); // NOI18N
-        boxInvisibleGrid.addActionListener(new java.awt.event.ActionListener() {
+        radioGridNormal.setText(resourceMap.getString("radioGridNormal.text")); // NOI18N
+        radioGridNormal.setName("radioGridNormal"); // NOI18N
+        radioGridNormal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                boxInvisibleGridActionPerformed(evt);
+                radioGridNormalActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
+        jLabel1.setName("jLabel1"); // NOI18N
+
+        groupGridTheme.add(radioGridInvisible);
+        radioGridInvisible.setText(resourceMap.getString("radioGridInvisible.text")); // NOI18N
+        radioGridInvisible.setName("radioGridInvisible"); // NOI18N
+        radioGridInvisible.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioGridInvisibleActionPerformed(evt);
+            }
+        });
+
+        groupGridTheme.add(radioGridBW);
+        radioGridBW.setText(resourceMap.getString("radioGridBW.text")); // NOI18N
+        radioGridBW.setName("radioGridBW"); // NOI18N
+        radioGridBW.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioGridBWActionPerformed(evt);
+            }
+        });
+
+        groupGridTheme.add(radioGridMinimal);
+        radioGridMinimal.setText(resourceMap.getString("radioGridMinimal.text")); // NOI18N
+        radioGridMinimal.setName("radioGridMinimal"); // NOI18N
+        radioGridMinimal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioGridMinimalActionPerformed(evt);
             }
         });
 
@@ -51,29 +88,72 @@ public class OptionsForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(boxInvisibleGrid)
-                .addContainerGap(277, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(radioGridNormal))
+                    .addComponent(jLabel1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(radioGridInvisible))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(radioGridBW))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(radioGridMinimal)))
+                .addContainerGap(265, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(boxInvisibleGrid)
-                .addContainerGap(264, Short.MAX_VALUE))
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(radioGridNormal)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(radioGridInvisible)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(radioGridBW)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(radioGridMinimal)
+                .addContainerGap(151, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void boxInvisibleGridActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxInvisibleGridActionPerformed
-        if (boxInvisibleGrid.isSelected()) {
-            parent.knotIcons = parent.knotIconsClean;
-        } else {
+    public void changedGridThemeSelection() {
+        if (groupGridTheme.isSelected(radioGridNormal.getModel())) {
             parent.knotIcons = parent.knotIconsGrid;
+        } else if (groupGridTheme.isSelected(radioGridInvisible.getModel())) {
+            parent.knotIcons = parent.knotIconsClean;
+        } else if (groupGridTheme.isSelected(radioGridBW.getModel())) {
+            parent.knotIcons = parent.knotIconsBWNoGrid;
+        } else if (groupGridTheme.isSelected(radioGridMinimal.getModel())) {
+            parent.knotIcons = parent.knotIconsMinimal;
         }
         parent.grid.knotIcons = parent.knotIcons;
-        parent.grid.refreshImages();
-    }//GEN-LAST:event_boxInvisibleGridActionPerformed
+        parent.SQUARE_WIDTH = parent.knotIcons[0].getIconWidth() - 1;
+        parent.SQUARE_HEIGHT = parent.knotIcons[0].getIconHeight() - 1;
+        parent.grid.refreshImages();        
+    }
+    
+    private void radioGridNormalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioGridNormalActionPerformed
+        changedGridThemeSelection();
+    }//GEN-LAST:event_radioGridNormalActionPerformed
+
+    private void radioGridInvisibleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioGridInvisibleActionPerformed
+        changedGridThemeSelection();
+    }//GEN-LAST:event_radioGridInvisibleActionPerformed
+
+    private void radioGridBWActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioGridBWActionPerformed
+        changedGridThemeSelection();
+    }//GEN-LAST:event_radioGridBWActionPerformed
+
+    private void radioGridMinimalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioGridMinimalActionPerformed
+        changedGridThemeSelection();
+    }//GEN-LAST:event_radioGridMinimalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -87,6 +167,11 @@ public class OptionsForm extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox boxInvisibleGrid;
+    private javax.swing.ButtonGroup groupGridTheme;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JRadioButton radioGridBW;
+    private javax.swing.JRadioButton radioGridInvisible;
+    private javax.swing.JRadioButton radioGridMinimal;
+    private javax.swing.JRadioButton radioGridNormal;
     // End of variables declaration//GEN-END:variables
 }
