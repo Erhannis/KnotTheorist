@@ -1,0 +1,5 @@
+Draw or import knots, as described by the field of knot theory, and analyze them. The program attempts to reduce knots as far as possible, and allows for rendering of knots, given a textual representation.
+
+Released under the GPL v3.
+
+-Erhannis
