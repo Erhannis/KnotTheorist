@@ -1,0 +1,189 @@
+<html>
+<h2>0. Speed Run</h2>
+Draw a knot.  Hold shift to draw under, otherwise draw over.  Hold ctrl to erase.<br/>
+Now push Process Shown Knot.  Now push Solve, at the bottom.  Now push Regurgitate.<br/>
+<br/>
+Or push buttons at random and see how quickly you can break it.<br/>
+<h2>1. About</h2>
+KnotTheorist is designed to aid in the analysis of knots, in the context of knot theory.  
+Within this context, a knot what you'd expect, except that it's joined at the end.  
+Two knots are considered the same if you turn one into the other without cutting it.  
+Much of knot theory deals with whether a knot is actually the unknot: a plain loop of string; 
+no actual knots.<br/>
+KnotTheorist allows you to draw knots on the Knot Board, which it can attempt to analyze in 
+several ways; the main thing it can try to do is reduce it to its simplest form, possibly 
+the unknot.<br/>
+To my knowledge, the solver works for all knots (no support for links, yet), but I haven't 
+proven this to be so.  (Edit: Alas, I've found another exception.  See the first item of Todo for 
+more info.)  The other day I found an example which it wasn't able to solve properly.  
+However, I figured out why that was, added a mechanism for checking that type of situation, 
+and now it works again.  If you find any examples of knots that aren't simplified properly, 
+I would very much appreciate hearing about them.  I think there are resources for that 
+on SourceForge.net.  
+<h2>1.1 Semi-Technicals</h2>
+So, the main thing I'll explain here is the notation I use.  I didn't do much research when I started 
+writing this program, partially because it was more fun to figure it out myself.  In any case, 
+you'll notice that knots get encoded in a string of letters, numbers, and/or arrow brackets.<br/>
+I designed the notation to uniquely encode any projection of a knot.  As it turns out, it's closely related 
+to Dowker's notation; it <i>was</i> almost exactly the same, but then I noticed that it didn't preserve 
+right/left-handedness, so I added a piece of information which I believe corrects that.<br/>
+Anyway, here's how it works:<br/>
+When you click "Process shown knot," the program scans the board in rows from the top-left 
+corner.  When it finds a string segment, it starts following the path of the segment, going right.  
+When it gets to a new crossing, it marks the crossing with the next letter or number up 
+(so the first crossing would be A, the second would be B, and so forth).  At the same time, 
+it marks which direction it's traveling.  When, later on, it gets back to the same crossing, 
+but along the other participating part of the string, it keeps the same label, but notes which 
+direction the second pass is going in.  You then end up with the knot diagram, with all its 
+crossings uniquely labeled, and which direction you're headed when you go over or under at a 
+crossing.  The program then starts where it did before and follows the same path around.  
+Each time it gets to a crossing, it outputs the name of the crossing, whether it's going 
+over or under, and whether the other string is going left or right.  (This can be displayed 
+as a label (uppercase for above, lowercase for under) with an arrow pointing in the direction 
+the crossing's pair is going, or (number)(t/b for top/bottom)(l/r for left/right).  The left/right 
+maintains the left/right handedness of the knot.  So, for example, the left-handed trefoil is <br/><br/>
+A&gt; &lt;b C&gt; &lt;a B&gt; &lt;c <br/>
+or <br/>
+1tr2bl3tr1bl2tr3bl <br/><br/>
+and the right-handed trefoil is <br/><br/>
+&lt;A b&gt; &lt;C a&gt; &lt;B c&gt; <br/>
+or <br/>
+1tl2br3tl1br2tl3br.<br/><br/>
+For more information that that, I will direct you to the book-thing I started writing at 
+some point.  It's in the "book" directory, the dvi file, if you have the source code; 
+otherwise, it should be packaged in the zip file.  It has a little more about the notation, 
+as well as many of the observations I've incorporated into the program.  
+<h2>1.2 An Important Note</h2>
+I wasn't sure where else to put this.  There are basically three main spots where, 
+conceptually, knots are stored.  One is in a visual form on the Knot Board, one is 
+in the textual form displayed and updated in the bottom text box, but the important one 
+is internal to the program.  When you click either "Process shown knot" or "Digest", 
+the program loads the knot from the Board or the bottom text box, respectively, into 
+its internal slot (overwriting any previous contents, if any).  
+All subsequent operations, via the buttons in the bottom half 
+of the Tool Panel, are performed on this internal knot, and the results are displayed 
+in that bottom text box.  Suppose you draw a knot on the board and click "Process shown knot", 
+after which you manually erase the Board and delete the text from the text boxes.  If you 
+click "Regurgitate", it will still render the internal knot.  (Note that clicking "Clear" 
+clears the internal knot, too.)  
+<h2>2. Knot Board</h2>
+The Knot Board is the blank grid you see in the main window.  It's where you can draw knots, 
+and where knots are rendered from their textual representation.  Click and drag to draw a knot.  
+String is laid over existing string by default.  Holding shift while you drag puts 
+new string under existing string.  You can push and release shift as needed without ceasing to 
+drag the mouse.  Note that you can only cross string at right angles.  
+Furthermore, drawing more string over a corner or an existing crossing will overwrite the 
+previously existing feature.  Hold ctrl and click/drag to erase grid tiles.<br/>
+There are a number of things in the Tool Panel which give you other ways to interact 
+with the Knot Board.
+<h2>3. Tool Panel</h2>
+Moving from top to bottom:
+First off, as described in 1.5: Semi-Technicals, clicking "Process shown knot" attempts 
+to give a unique textual representation of the knot shown on the Board.  It shows up in 
+the top text box.  It also loads that knot as the main operatee.<br/>
+"Random Flip" is good for trying semi-random knots - draw a knot on the Board and click 
+"Random Flip" to randomly flip some of the crossings over/under.<br/>
+The number boxes to the right are the width and height (width over height) of the grid. 
+Changing these and pushing "Clear" in the bottom right will clear the grid, giving you a new one 
+of the specified size.<br/>
+The up/down/left/right buttons attempt to move the displayed knot in their respective directions, if there is room.<br/>
+For all the buttons on the bottom, they deal with the loaded representation of the knot, which 
+may be different from the knot on the Board (if you've pushed some buttons or haven't processed the shown knot).<br/>
+"Copy"...I'm not totally sure what it was supposed to do; it does some internal copying, 
+but the only thing it changes is that it refreshes the bottom text box to be the representation 
+of whatever knot it's currently loaded.  Consider that its function, I guess.<br/>
+"Flip Back" reversed the order in which the current knot is traversed.  This basically 
+reverses the order of the half-crossings.<br/>
+"Flip Over" flips the knot representation over like a pancake.<br/>
+Both of the "To Notes" buttons append the contents of their associated text boxes to 
+the Notes box, accessible from the menu titled "Windows".<br/>
+"Digest" attempts to interpret the contents of the bottom text box as a knot and load 
+it into the internal slot.  This is useful for easily saving work, particularly in 
+combination with "To Notes".  Also useful for whatever else you use it for, of course.<br/>
+"Downgrade" rotates the knot (moves the starting point around the knot) to find the 
+"lightest" representation of the knot, as dictated by a formula I'll probably explain in 
+the book.  From there, it relabels the half crossings appropriately.<br/>
+"Regurgitate" renders the loaded knot back onto the Knot Board.  Check the Regurgitation 
+window from the "Windows" menu to observe its progress.  It's kinda fun.<br/>
+"Clear" clears all text boxes, the internal knot, and the Knot Board (resizing it to 
+the specifications of the number boxes).<br/>
+For the buttons on the left - really, the only one you probably want is "Solve", which 
+attempts to reduce the internal knot to a unique representation of its simplest form.  
+"Full 12" performs any immediately accessible simplifying 1st and 2nd Reidemeister moves 
+repeatedly until no more can be found.<br/>
+"Rem Loops" and "Rem Swaps" are subdivisions of this, simplifying accessible 
+1st and 2nd Reidemeister moves respectively.  Each only does one iteration, though, 
+so, for instance, "Rem Loops" 1x could expose more loops to remove, like on a rubber band you twisted up, say.<br/>
+"Jump Xs" stands for "Jump Crossings."  It attempts to find places in the knot that can 
+clearly be joined directly, without disturbing unrelated sections of the knot.  See the 
+book, section 1.5.4, on Jump Crossings.<br/>
+So, those four buttons, "Tris" and company?  Maybe just leave them alone.  Even I'm 
+not totally sure how they're supposed to be used.  They were supposed to help test 
+the Tri functions (Reidemeister 3 moves), but I never smoothed out the edges on how 
+the buttons did it.  My best guess is that you hit "Tris" to populate a list with 
+the accessible Tris, then you can click the above three buttons to perform Reidemeister Move 3 
+on one or all of them.  If you click one before the other or something, you'll probably get a 
+null pointer exception.  I'm not sure what it does when you change the knot inbetween button 
+presses.  I'll probably get around to break-proofing them at some point.  Oh, but not 
+to worry, the actual Tris function used in solving knots works fine, to my knowledge.<br/>
+"Solve", as previously mentioned, attempts to reduce the internal knot to a unique 
+representation of its simplest form.  I am currently aware of one knot arrangement that 
+defies proper simplification (see To-Do), but I would be glad to know of any other sneaky 
+things that get by my algorithm, with or without suggestions on how to catch them.<br/>
+The last button, "Validate", checks to see if the loaded knot representation represents 
+a real knot (as opposed to being physically impossible).  To my knowledge it is correct, 
+but I would again be glad to know if this is not the case.  I think it works, though.
+<h2>4. Additional Windows</h2>
+<h3>4.1. Image Processing</h3>
+This doesn't yet do much, I'm afraid - still pending construction.  However, when functional, 
+it will theoretically take a reasonably clear drawing of a knot and either automatically 
+generate the textual representation or provide an interface for making the task a lot easier, 
+like half-automated.
+<h3>4.2. Regurgitation</h3>
+If you open this window up, all future regurgitations will be paused upon commencement.  
+In this window, it shows you what it's doing to regurgitate the knot.  Clicking "Step" 
+steps the process.  I recommend clicking "Step", then holding down the spacebar.  It 
+looks pretty cool with big knots.  If you click "Continue", it will stop displaying progress 
+and instead just finish silently and display the result like normal.  It was very helpful 
+in figuring out the bugs in the process.  I'll maybe get around to writing down the 
+actual algorithm, at some point, but you can already kind of see what it's doing, if 
+you follow along.  "Abort" aborts the render attempt, which may also affect subsequent renderings.  
+"Render" does nothing.  "Check Occupation" looks like it does something, but I don't remember 
+what and it didn't give any output the time or two I tried it just now.  Again, I'll figure 
+it out later.  It's not really important.
+<h3>4.3. Options</h3>
+Get yer' options here!  Well, there's really only one, so far, and that's what style you 
+want your knots drawn in.  Some of them looks a little nicer, but all of them except the 
+normal one make it a nightmare to draw knots, because they lack grid lines.
+<h3>4.4. Notes</h3>
+When you click "To Notes", the text gets appended to the contents of this text box.  
+Useful for keeping track of changes and stuff.
+<h2>5. To-Do</h2>
+Oh, no!  I found another unknot which defies simplification.  Check Peter Cromwell's 
+"Knots and Links," Fig. 3.23.c.  I'm not yet sure how to fix it, and worse, 
+I'm now less sure that all possible problems <i>can</i> be accounted for.<br/>
+<br/>
+More rendering formats?<br/>
+<br/>
+Links<br/>
+<br/>
+Image processing<br/>
+<br/>
+Saving/Loading<br/>
+<br/>
+Gridsplit tool and others<br/>
+<br/>
+Invariants<br/>
+<br/>
+Automated testing<br/>
+<br/>
+Finish help<br/>
+<br/>
+Add more to book (like weighting formula)<br/>
+<br/>
+Allow conversion between text types<br/>
+<br/>
+Fix regurgitation bug<br/>
+<br/>
+Fix (error in regurgitation) causes (no more drawing) bug
+</html>

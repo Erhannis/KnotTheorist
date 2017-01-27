@@ -3,6 +3,7 @@
  */
 package knottheorist;
 
+import java.awt.Container;
 import java.awt.GridLayout;
 import java.io.BufferedReader;
 import java.io.File;
@@ -29,6 +30,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import org.jdesktop.application.Application;
 import org.jdesktop.application.ResourceConverter;
 
 /**
@@ -223,6 +225,17 @@ public class KnotTheoristView extends FrameView {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        menuBar = new javax.swing.JMenuBar();
+        javax.swing.JMenu fileMenu = new javax.swing.JMenu();
+        javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        mitemImageProcessing = new javax.swing.JMenuItem();
+        mitemRegurgitation = new javax.swing.JMenuItem();
+        mitemOptions = new javax.swing.JMenuItem();
+        mitemNotes = new javax.swing.JMenuItem();
+        javax.swing.JMenu helpMenu = new javax.swing.JMenu();
+        mitemHelp = new javax.swing.JMenuItem();
+        javax.swing.JMenuItem aboutMenuItem = new javax.swing.JMenuItem();
         mainPanel = new javax.swing.JPanel();
         jInternalFrame1 = new javax.swing.JInternalFrame();
         editRepresentation = new javax.swing.JTextField();
@@ -256,29 +269,99 @@ public class KnotTheoristView extends FrameView {
         btnJumpCrossings = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
-        menuBar = new javax.swing.JMenuBar();
-        javax.swing.JMenu fileMenu = new javax.swing.JMenu();
-        javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
-        mitemImageProcessing = new javax.swing.JMenuItem();
-        mitemRegurgitation = new javax.swing.JMenuItem();
-        mitemOptions = new javax.swing.JMenuItem();
-        mitemNotes = new javax.swing.JMenuItem();
-        javax.swing.JMenu helpMenu = new javax.swing.JMenu();
-        mitemHelp = new javax.swing.JMenuItem();
-        javax.swing.JMenuItem aboutMenuItem = new javax.swing.JMenuItem();
+
+        menuBar.setName("menuBar"); // NOI18N
+
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("knottheorist/resources/KnotTheoristView"); // NOI18N
+        fileMenu.setText(bundle.getString("fileMenu.text")); // NOI18N
+        fileMenu.setName("fileMenu"); // NOI18N
+
+        exitMenuItem.setText(bundle.getString("quit.Action.text")); // NOI18N
+        exitMenuItem.setName("exitMenuItem"); // NOI18N
+        exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitMenuItemActionPerformed(evt);
+            }
+        });
+        fileMenu.add(exitMenuItem);
+
+        menuBar.add(fileMenu);
+
+        jMenu1.setText(bundle.getString("jMenu1.text")); // NOI18N
+        jMenu1.setName("jMenu1"); // NOI18N
+
+        mitemImageProcessing.setText(bundle.getString("mitemImageProcessing.text")); // NOI18N
+        mitemImageProcessing.setName("mitemImageProcessing"); // NOI18N
+        mitemImageProcessing.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemImageProcessingActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mitemImageProcessing);
+
+        mitemRegurgitation.setText(bundle.getString("mitemRegurgitation.text")); // NOI18N
+        mitemRegurgitation.setName("mitemRegurgitation"); // NOI18N
+        mitemRegurgitation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemRegurgitationActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mitemRegurgitation);
+
+        mitemOptions.setText(bundle.getString("mitemOptions.text")); // NOI18N
+        mitemOptions.setName("mitemOptions"); // NOI18N
+        mitemOptions.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemOptionsActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mitemOptions);
+
+        mitemNotes.setText(bundle.getString("mitemNotes.text")); // NOI18N
+        mitemNotes.setName("mitemNotes"); // NOI18N
+        mitemNotes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemNotesActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mitemNotes);
+
+        menuBar.add(jMenu1);
+
+        helpMenu.setText(bundle.getString("helpMenu.text")); // NOI18N
+        helpMenu.setName("helpMenu"); // NOI18N
+
+        mitemHelp.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
+        mitemHelp.setText(bundle.getString("mitemHelp.text")); // NOI18N
+        mitemHelp.setName("mitemHelp"); // NOI18N
+        mitemHelp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemHelpActionPerformed(evt);
+            }
+        });
+        helpMenu.add(mitemHelp);
+
+        aboutMenuItem.setText(bundle.getString("showAboutBox.Action.text")); // NOI18N
+        aboutMenuItem.setName("aboutMenuItem"); // NOI18N
+        aboutMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aboutMenuItemActionPerformed(evt);
+            }
+        });
+        helpMenu.add(aboutMenuItem);
+
+        menuBar.add(helpMenu);
 
         mainPanel.setName("mainPanel"); // NOI18N
 
         jInternalFrame1.setName("jInternalFrame1"); // NOI18N
         jInternalFrame1.setVisible(true);
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(knottheorist.KnotTheoristApp.class).getContext().getResourceMap(KnotTheoristView.class);
-        editRepresentation.setText(resourceMap.getString("editRepresentation.text")); // NOI18N
+        editRepresentation.setText(bundle.getString("editRepresentation.text")); // NOI18N
         editRepresentation.setName("editRepresentation"); // NOI18N
 
-        btnProcessKnot.setText(resourceMap.getString("btnProcessKnot.text")); // NOI18N
-        btnProcessKnot.setToolTipText(resourceMap.getString("btnProcessKnot.toolTipText")); // NOI18N
+        btnProcessKnot.setText(bundle.getString("btnProcessKnot.text")); // NOI18N
+        btnProcessKnot.setToolTipText(bundle.getString("btnProcessKnot.toolTipText")); // NOI18N
         btnProcessKnot.setName("btnProcessKnot"); // NOI18N
         btnProcessKnot.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -286,8 +369,8 @@ public class KnotTheoristView extends FrameView {
             }
         });
 
-        btnClear.setText(resourceMap.getString("btnClear.text")); // NOI18N
-        btnClear.setToolTipText(resourceMap.getString("btnClear.toolTipText")); // NOI18N
+        btnClear.setText(bundle.getString("btnClear.text")); // NOI18N
+        btnClear.setToolTipText(bundle.getString("btnClear.toolTipText")); // NOI18N
         btnClear.setName("btnClear"); // NOI18N
         btnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -295,10 +378,10 @@ public class KnotTheoristView extends FrameView {
             }
         });
 
-        editModified.setText(resourceMap.getString("editModified.text")); // NOI18N
+        editModified.setText(bundle.getString("editModified.text")); // NOI18N
         editModified.setName("editModified"); // NOI18N
 
-        btnRemLoops.setText(resourceMap.getString("btnRemLoops.text")); // NOI18N
+        btnRemLoops.setText(bundle.getString("btnRemLoops.text")); // NOI18N
         btnRemLoops.setName("btnRemLoops"); // NOI18N
         btnRemLoops.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -306,7 +389,7 @@ public class KnotTheoristView extends FrameView {
             }
         });
 
-        btnRemSwaps.setText(resourceMap.getString("btnRemSwaps.text")); // NOI18N
+        btnRemSwaps.setText(bundle.getString("btnRemSwaps.text")); // NOI18N
         btnRemSwaps.setName("btnRemSwaps"); // NOI18N
         btnRemSwaps.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -314,8 +397,8 @@ public class KnotTheoristView extends FrameView {
             }
         });
 
-        btnDowngrade.setText(resourceMap.getString("btnDowngrade.text")); // NOI18N
-        btnDowngrade.setToolTipText(resourceMap.getString("btnDowngrade.toolTipText")); // NOI18N
+        btnDowngrade.setText(bundle.getString("btnDowngrade.text")); // NOI18N
+        btnDowngrade.setToolTipText(bundle.getString("btnDowngrade.toolTipText")); // NOI18N
         btnDowngrade.setName("btnDowngrade"); // NOI18N
         btnDowngrade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -323,7 +406,7 @@ public class KnotTheoristView extends FrameView {
             }
         });
 
-        bntSHU.setText(resourceMap.getString("bntSHU.text")); // NOI18N
+        bntSHU.setText(bundle.getString("bntSHU.text")); // NOI18N
         bntSHU.setName("bntSHU"); // NOI18N
         bntSHU.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -331,7 +414,7 @@ public class KnotTheoristView extends FrameView {
             }
         });
 
-        btnSHR.setText(resourceMap.getString("btnSHR.text")); // NOI18N
+        btnSHR.setText(bundle.getString("btnSHR.text")); // NOI18N
         btnSHR.setName("btnSHR"); // NOI18N
         btnSHR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -339,7 +422,7 @@ public class KnotTheoristView extends FrameView {
             }
         });
 
-        btnSHD.setText(resourceMap.getString("btnSHD.text")); // NOI18N
+        btnSHD.setText(bundle.getString("btnSHD.text")); // NOI18N
         btnSHD.setName("btnSHD"); // NOI18N
         btnSHD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -347,7 +430,7 @@ public class KnotTheoristView extends FrameView {
             }
         });
 
-        btnSHL.setText(resourceMap.getString("btnSHL.text")); // NOI18N
+        btnSHL.setText(bundle.getString("btnSHL.text")); // NOI18N
         btnSHL.setName("btnSHL"); // NOI18N
         btnSHL.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -355,8 +438,8 @@ public class KnotTheoristView extends FrameView {
             }
         });
 
-        btnRegurgitate.setText(resourceMap.getString("btnRegurgitate.text")); // NOI18N
-        btnRegurgitate.setToolTipText(resourceMap.getString("btnRegurgitate.toolTipText")); // NOI18N
+        btnRegurgitate.setText(bundle.getString("btnRegurgitate.text")); // NOI18N
+        btnRegurgitate.setToolTipText(bundle.getString("btnRegurgitate.toolTipText")); // NOI18N
         btnRegurgitate.setName("btnRegurgitate"); // NOI18N
         btnRegurgitate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -370,8 +453,8 @@ public class KnotTheoristView extends FrameView {
         spinRows.setName("spinRows"); // NOI18N
         spinRows.setValue(GRID_ROWS);
 
-        btnDigest.setText(resourceMap.getString("btnDigest.text")); // NOI18N
-        btnDigest.setToolTipText(resourceMap.getString("btnDigest.toolTipText")); // NOI18N
+        btnDigest.setText(bundle.getString("btnDigest.text")); // NOI18N
+        btnDigest.setToolTipText(bundle.getString("btnDigest.toolTipText")); // NOI18N
         btnDigest.setName("btnDigest"); // NOI18N
         btnDigest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -379,8 +462,8 @@ public class KnotTheoristView extends FrameView {
             }
         });
 
-        btnToNotesBottom.setText(resourceMap.getString("btnToNotesBottom.text")); // NOI18N
-        btnToNotesBottom.setToolTipText(resourceMap.getString("btnToNotesBottom.toolTipText")); // NOI18N
+        btnToNotesBottom.setText(bundle.getString("btnToNotesBottom.text")); // NOI18N
+        btnToNotesBottom.setToolTipText(bundle.getString("btnToNotesBottom.toolTipText")); // NOI18N
         btnToNotesBottom.setName("btnToNotesBottom"); // NOI18N
         btnToNotesBottom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -388,8 +471,8 @@ public class KnotTheoristView extends FrameView {
             }
         });
 
-        btnToNotesTop.setText(resourceMap.getString("btnToNotesTop.text")); // NOI18N
-        btnToNotesTop.setToolTipText(resourceMap.getString("btnToNotesTop.toolTipText")); // NOI18N
+        btnToNotesTop.setText(bundle.getString("btnToNotesTop.text")); // NOI18N
+        btnToNotesTop.setToolTipText(bundle.getString("btnToNotesTop.toolTipText")); // NOI18N
         btnToNotesTop.setName("btnToNotesTop"); // NOI18N
         btnToNotesTop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -397,7 +480,7 @@ public class KnotTheoristView extends FrameView {
             }
         });
 
-        btnTris.setText(resourceMap.getString("btnTris.text")); // NOI18N
+        btnTris.setText(bundle.getString("btnTris.text")); // NOI18N
         btnTris.setName("btnTris"); // NOI18N
         btnTris.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -405,7 +488,7 @@ public class KnotTheoristView extends FrameView {
             }
         });
 
-        btnFirstTri.setText(resourceMap.getString("btnFirstTri.text")); // NOI18N
+        btnFirstTri.setText(bundle.getString("btnFirstTri.text")); // NOI18N
         btnFirstTri.setName("btnFirstTri"); // NOI18N
         btnFirstTri.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -413,7 +496,7 @@ public class KnotTheoristView extends FrameView {
             }
         });
 
-        btnRandTri.setText(resourceMap.getString("btnRandTri.text")); // NOI18N
+        btnRandTri.setText(bundle.getString("btnRandTri.text")); // NOI18N
         btnRandTri.setName("btnRandTri"); // NOI18N
         btnRandTri.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -421,7 +504,7 @@ public class KnotTheoristView extends FrameView {
             }
         });
 
-        btnAllTri.setText(resourceMap.getString("btnAllTri.text")); // NOI18N
+        btnAllTri.setText(bundle.getString("btnAllTri.text")); // NOI18N
         btnAllTri.setName("btnAllTri"); // NOI18N
         btnAllTri.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -429,8 +512,8 @@ public class KnotTheoristView extends FrameView {
             }
         });
 
-        btnSolve.setText(resourceMap.getString("btnSolve.text")); // NOI18N
-        btnSolve.setToolTipText(resourceMap.getString("btnSolve.toolTipText")); // NOI18N
+        btnSolve.setText(bundle.getString("btnSolve.text")); // NOI18N
+        btnSolve.setToolTipText(bundle.getString("btnSolve.toolTipText")); // NOI18N
         btnSolve.setName("btnSolve"); // NOI18N
         btnSolve.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -438,7 +521,7 @@ public class KnotTheoristView extends FrameView {
             }
         });
 
-        btnValidate.setText(resourceMap.getString("btnValidate.text")); // NOI18N
+        btnValidate.setText(bundle.getString("btnValidate.text")); // NOI18N
         btnValidate.setName("btnValidate"); // NOI18N
         btnValidate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -446,7 +529,7 @@ public class KnotTheoristView extends FrameView {
             }
         });
 
-        btnFull12.setText(resourceMap.getString("btnFull12.text")); // NOI18N
+        btnFull12.setText(bundle.getString("btnFull12.text")); // NOI18N
         btnFull12.setName("btnFull12"); // NOI18N
         btnFull12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -454,8 +537,8 @@ public class KnotTheoristView extends FrameView {
             }
         });
 
-        btnRandomFlip.setText(resourceMap.getString("btnRandomFlip.text")); // NOI18N
-        btnRandomFlip.setToolTipText(resourceMap.getString("btnRandomFlip.toolTipText")); // NOI18N
+        btnRandomFlip.setText(bundle.getString("btnRandomFlip.text")); // NOI18N
+        btnRandomFlip.setToolTipText(bundle.getString("btnRandomFlip.toolTipText")); // NOI18N
         btnRandomFlip.setName("btnRandomFlip"); // NOI18N
         btnRandomFlip.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -463,7 +546,7 @@ public class KnotTheoristView extends FrameView {
             }
         });
 
-        btnFlipOver.setText(resourceMap.getString("btnFlipOver.text")); // NOI18N
+        btnFlipOver.setText(bundle.getString("btnFlipOver.text")); // NOI18N
         btnFlipOver.setName("btnFlipOver"); // NOI18N
         btnFlipOver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -471,7 +554,7 @@ public class KnotTheoristView extends FrameView {
             }
         });
 
-        btnFlipBack.setText(resourceMap.getString("btnFlipBack.text")); // NOI18N
+        btnFlipBack.setText(bundle.getString("btnFlipBack.text")); // NOI18N
         btnFlipBack.setName("btnFlipBack"); // NOI18N
         btnFlipBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -479,7 +562,7 @@ public class KnotTheoristView extends FrameView {
             }
         });
 
-        btnCopy.setText(resourceMap.getString("btnCopy.text")); // NOI18N
+        btnCopy.setText(bundle.getString("btnCopy.text")); // NOI18N
         btnCopy.setName("btnCopy"); // NOI18N
         btnCopy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -487,8 +570,8 @@ public class KnotTheoristView extends FrameView {
             }
         });
 
-        btnJumpCrossings.setText(resourceMap.getString("btnJumpCrossings.text")); // NOI18N
-        btnJumpCrossings.setToolTipText(resourceMap.getString("btnJumpCrossings.toolTipText")); // NOI18N
+        btnJumpCrossings.setText(bundle.getString("btnJumpCrossings.text")); // NOI18N
+        btnJumpCrossings.setToolTipText(bundle.getString("btnJumpCrossings.toolTipText")); // NOI18N
         btnJumpCrossings.setName("btnJumpCrossings"); // NOI18N
         btnJumpCrossings.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -504,12 +587,12 @@ public class KnotTheoristView extends FrameView {
                 .addContainerGap()
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createSequentialGroup()
-                        .addComponent(editModified, javax.swing.GroupLayout.DEFAULT_SIZE, 878, Short.MAX_VALUE)
+                        .addComponent(editModified)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnClear))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createSequentialGroup()
                         .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(editRepresentation, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 775, Short.MAX_VALUE)
+                            .addComponent(editRepresentation, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jInternalFrame1Layout.createSequentialGroup()
                                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnToNotesTop)
@@ -533,7 +616,7 @@ public class KnotTheoristView extends FrameView {
                                                 .addComponent(btnSolve)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(btnValidate)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(btnToNotesBottom)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(btnDigest))
@@ -541,7 +624,7 @@ public class KnotTheoristView extends FrameView {
                                                 .addComponent(btnFirstTri)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(btnAllTri)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 282, Short.MAX_VALUE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(btnCopy)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(btnFlipBack)))
@@ -559,7 +642,7 @@ public class KnotTheoristView extends FrameView {
                                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(btnSHD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createSequentialGroup()
-                                        .addComponent(btnSHL, 0, 0, Short.MAX_VALUE)
+                                        .addComponent(btnSHL, 0, 1, Short.MAX_VALUE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(btnSHR, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(bntSHU, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)))
@@ -571,7 +654,7 @@ public class KnotTheoristView extends FrameView {
         jInternalFrame1Layout.setVerticalGroup(
             jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createSequentialGroup()
-                .addContainerGap(18, Short.MAX_VALUE)
+                .addContainerGap(52, Short.MAX_VALUE)
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(editRepresentation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnProcessKnot))
@@ -588,12 +671,10 @@ public class KnotTheoristView extends FrameView {
                             .addComponent(btnSHR)
                             .addComponent(btnSHL)
                             .addComponent(spinRows, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                        .addComponent(btnRandTri)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                    .addComponent(btnRandTri))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(btnFirstTri)
@@ -615,12 +696,9 @@ public class KnotTheoristView extends FrameView {
                                 .addComponent(btnToNotesBottom)
                                 .addComponent(btnTris)
                                 .addComponent(btnSolve)
-                                .addComponent(btnValidate)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSHD)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                .addComponent(btnValidate))))
+                    .addComponent(btnSHD))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnClear)
                     .addComponent(editModified, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -635,11 +713,11 @@ public class KnotTheoristView extends FrameView {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 966, Short.MAX_VALUE)
+            .addGap(0, 986, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 240, Short.MAX_VALUE)
+            .addGap(0, 307, Short.MAX_VALUE)
         );
 
         jScrollPane2.setViewportView(jPanel1);
@@ -651,7 +729,7 @@ public class KnotTheoristView extends FrameView {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 968, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jInternalFrame1, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap())
         );
@@ -659,86 +737,13 @@ public class KnotTheoristView extends FrameView {
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        menuBar.setName("menuBar"); // NOI18N
-
-        fileMenu.setText(resourceMap.getString("fileMenu.text")); // NOI18N
-        fileMenu.setName("fileMenu"); // NOI18N
-
-        javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(knottheorist.KnotTheoristApp.class).getContext().getActionMap(KnotTheoristView.class, this);
-        exitMenuItem.setAction(actionMap.get("quit")); // NOI18N
-        exitMenuItem.setName("exitMenuItem"); // NOI18N
-        fileMenu.add(exitMenuItem);
-
-        menuBar.add(fileMenu);
-
-        jMenu1.setText(resourceMap.getString("jMenu1.text")); // NOI18N
-        jMenu1.setName("jMenu1"); // NOI18N
-
-        mitemImageProcessing.setText(resourceMap.getString("mitemImageProcessing.text")); // NOI18N
-        mitemImageProcessing.setName("mitemImageProcessing"); // NOI18N
-        mitemImageProcessing.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mitemImageProcessingActionPerformed(evt);
-            }
-        });
-        jMenu1.add(mitemImageProcessing);
-
-        mitemRegurgitation.setText(resourceMap.getString("mitemRegurgitation.text")); // NOI18N
-        mitemRegurgitation.setName("mitemRegurgitation"); // NOI18N
-        mitemRegurgitation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mitemRegurgitationActionPerformed(evt);
-            }
-        });
-        jMenu1.add(mitemRegurgitation);
-
-        mitemOptions.setText(resourceMap.getString("mitemOptions.text")); // NOI18N
-        mitemOptions.setName("mitemOptions"); // NOI18N
-        mitemOptions.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mitemOptionsActionPerformed(evt);
-            }
-        });
-        jMenu1.add(mitemOptions);
-
-        mitemNotes.setText(resourceMap.getString("mitemNotes.text")); // NOI18N
-        mitemNotes.setName("mitemNotes"); // NOI18N
-        mitemNotes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mitemNotesActionPerformed(evt);
-            }
-        });
-        jMenu1.add(mitemNotes);
-
-        menuBar.add(jMenu1);
-
-        helpMenu.setText(resourceMap.getString("helpMenu.text")); // NOI18N
-        helpMenu.setName("helpMenu"); // NOI18N
-
-        mitemHelp.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
-        mitemHelp.setText(resourceMap.getString("mitemHelp.text")); // NOI18N
-        mitemHelp.setName("mitemHelp"); // NOI18N
-        mitemHelp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mitemHelpActionPerformed(evt);
-            }
-        });
-        helpMenu.add(mitemHelp);
-
-        aboutMenuItem.setAction(actionMap.get("showAboutBox")); // NOI18N
-        aboutMenuItem.setName("aboutMenuItem"); // NOI18N
-        helpMenu.add(aboutMenuItem);
-
-        menuBar.add(helpMenu);
-
-        setComponent(mainPanel);
-        setMenuBar(menuBar);
+        getContentPane().add(mainPanel, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnProcessKnotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcessKnotActionPerformed
@@ -1041,6 +1046,14 @@ private void mitemOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     optionsForm.setVisible(true);
 }//GEN-LAST:event_mitemOptionsActionPerformed
 
+    private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuItemActionPerformed
+        showAboutBox();
+    }//GEN-LAST:event_aboutMenuItemActionPerformed
+
+    private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
+        this.getApplication().quit(evt);
+    }//GEN-LAST:event_exitMenuItemActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bntSHU;
     private javax.swing.JButton btnAllTri;
@@ -1089,4 +1102,8 @@ private void mitemOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 //    private final Icon[] busyIcons = new Icon[15];
 //    private int busyIconIndex = 0;
     private JDialog aboutBox;
+
+    private Container getContentPane() {
+        return this.getComponent();
+    }
 }
