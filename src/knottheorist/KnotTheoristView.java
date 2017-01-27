@@ -3,35 +3,22 @@
  */
 package knottheorist;
 
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.GridLayout;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.math.BigInteger;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.jdesktop.application.Action;
 import org.jdesktop.application.ResourceMap;
 import org.jdesktop.application.SingleFrameApplication;
 import org.jdesktop.application.FrameView;
 import java.util.Random;
 import javax.swing.Icon;
+import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import org.jdesktop.application.Application;
-import org.jdesktop.application.ResourceConverter;
 
 /**
  * The application's main frame.
@@ -135,7 +122,7 @@ public class KnotTheoristView extends FrameView {
 
     public KnotTheoristView(SingleFrameApplication app) {
         super(app);
-
+        
         initComponents();
 
         // status bar initialization - message timeout, idle icon and busy animation, etc
@@ -225,17 +212,6 @@ public class KnotTheoristView extends FrameView {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        menuBar = new javax.swing.JMenuBar();
-        javax.swing.JMenu fileMenu = new javax.swing.JMenu();
-        javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
-        mitemImageProcessing = new javax.swing.JMenuItem();
-        mitemRegurgitation = new javax.swing.JMenuItem();
-        mitemOptions = new javax.swing.JMenuItem();
-        mitemNotes = new javax.swing.JMenuItem();
-        javax.swing.JMenu helpMenu = new javax.swing.JMenu();
-        mitemHelp = new javax.swing.JMenuItem();
-        javax.swing.JMenuItem aboutMenuItem = new javax.swing.JMenuItem();
         mainPanel = new javax.swing.JPanel();
         jInternalFrame1 = new javax.swing.JInternalFrame();
         editRepresentation = new javax.swing.JTextField();
@@ -269,94 +245,24 @@ public class KnotTheoristView extends FrameView {
         btnJumpCrossings = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
-
-        menuBar.setName("menuBar"); // NOI18N
-
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("knottheorist/resources/KnotTheoristView"); // NOI18N
-        fileMenu.setText(bundle.getString("fileMenu.text")); // NOI18N
-        fileMenu.setName("fileMenu"); // NOI18N
-
-        exitMenuItem.setText(bundle.getString("quit.Action.text")); // NOI18N
-        exitMenuItem.setName("exitMenuItem"); // NOI18N
-        exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                exitMenuItemActionPerformed(evt);
-            }
-        });
-        fileMenu.add(exitMenuItem);
-
-        menuBar.add(fileMenu);
-
-        jMenu1.setText(bundle.getString("jMenu1.text")); // NOI18N
-        jMenu1.setName("jMenu1"); // NOI18N
-
-        mitemImageProcessing.setText(bundle.getString("mitemImageProcessing.text")); // NOI18N
-        mitemImageProcessing.setName("mitemImageProcessing"); // NOI18N
-        mitemImageProcessing.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mitemImageProcessingActionPerformed(evt);
-            }
-        });
-        jMenu1.add(mitemImageProcessing);
-
-        mitemRegurgitation.setText(bundle.getString("mitemRegurgitation.text")); // NOI18N
-        mitemRegurgitation.setName("mitemRegurgitation"); // NOI18N
-        mitemRegurgitation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mitemRegurgitationActionPerformed(evt);
-            }
-        });
-        jMenu1.add(mitemRegurgitation);
-
-        mitemOptions.setText(bundle.getString("mitemOptions.text")); // NOI18N
-        mitemOptions.setName("mitemOptions"); // NOI18N
-        mitemOptions.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mitemOptionsActionPerformed(evt);
-            }
-        });
-        jMenu1.add(mitemOptions);
-
-        mitemNotes.setText(bundle.getString("mitemNotes.text")); // NOI18N
-        mitemNotes.setName("mitemNotes"); // NOI18N
-        mitemNotes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mitemNotesActionPerformed(evt);
-            }
-        });
-        jMenu1.add(mitemNotes);
-
-        menuBar.add(jMenu1);
-
-        helpMenu.setText(bundle.getString("helpMenu.text")); // NOI18N
-        helpMenu.setName("helpMenu"); // NOI18N
-
-        mitemHelp.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
-        mitemHelp.setText(bundle.getString("mitemHelp.text")); // NOI18N
-        mitemHelp.setName("mitemHelp"); // NOI18N
-        mitemHelp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mitemHelpActionPerformed(evt);
-            }
-        });
-        helpMenu.add(mitemHelp);
-
-        aboutMenuItem.setText(bundle.getString("showAboutBox.Action.text")); // NOI18N
-        aboutMenuItem.setName("aboutMenuItem"); // NOI18N
-        aboutMenuItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                aboutMenuItemActionPerformed(evt);
-            }
-        });
-        helpMenu.add(aboutMenuItem);
-
-        menuBar.add(helpMenu);
+        menuBar = new javax.swing.JMenuBar();
+        javax.swing.JMenu fileMenu = new javax.swing.JMenu();
+        javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        mitemImageProcessing = new javax.swing.JMenuItem();
+        mitemRegurgitation = new javax.swing.JMenuItem();
+        mitemOptions = new javax.swing.JMenuItem();
+        mitemNotes = new javax.swing.JMenuItem();
+        javax.swing.JMenu helpMenu = new javax.swing.JMenu();
+        mitemHelp = new javax.swing.JMenuItem();
+        javax.swing.JMenuItem aboutMenuItem = new javax.swing.JMenuItem();
 
         mainPanel.setName("mainPanel"); // NOI18N
 
         jInternalFrame1.setName("jInternalFrame1"); // NOI18N
         jInternalFrame1.setVisible(true);
 
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("knottheorist/resources/KnotTheoristView"); // NOI18N
         editRepresentation.setText(bundle.getString("editRepresentation.text")); // NOI18N
         editRepresentation.setName("editRepresentation"); // NOI18N
 
@@ -654,7 +560,7 @@ public class KnotTheoristView extends FrameView {
         jInternalFrame1Layout.setVerticalGroup(
             jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jInternalFrame1Layout.createSequentialGroup()
-                .addContainerGap(52, Short.MAX_VALUE)
+                .addContainerGap(56, Short.MAX_VALUE)
                 .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(editRepresentation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnProcessKnot))
@@ -737,13 +643,96 @@ public class KnotTheoristView extends FrameView {
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         getContentPane().add(mainPanel, java.awt.BorderLayout.CENTER);
+
+        menuBar.setName("menuBar"); // NOI18N
+
+        fileMenu.setText(bundle.getString("fileMenu.text")); // NOI18N
+        fileMenu.setName("fileMenu"); // NOI18N
+
+        exitMenuItem.setText(bundle.getString("quit.Action.text")); // NOI18N
+        exitMenuItem.setName("exitMenuItem"); // NOI18N
+        exitMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitMenuItemActionPerformed(evt);
+            }
+        });
+        fileMenu.add(exitMenuItem);
+
+        menuBar.add(fileMenu);
+
+        jMenu1.setText(bundle.getString("jMenu1.text")); // NOI18N
+        jMenu1.setName("jMenu1"); // NOI18N
+
+        mitemImageProcessing.setText(bundle.getString("mitemImageProcessing.text")); // NOI18N
+        mitemImageProcessing.setName("mitemImageProcessing"); // NOI18N
+        mitemImageProcessing.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemImageProcessingActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mitemImageProcessing);
+
+        mitemRegurgitation.setText(bundle.getString("mitemRegurgitation.text")); // NOI18N
+        mitemRegurgitation.setName("mitemRegurgitation"); // NOI18N
+        mitemRegurgitation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemRegurgitationActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mitemRegurgitation);
+
+        mitemOptions.setText(bundle.getString("mitemOptions.text")); // NOI18N
+        mitemOptions.setName("mitemOptions"); // NOI18N
+        mitemOptions.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemOptionsActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mitemOptions);
+
+        mitemNotes.setText(bundle.getString("mitemNotes.text")); // NOI18N
+        mitemNotes.setName("mitemNotes"); // NOI18N
+        mitemNotes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemNotesActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mitemNotes);
+
+        menuBar.add(jMenu1);
+
+        helpMenu.setText(bundle.getString("helpMenu.text")); // NOI18N
+        helpMenu.setName("helpMenu"); // NOI18N
+
+        mitemHelp.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
+        mitemHelp.setText(bundle.getString("mitemHelp.text")); // NOI18N
+        mitemHelp.setName("mitemHelp"); // NOI18N
+        mitemHelp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemHelpActionPerformed(evt);
+            }
+        });
+        helpMenu.add(mitemHelp);
+
+        aboutMenuItem.setText(bundle.getString("showAboutBox.Action.text")); // NOI18N
+        aboutMenuItem.setName("aboutMenuItem"); // NOI18N
+        aboutMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aboutMenuItemActionPerformed(evt);
+            }
+        });
+        helpMenu.add(aboutMenuItem);
+
+        menuBar.add(helpMenu);
+
+        setJMenuBar(menuBar);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnProcessKnotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcessKnotActionPerformed
@@ -1104,6 +1093,19 @@ private void mitemOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private JDialog aboutBox;
 
     private Container getContentPane() {
-        return this.getComponent();
+        // Hacky dummy class, because SAF conversion.
+        final FrameView parent = this;
+        return new Container() {
+            @Override
+            public void add(Component comp, Object constraints) {
+                if (comp instanceof JComponent) {
+                    parent.setComponent((JComponent)comp);
+                }
+            }
+        };
+    }
+
+    private void setJMenuBar(JMenuBar menuBar) {
+        setMenuBar(menuBar);
     }
 }
