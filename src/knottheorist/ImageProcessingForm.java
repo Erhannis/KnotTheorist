@@ -75,8 +75,8 @@ public class ImageProcessingForm extends javax.swing.JFrame {
 
         jPanel1.setName("jPanel1"); // NOI18N
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(knottheorist.KnotTheoristApp.class).getContext().getResourceMap(ImageProcessingForm.class);
-        btnLoadImage.setText(resourceMap.getString("btnLoadImage.text")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("knottheorist/resources/ImageProcessingForm"); // NOI18N
+        btnLoadImage.setText(bundle.getString("btnLoadImage.text")); // NOI18N
         btnLoadImage.setName("btnLoadImage"); // NOI18N
         btnLoadImage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -86,13 +86,13 @@ public class ImageProcessingForm extends javax.swing.JFrame {
 
         groupProcessingMethods.add(radioPMethod1);
         radioPMethod1.setSelected(true);
-        radioPMethod1.setText(resourceMap.getString("radioPMethod1.text")); // NOI18N
+        radioPMethod1.setText(bundle.getString("radioPMethod1.text")); // NOI18N
         radioPMethod1.setName("radioPMethod1"); // NOI18N
 
-        btnProcess.setText(resourceMap.getString("btnProcess.text")); // NOI18N
+        btnProcess.setText(bundle.getString("btnProcess.text")); // NOI18N
         btnProcess.setName("btnProcess"); // NOI18N
 
-        btnToBW.setText(resourceMap.getString("btnToBW.text")); // NOI18N
+        btnToBW.setText(bundle.getString("btnToBW.text")); // NOI18N
         btnToBW.setName("btnToBW"); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -121,7 +121,7 @@ public class ImageProcessingForm extends javax.swing.JFrame {
                 .addComponent(btnProcess)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(radioPMethod1)
-                .addContainerGap(296, Short.MAX_VALUE))
+                .addContainerGap(258, Short.MAX_VALUE))
         );
 
         jSplitPane1.setLeftComponent(jPanel1);
@@ -130,7 +130,7 @@ public class ImageProcessingForm extends javax.swing.JFrame {
 
         jPanel2.setName("jPanel2"); // NOI18N
 
-        editKnotRepresentation.setText(resourceMap.getString("editKnotRepresentation.text")); // NOI18N
+        editKnotRepresentation.setText(bundle.getString("editKnotRepresentation.text")); // NOI18N
         editKnotRepresentation.setName("editKnotRepresentation"); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -139,13 +139,13 @@ public class ImageProcessingForm extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(editKnotRepresentation, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE)
+                .addComponent(editKnotRepresentation, javax.swing.GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(61, Short.MAX_VALUE)
+                .addContainerGap(112, Short.MAX_VALUE)
                 .addComponent(editKnotRepresentation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -156,7 +156,7 @@ public class ImageProcessingForm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
+            .addComponent(jSplitPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

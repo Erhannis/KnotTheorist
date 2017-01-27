@@ -43,8 +43,8 @@ public class OptionsForm extends javax.swing.JFrame {
 
         groupGridTheme.add(radioGridNormal);
         radioGridNormal.setSelected(true);
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(knottheorist.KnotTheoristApp.class).getContext().getResourceMap(OptionsForm.class);
-        radioGridNormal.setText(resourceMap.getString("radioGridNormal.text")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("knottheorist/resources/OptionsForm"); // NOI18N
+        radioGridNormal.setText(bundle.getString("radioGridNormal.text")); // NOI18N
         radioGridNormal.setName("radioGridNormal"); // NOI18N
         radioGridNormal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -52,11 +52,11 @@ public class OptionsForm extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
+        jLabel1.setText(bundle.getString("jLabel1.text")); // NOI18N
         jLabel1.setName("jLabel1"); // NOI18N
 
         groupGridTheme.add(radioGridInvisible);
-        radioGridInvisible.setText(resourceMap.getString("radioGridInvisible.text")); // NOI18N
+        radioGridInvisible.setText(bundle.getString("radioGridInvisible.text")); // NOI18N
         radioGridInvisible.setName("radioGridInvisible"); // NOI18N
         radioGridInvisible.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -65,7 +65,7 @@ public class OptionsForm extends javax.swing.JFrame {
         });
 
         groupGridTheme.add(radioGridBW);
-        radioGridBW.setText(resourceMap.getString("radioGridBW.text")); // NOI18N
+        radioGridBW.setText(bundle.getString("radioGridBW.text")); // NOI18N
         radioGridBW.setName("radioGridBW"); // NOI18N
         radioGridBW.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -74,7 +74,7 @@ public class OptionsForm extends javax.swing.JFrame {
         });
 
         groupGridTheme.add(radioGridMinimal);
-        radioGridMinimal.setText(resourceMap.getString("radioGridMinimal.text")); // NOI18N
+        radioGridMinimal.setText(bundle.getString("radioGridMinimal.text")); // NOI18N
         radioGridMinimal.setName("radioGridMinimal"); // NOI18N
         radioGridMinimal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,20 +89,15 @@ public class OptionsForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(radioGridNormal))
                     .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(12, 12, 12)
-                        .addComponent(radioGridInvisible))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(radioGridBW))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(radioGridMinimal)))
-                .addContainerGap(265, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(radioGridNormal)
+                            .addComponent(radioGridInvisible)
+                            .addComponent(radioGridBW)
+                            .addComponent(radioGridMinimal))))
+                .addContainerGap(266, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,7 +112,7 @@ public class OptionsForm extends javax.swing.JFrame {
                 .addComponent(radioGridBW)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(radioGridMinimal)
-                .addContainerGap(151, Short.MAX_VALUE))
+                .addContainerGap(154, Short.MAX_VALUE))
         );
 
         pack();

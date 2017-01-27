@@ -1,7 +1,27 @@
-<?xml version="1.1" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
+        
 
-<Form version="1.5" maxVersion="1.7">
-  <NonVisualComponents>
+<!--
+            BASE="c:/Users/mewer/projects/KnotTheorist/src"
+            FILE="KnotTheoristView.form"
+            DIR="knottheorist"
+            PBASE="/resources"
+            PROPS="knottheorist/resources/KnotTheoristView"
+            PROPFILE="/resources/knottheorist/resources/KnotTheoristView.properties"
+        --><Form version="1.5" maxVersion="1.7">
+  <NonVisualComponents xmlns:xalan="http://xml.apache.org/xalan"><Component class="net.megabyte.nosaf.MBAction" name="quitAction">
+            <Properties>
+            <Property name="propertiesFileName" type="java.lang.String" noResource="true" value="/resources/knottheorist/resources/KnotTheoristView.properties"/>
+            <Property name="form" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor"><Connection component="Form" type="bean"/></Property>
+            <Property name="code" type="java.lang.String" value="quit"/>
+            </Properties></Component>
+            <Component class="net.megabyte.nosaf.MBAction" name="showAboutBoxAction">
+            <Properties>
+            <Property name="propertiesFileName" type="java.lang.String" noResource="true" value="/resources/knottheorist/resources/KnotTheoristView.properties"/>
+            <Property name="form" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor"><Connection component="Form" type="bean"/></Property>
+            <Property name="code" type="java.lang.String" value="showAboutBox"/>
+            </Properties></Component>
+            
     <Container class="javax.swing.JPanel" name="mainPanel">
       <Properties>
         <Property name="name" type="java.lang.String" value="mainPanel" noResource="true"/>
@@ -212,14 +232,14 @@
           <SubComponents>
             <Component class="javax.swing.JTextField" name="editRepresentation">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="editRepresentation.text"/>
+                <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="text"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="editRepresentation.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
                 <Property name="name" type="java.lang.String" value="editRepresentation" noResource="true"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="btnProcessKnot">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="btnProcessKnot.text"/>
-                <Property name="toolTipText" type="java.lang.String" resourceKey="btnProcessKnot.toolTipText"/>
+                <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="text"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="btnProcessKnot.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
+                <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="toolTipText"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="btnProcessKnot.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
                 <Property name="name" type="java.lang.String" value="btnProcessKnot" noResource="true"/>
               </Properties>
               <Events>
@@ -228,8 +248,8 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnClear">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="btnClear.text"/>
-                <Property name="toolTipText" type="java.lang.String" resourceKey="btnClear.toolTipText"/>
+                <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="text"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="btnClear.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
+                <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="toolTipText"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="btnClear.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
                 <Property name="name" type="java.lang.String" value="btnClear" noResource="true"/>
               </Properties>
               <Events>
@@ -238,13 +258,13 @@
             </Component>
             <Component class="javax.swing.JTextField" name="editModified">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="editModified.text"/>
+                <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="text"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="editModified.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
                 <Property name="name" type="java.lang.String" value="editModified" noResource="true"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="btnRemLoops">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="btnRemLoops.text"/>
+                <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="text"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="btnRemLoops.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
                 <Property name="name" type="java.lang.String" value="btnRemLoops" noResource="true"/>
               </Properties>
               <Events>
@@ -253,7 +273,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnRemSwaps">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="btnRemSwaps.text"/>
+                <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="text"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="btnRemSwaps.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
                 <Property name="name" type="java.lang.String" value="btnRemSwaps" noResource="true"/>
               </Properties>
               <Events>
@@ -262,8 +282,8 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnDowngrade">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="btnDowngrade.text"/>
-                <Property name="toolTipText" type="java.lang.String" resourceKey="btnDowngrade.toolTipText"/>
+                <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="text"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="btnDowngrade.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
+                <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="toolTipText"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="btnDowngrade.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
                 <Property name="name" type="java.lang.String" value="btnDowngrade" noResource="true"/>
               </Properties>
               <Events>
@@ -272,7 +292,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="bntSHU">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="bntSHU.text"/>
+                <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="text"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="bntSHU.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
                 <Property name="name" type="java.lang.String" value="bntSHU" noResource="true"/>
               </Properties>
               <Events>
@@ -281,7 +301,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnSHR">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="btnSHR.text"/>
+                <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="text"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="btnSHR.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
                 <Property name="name" type="java.lang.String" value="btnSHR" noResource="true"/>
               </Properties>
               <Events>
@@ -290,7 +310,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnSHD">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="btnSHD.text"/>
+                <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="text"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="btnSHD.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
                 <Property name="name" type="java.lang.String" value="btnSHD" noResource="true"/>
               </Properties>
               <Events>
@@ -299,7 +319,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnSHL">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="btnSHL.text"/>
+                <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="text"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="btnSHL.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
                 <Property name="name" type="java.lang.String" value="btnSHL" noResource="true"/>
               </Properties>
               <Events>
@@ -308,8 +328,8 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnRegurgitate">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="btnRegurgitate.text"/>
-                <Property name="toolTipText" type="java.lang.String" resourceKey="btnRegurgitate.toolTipText"/>
+                <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="text"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="btnRegurgitate.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
+                <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="toolTipText"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="btnRegurgitate.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
                 <Property name="name" type="java.lang.String" value="btnRegurgitate" noResource="true"/>
               </Properties>
               <Events>
@@ -334,8 +354,8 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnDigest">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="btnDigest.text"/>
-                <Property name="toolTipText" type="java.lang.String" resourceKey="btnDigest.toolTipText"/>
+                <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="text"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="btnDigest.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
+                <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="toolTipText"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="btnDigest.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
                 <Property name="name" type="java.lang.String" value="btnDigest" noResource="true"/>
               </Properties>
               <Events>
@@ -344,8 +364,8 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnToNotesBottom">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="btnToNotesBottom.text"/>
-                <Property name="toolTipText" type="java.lang.String" resourceKey="btnToNotesBottom.toolTipText"/>
+                <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="text"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="btnToNotesBottom.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
+                <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="toolTipText"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="btnToNotesBottom.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
                 <Property name="name" type="java.lang.String" value="btnToNotesBottom" noResource="true"/>
               </Properties>
               <Events>
@@ -354,8 +374,8 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnToNotesTop">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="btnToNotesTop.text"/>
-                <Property name="toolTipText" type="java.lang.String" resourceKey="btnToNotesTop.toolTipText"/>
+                <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="text"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="btnToNotesTop.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
+                <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="toolTipText"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="btnToNotesTop.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
                 <Property name="name" type="java.lang.String" value="btnToNotesTop" noResource="true"/>
               </Properties>
               <Events>
@@ -364,7 +384,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnTris">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="btnTris.text"/>
+                <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="text"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="btnTris.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
                 <Property name="name" type="java.lang.String" value="btnTris" noResource="true"/>
               </Properties>
               <Events>
@@ -373,7 +393,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnFirstTri">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="btnFirstTri.text"/>
+                <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="text"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="btnFirstTri.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
                 <Property name="name" type="java.lang.String" value="btnFirstTri" noResource="true"/>
               </Properties>
               <Events>
@@ -382,7 +402,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnRandTri">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="btnRandTri.text"/>
+                <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="text"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="btnRandTri.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
                 <Property name="name" type="java.lang.String" value="btnRandTri" noResource="true"/>
               </Properties>
               <Events>
@@ -391,7 +411,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnAllTri">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="btnAllTri.text"/>
+                <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="text"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="btnAllTri.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
                 <Property name="name" type="java.lang.String" value="btnAllTri" noResource="true"/>
               </Properties>
               <Events>
@@ -400,8 +420,8 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnSolve">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="btnSolve.text"/>
-                <Property name="toolTipText" type="java.lang.String" resourceKey="btnSolve.toolTipText"/>
+                <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="text"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="btnSolve.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
+                <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="toolTipText"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="btnSolve.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
                 <Property name="name" type="java.lang.String" value="btnSolve" noResource="true"/>
               </Properties>
               <Events>
@@ -410,7 +430,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnValidate">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="btnValidate.text"/>
+                <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="text"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="btnValidate.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
                 <Property name="name" type="java.lang.String" value="btnValidate" noResource="true"/>
               </Properties>
               <Events>
@@ -419,7 +439,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnFull12">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="btnFull12.text"/>
+                <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="text"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="btnFull12.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
                 <Property name="name" type="java.lang.String" value="btnFull12" noResource="true"/>
               </Properties>
               <Events>
@@ -428,8 +448,8 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnRandomFlip">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="btnRandomFlip.text"/>
-                <Property name="toolTipText" type="java.lang.String" resourceKey="btnRandomFlip.toolTipText"/>
+                <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="text"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="btnRandomFlip.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
+                <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="toolTipText"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="btnRandomFlip.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
                 <Property name="name" type="java.lang.String" value="btnRandomFlip" noResource="true"/>
               </Properties>
               <Events>
@@ -438,7 +458,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnFlipOver">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="btnFlipOver.text"/>
+                <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="text"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="btnFlipOver.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
                 <Property name="name" type="java.lang.String" value="btnFlipOver" noResource="true"/>
               </Properties>
               <Events>
@@ -447,7 +467,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnFlipBack">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="btnFlipBack.text"/>
+                <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="text"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="btnFlipBack.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
                 <Property name="name" type="java.lang.String" value="btnFlipBack" noResource="true"/>
               </Properties>
               <Events>
@@ -456,7 +476,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnCopy">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="btnCopy.text"/>
+                <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="text"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="btnCopy.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
                 <Property name="name" type="java.lang.String" value="btnCopy" noResource="true"/>
               </Properties>
               <Events>
@@ -465,8 +485,8 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnJumpCrossings">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="btnJumpCrossings.text"/>
-                <Property name="toolTipText" type="java.lang.String" resourceKey="btnJumpCrossings.toolTipText"/>
+                <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="text"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="btnJumpCrossings.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
+                <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="toolTipText"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="btnJumpCrossings.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
                 <Property name="name" type="java.lang.String" value="btnJumpCrossings" noResource="true"/>
               </Properties>
               <Events>
@@ -515,22 +535,23 @@
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="fileMenu">
           <Properties>
-            <Property name="text" type="java.lang.String" resourceKey="fileMenu.text"/>
+            <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="text"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="fileMenu.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
             <Property name="name" type="java.lang.String" value="fileMenu" noResource="true"/>
           </Properties>
-          <AuxValues>
+          <AuxValues><AuxValue name="FormSettings_formBundle" type="java.lang.String" value="knottheorist/resources/KnotTheoristView"/>
             <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="0"/>
           </AuxValues>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="exitMenuItem">
               <Properties>
-                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
-                  <action class="org.jdesktop.application.Application" id="quit" methodName="quit"/>
-                </Property>
+                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.form.ComponentChooserEditor">
+              <ComponentRef name="quitAction"/>
+          </Property><Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="quit.Action.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
+        
                 <Property name="name" type="java.lang.String" value="exitMenuItem" noResource="true"/>
               </Properties>
-              <AuxValues>
+              <AuxValues><AuxValue name="FormSettings_formBundle" type="java.lang.String" value="knottheorist/resources/KnotTheoristView"/>
                 <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="0"/>
               </AuxValues>
@@ -539,13 +560,13 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu1">
           <Properties>
-            <Property name="text" type="java.lang.String" resourceKey="jMenu1.text"/>
+            <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="text"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="jMenu1.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
             <Property name="name" type="java.lang.String" value="jMenu1" noResource="true"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mitemImageProcessing">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="mitemImageProcessing.text"/>
+                <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="text"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="mitemImageProcessing.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
                 <Property name="name" type="java.lang.String" value="mitemImageProcessing" noResource="true"/>
               </Properties>
               <Events>
@@ -554,7 +575,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mitemRegurgitation">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="mitemRegurgitation.text"/>
+                <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="text"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="mitemRegurgitation.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
                 <Property name="name" type="java.lang.String" value="mitemRegurgitation" noResource="true"/>
               </Properties>
               <Events>
@@ -563,7 +584,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mitemOptions">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="mitemOptions.text"/>
+                <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="text"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="mitemOptions.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
                 <Property name="name" type="java.lang.String" value="mitemOptions" noResource="true"/>
               </Properties>
               <Events>
@@ -572,7 +593,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mitemNotes">
               <Properties>
-                <Property name="text" type="java.lang.String" resourceKey="mitemNotes.text"/>
+                <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="text"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="mitemNotes.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
                 <Property name="name" type="java.lang.String" value="mitemNotes" noResource="true"/>
               </Properties>
               <Events>
@@ -583,10 +604,10 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="helpMenu">
           <Properties>
-            <Property name="text" type="java.lang.String" resourceKey="helpMenu.text"/>
+            <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="text"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="helpMenu.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
             <Property name="name" type="java.lang.String" value="helpMenu" noResource="true"/>
           </Properties>
-          <AuxValues>
+          <AuxValues><AuxValue name="FormSettings_formBundle" type="java.lang.String" value="knottheorist/resources/KnotTheoristView"/>
             <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="0"/>
           </AuxValues>
@@ -596,7 +617,7 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="F1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" resourceKey="mitemHelp.text"/>
+                <Property editor="org.netbeans.modules.i18n.form.FormI18nStringEditor" type="java.lang.String" name="text"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="mitemHelp.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
                 <Property name="name" type="java.lang.String" value="mitemHelp" noResource="true"/>
               </Properties>
               <Events>
@@ -605,12 +626,13 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="aboutMenuItem">
               <Properties>
-                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.swingapp.ActionEditor">
-                  <action class="knottheorist.KnotTheoristView" id="showAboutBox" methodName="showAboutBox"/>
-                </Property>
+                <Property name="action" type="javax.swing.Action" editor="org.netbeans.modules.form.ComponentChooserEditor">
+              <ComponentRef name="showAboutBoxAction"/>
+          </Property><Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor"><ResourceString bundle="knottheorist/resources/KnotTheoristView.properties" key="showAboutBox.Action.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/></Property>
+        
                 <Property name="name" type="java.lang.String" value="aboutMenuItem" noResource="true"/>
               </Properties>
-              <AuxValues>
+              <AuxValues><AuxValue name="FormSettings_formBundle" type="java.lang.String" value="knottheorist/resources/KnotTheoristView"/>
                 <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="true"/>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="0"/>
               </AuxValues>
@@ -628,7 +650,7 @@
       <ComponentRef name="menuBar"/>
     </Property>
   </Properties>
-  <AuxValues>
+  <AuxValues><AuxValue name="FormSettings_formBundle" type="java.lang.String" value="knottheorist/resources/KnotTheoristView" xmlns:xalan="http://xml.apache.org/xalan"/>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="2"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>

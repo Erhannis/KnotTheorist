@@ -120,8 +120,8 @@ public class RegurgitationForm extends javax.swing.JFrame {
         btnCheckOccupation = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
 
-        org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(knottheorist.KnotTheoristApp.class).getContext().getResourceMap(RegurgitationForm.class);
-        setTitle(resourceMap.getString("Form.title")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("knottheorist/resources/RegurgitationForm"); // NOI18N
+        setTitle(bundle.getString("Form.title")); // NOI18N
         setName("Form"); // NOI18N
 
         jSplitPane1.setDividerLocation(400);
@@ -129,16 +129,16 @@ public class RegurgitationForm extends javax.swing.JFrame {
 
         jPanel1.setName("jPanel1"); // NOI18N
 
-        boxContinue.setText(resourceMap.getString("boxContinue.text")); // NOI18N
+        boxContinue.setText(bundle.getString("boxContinue.text")); // NOI18N
         boxContinue.setName("boxContinue"); // NOI18N
 
-        boxStep.setText(resourceMap.getString("boxStep.text")); // NOI18N
+        boxStep.setText(bundle.getString("boxStep.text")); // NOI18N
         boxStep.setName("boxStep"); // NOI18N
 
-        btnRender.setText(resourceMap.getString("btnRender.text")); // NOI18N
+        btnRender.setText(bundle.getString("btnRender.text")); // NOI18N
         btnRender.setName("btnRender"); // NOI18N
 
-        btnAbort.setText(resourceMap.getString("btnAbort.text")); // NOI18N
+        btnAbort.setText(bundle.getString("btnAbort.text")); // NOI18N
         btnAbort.setName("btnAbort"); // NOI18N
         btnAbort.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -146,10 +146,10 @@ public class RegurgitationForm extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
+        jLabel1.setText(bundle.getString("jLabel1.text")); // NOI18N
         jLabel1.setName("jLabel1"); // NOI18N
 
-        btnCheckOccupation.setText(resourceMap.getString("btnCheckOccupation.text")); // NOI18N
+        btnCheckOccupation.setText(bundle.getString("btnCheckOccupation.text")); // NOI18N
         btnCheckOccupation.setName("btnCheckOccupation"); // NOI18N
         btnCheckOccupation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -162,7 +162,7 @@ public class RegurgitationForm extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(67, Short.MAX_VALUE)
+                .addContainerGap(48, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(boxContinue, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(boxStep, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -183,7 +183,7 @@ public class RegurgitationForm extends javax.swing.JFrame {
                 .addComponent(btnAbort)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 245, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 247, Short.MAX_VALUE)
                 .addComponent(btnCheckOccupation)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRender)
@@ -202,7 +202,7 @@ public class RegurgitationForm extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 445, Short.MAX_VALUE)
+            .addGap(0, 427, Short.MAX_VALUE)
         );
 
         jSplitPane1.setLeftComponent(jPanel2);
@@ -211,14 +211,14 @@ public class RegurgitationForm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
         );
 
-        setBounds(50, 50, 614, 475);
+        setBounds(50, 50, 617, 476);
     }// </editor-fold>//GEN-END:initComponents
 
 private void btnAbortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbortActionPerformed
